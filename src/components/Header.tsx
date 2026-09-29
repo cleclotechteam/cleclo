@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight, Menu, X, Sparkles, ShieldCheck } from "lucide-react";
 
 export default function Header() {
@@ -10,30 +11,17 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full bg-[#FBFDFB]/85 backdrop-blur-md border-b border-[#0A261E]/5 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Brand Logo - Pine Labs style clean wordmark with Cleclo hanger badge */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-10 h-10 rounded-xl bg-[#0A2B24] flex items-center justify-center text-white shadow-sm transition-transform duration-300 group-hover:scale-105">
-            {/* Custom geometric Hanger SVG */}
-            <svg
-              className="w-5 h-5 text-[#D4F63D]"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M12 2a3 3 0 0 0-3 3v2l-7 8a2 2 0 0 0 1.5 3.3h17a2 2 0 0 0 1.5-3.3L15 7V5a3 3 0 0 0-3-3z" />
-              <path d="M9 18.5h6" />
-            </svg>
-          </div>
-          <div className="flex flex-col">
-            <span className="font-display text-2xl font-extrabold tracking-tight text-[#0A2B24]">
-              cleclo
-            </span>
-            <span className="text-[10px] uppercase font-bold tracking-wider text-[#0A2B24]/60 -mt-1">
-              Standardised Network
-            </span>
+        {/* Brand Logo */}
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="relative h-10 w-36 sm:w-40 flex items-center">
+            <Image
+              src="/cleclo.png"
+              alt="Cleclo Logo"
+              width={160}
+              height={44}
+              priority
+              className="object-contain h-9 w-auto transition-transform duration-300 group-hover:scale-105"
+            />
           </div>
         </Link>
 
