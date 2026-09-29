@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import MobileDeviceVideo from "@/components/MobileDeviceVideo";
 import {
   ShieldCheck,
   Tag,
@@ -228,72 +229,9 @@ export default function HeroBanner() {
 
           </div>
 
-          {/* RIGHT VISUAL COLUMN (Pine Labs 3D Mockup Showcase + Floating Elements) */}
-          <div className="lg:col-span-5 relative flex items-center justify-center">
-            
-            {/* Visual glow backdrop */}
-            <div className="relative w-full max-w-[480px] lg:max-w-none aspect-square flex items-center justify-center">
-              
-              {/* Subtle circular pulse rings */}
-              <div className="absolute inset-4 rounded-full border border-emerald-500/15 animate-ping opacity-25" />
-              <div className="absolute inset-12 rounded-full border border-[#D4F63D]/30" />
-              <div className="absolute inset-0 bg-gradient-to-tr from-emerald-100/40 via-white/20 to-transparent rounded-3xl" />
-
-              {/* Main 3D Phone & Visual Asset */}
-              <div className="relative z-10 w-full h-full p-2 animate-float-slow">
-                <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-[0_25px_60px_-15px_rgba(10,43,36,0.18)] border border-white/80 bg-white/40 backdrop-blur-sm">
-                  <Image
-                    src="/hero-3d.jpg"
-                    alt="Cleclo mobile app dry cleaning workflow and 3D visual"
-                    fill
-                    priority
-                    className="object-cover hover:scale-105 transition-transform duration-700 ease-out"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </div>
-
-                {/* Floating Interactive Badge 1: 72h Standard Promise */}
-                <div className="absolute -top-4 -left-4 z-20 glass-card px-4 py-3 rounded-2xl shadow-xl animate-float-reverse hidden sm:flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-[#D4F63D] flex items-center justify-center text-[#0A2B24] shadow-inner font-black text-sm">
-                    ⚡
-                  </div>
-                  <div>
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-emerald-800">
-                      Standard SLA
-                    </span>
-                    <p className="text-xs font-extrabold text-[#0A2B24]">
-                      72-Hour Promise
-                    </p>
-                  </div>
-                </div>
-
-                {/* Floating Interactive Badge 2: Certified Partner */}
-                <div className="absolute -bottom-5 -right-3 z-20 glass-card px-4 py-3 rounded-2xl shadow-xl animate-float-slow hidden sm:flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-[#0A2B24] flex items-center justify-center text-[#D4F63D]">
-                    <ShieldCheck className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-[#0A2B24]/70">
-                      Verified Care
-                    </span>
-                    <p className="text-xs font-extrabold text-[#0A2B24]">
-                      Certified Partners Only
-                    </p>
-                  </div>
-                </div>
-
-                {/* Floating Interactive Badge 3: Express Available */}
-                <div className="absolute top-1/2 -right-6 -translate-y-1/2 z-20 glass-card px-3.5 py-2.5 rounded-2xl shadow-lg hidden md:flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                  <span className="text-xs font-bold text-[#0A2B24]">
-                    Express 24h Available
-                  </span>
-                </div>
-
-              </div>
-
-            </div>
-
+          {/* RIGHT VISUAL COLUMN (Pine Labs 3D Floating Mobile Phone Video Device) */}
+          <div className="lg:col-span-5 relative flex items-center justify-center py-6">
+            <MobileDeviceVideo />
           </div>
 
         </div>

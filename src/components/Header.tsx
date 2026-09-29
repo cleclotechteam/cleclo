@@ -11,15 +11,15 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full bg-[#FBFDFB]/85 backdrop-blur-md border-b border-[#0A261E]/5 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Brand Logo */}
+        {/* Brand Logo - Perfectly cropped and clearly visible */}
         <Link href="/" className="flex items-center group py-1">
           <Image
             src="/cleclo.png"
             alt="Cleclo Logo"
-            width={150}
-            height={45}
+            width={180}
+            height={42}
             priority
-            className="h-9 sm:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            className="h-10 sm:h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
           />
         </Link>
 
