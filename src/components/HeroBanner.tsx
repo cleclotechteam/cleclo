@@ -11,6 +11,12 @@ import {
   ArrowRight,
   Smartphone,
   CheckCircle2,
+  Sparkles,
+  Zap,
+  Check,
+  Star,
+  MapPin,
+  Flame,
 } from "lucide-react";
 
 export default function HeroBanner() {
@@ -21,25 +27,37 @@ export default function HeroBanner() {
       title: "Certified Care Partners",
       desc: "Strictly vetted facility & fabric experts",
       icon: ShieldCheck,
-      color: "text-emerald-700 bg-emerald-50 border-emerald-200/80",
+      iconBg: "from-emerald-500 to-teal-700",
+      accent: "bg-emerald-50 text-emerald-800 border-emerald-200/80",
+      pill: "48-Point Quality Vetted",
+      number: "01",
     },
     {
       title: "Standardised Pricing",
       desc: "Zero hidden charges, transparent rates",
       icon: Tag,
-      color: "text-emerald-700 bg-emerald-50 border-emerald-200/80",
+      iconBg: "from-teal-600 to-emerald-800",
+      accent: "bg-teal-50 text-teal-800 border-teal-200/80",
+      pill: "Fixed Rate Card on App",
+      number: "02",
     },
     {
       title: "End-to-End Order Tracking",
       desc: "Live garment status from door to door",
       icon: Navigation,
-      color: "text-emerald-700 bg-emerald-50 border-emerald-200/80",
+      iconBg: "from-emerald-700 to-[#022B22]",
+      accent: "bg-emerald-50 text-emerald-900 border-emerald-200/80",
+      pill: "Live GPS & Status Milestones",
+      number: "03",
     },
     {
       title: "Same-Day to Scheduled Delivery",
       desc: "72h standard promise + Express options",
       icon: Clock,
-      color: "text-emerald-700 bg-emerald-50 border-emerald-200/80",
+      iconBg: "from-[#022B22] to-emerald-900",
+      accent: "bg-lime-50 text-emerald-950 border-lime-300/80",
+      pill: "72h Standard + 24h Express",
+      number: "04",
     },
   ];
 
@@ -74,7 +92,7 @@ export default function HeroBanner() {
               </span>
             </div>
 
-            {/* Main Headline (Exact Copy: Dry cleaning, finally organised.) */}
+            {/* Main Headline (Exact Copy) */}
             <h1 className="font-display text-5xl sm:text-6xl lg:text-[4.75rem] font-extrabold tracking-tight text-[#022B22] leading-[1.05] mb-6">
               Dry cleaning, <br />
               <span className="text-emerald-950">finally organised.</span>
@@ -150,68 +168,108 @@ export default function HeroBanner() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 2. SOCIAL PROOF SECTION (Exact Copy: NEW CLIENTS JOINING EVERY WEEK ACROSS DELHI NCR.) */}
+      {/* 2. SOCIAL PROOF SECTION (High-End Glassmorphic Trust Bar) */}
       {/* ========================================================================= */}
-      <section className="border-t border-[#022B22]/8 bg-slate-50/60 py-8">
+      <section className="border-y border-[#022B22]/8 bg-gradient-to-r from-slate-50/80 via-white to-slate-50/80 py-7 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-6">
+          
           <div className="flex items-center gap-4">
-            <div className="flex -space-x-2.5 overflow-hidden">
-              <div className="h-9 w-9 rounded-full ring-2 ring-white bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white text-xs font-bold">
+            {/* Glowing avatar cluster */}
+            <div className="flex -space-x-3 overflow-hidden p-1">
+              <div className="h-10 w-10 rounded-full ring-2 ring-white shadow-sm bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white text-xs font-bold">
                 RS
               </div>
-              <div className="h-9 w-9 rounded-full ring-2 ring-white bg-gradient-to-tr from-amber-500 to-orange-400 flex items-center justify-center text-white text-xs font-bold">
+              <div className="h-10 w-10 rounded-full ring-2 ring-white shadow-sm bg-gradient-to-tr from-amber-500 to-orange-400 flex items-center justify-center text-white text-xs font-bold">
                 AK
               </div>
-              <div className="h-9 w-9 rounded-full ring-2 ring-white bg-gradient-to-tr from-indigo-600 to-blue-400 flex items-center justify-center text-white text-xs font-bold">
+              <div className="h-10 w-10 rounded-full ring-2 ring-white shadow-sm bg-gradient-to-tr from-indigo-600 to-blue-400 flex items-center justify-center text-white text-xs font-bold">
                 PM
               </div>
-              <div className="h-9 w-9 rounded-full ring-2 ring-white bg-[#022B22] flex items-center justify-center text-[#D4F63D] text-[11px] font-extrabold">
+              <div className="h-10 w-10 rounded-full ring-2 ring-white shadow-md bg-[#022B22] flex items-center justify-center text-[#D4F63D] text-[11px] font-extrabold">
                 +5k
               </div>
             </div>
+            
             <div>
-              <p className="text-xs sm:text-sm font-extrabold uppercase tracking-wide text-[#022B22]">
-                NEW CLIENTS JOINING EVERY WEEK ACROSS DELHI NCR.
+              <div className="flex items-center gap-2">
+                <p className="text-xs sm:text-sm font-extrabold uppercase tracking-wide text-[#022B22]">
+                  NEW CLIENTS JOINING EVERY WEEK ACROSS DELHI NCR.
+                </p>
+                <span className="hidden md:inline-flex items-center gap-1 text-[10px] font-bold text-emerald-800 bg-emerald-100/90 px-2 py-0.5 rounded-full border border-emerald-200">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  Live Network
+                </span>
+              </div>
+              <p className="text-xs text-emerald-800/80 font-medium mt-0.5">
+                Active pickups across South Delhi, Gurugram, Noida, Greater Noida &amp; Dwarka
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-slate-200 text-xs font-bold text-[#022B22] shadow-sm">
-            <div className="flex text-amber-400">
+          <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-2xl border border-slate-200/90 shadow-[0_2px_10px_rgba(0,0,0,0.03)]">
+            <div className="flex text-amber-400 text-sm">
               ★ ★ ★ ★ ★
             </div>
-            <span>4.9 / 5 Rating</span>
+            <div className="flex flex-col text-left leading-tight">
+              <span className="text-xs font-extrabold text-[#022B22]">4.9 / 5 Rating</span>
+              <span className="text-[10px] text-slate-500">Verified App Reviews</span>
+            </div>
           </div>
+
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* 3. 4 KEY FEATURES SECTION (Exact Copy for 4 Items) */}
+      {/* 3. 4 KEY FEATURES SECTION (Ultra-Attractive Premium Cards with Hover Physics) */}
       {/* ========================================================================= */}
-      <section className="py-16 lg:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <section className="py-20 lg:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        
+        {/* Background ambient lighting behind cards */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-64 bg-gradient-to-r from-emerald-100/20 via-teal-50/30 to-emerald-100/20 rounded-full blur-3xl pointer-events-none -z-10" />
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-7">
           {keyFeatures.map((item, idx) => {
             const Icon = item.icon;
             return (
               <div
                 key={idx}
-                className="p-6 rounded-3xl bg-white border border-[#022B22]/8 hover:border-emerald-300 transition-all hover:shadow-[0_12px_30px_rgba(10,43,36,0.06)] group flex flex-col justify-between"
+                className="group relative p-7 rounded-[32px] bg-gradient-to-b from-white via-white to-slate-50/60 border border-[#022B22]/10 hover:border-emerald-400/90 transition-all duration-500 hover:shadow-[0_20px_45px_-12px_rgba(2,43,34,0.12)] hover:-translate-y-1.5 flex flex-col justify-between overflow-hidden"
               >
+                {/* Subtle top card glowing accent bar */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-transparent group-hover:bg-gradient-to-r group-hover:from-emerald-400 group-hover:to-[#D4F63D] transition-all duration-500" />
+                
                 <div>
-                  <div className={`w-12 h-12 rounded-2xl ${item.color} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform`}>
-                    <Icon className="w-6 h-6" />
+                  {/* Top Row: 3D Gradient Icon + Number */}
+                  <div className="flex items-center justify-between mb-6">
+                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-tr ${item.iconBg} text-white shadow-md flex items-center justify-center group-hover:scale-110 group-hover:rotate-2 transition-transform duration-300`}>
+                      <Icon className="w-7 h-7 text-[#D4F63D]" />
+                    </div>
+                    <span className="text-xs font-black text-slate-300 font-display group-hover:text-emerald-700 transition-colors">
+                      {item.number}
+                    </span>
                   </div>
-                  <h3 className="text-base font-bold text-[#022B22] tracking-tight mb-1.5">
+
+                  {/* Title (Exact Copy) */}
+                  <h3 className="text-lg font-extrabold text-[#022B22] font-display tracking-tight mb-2 group-hover:text-emerald-950 transition-colors">
                     {item.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#022B22]/70 leading-relaxed">
+
+                  {/* Description (Exact Copy) */}
+                  <p className="text-sm text-[#022B22]/70 leading-relaxed font-normal">
                     {item.desc}
                   </p>
                 </div>
-                <div className="mt-5 pt-4 border-t border-slate-100 flex items-center text-xs font-bold text-emerald-800 gap-1">
-                  <span>Standardised</span>
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+
+                {/* Bottom Micro-Pill Tag */}
+                <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between">
+                  <span className={`text-[11px] font-bold px-2.5 py-1 rounded-lg border ${item.accent}`}>
+                    {item.pill}
+                  </span>
+                  <div className="w-7 h-7 rounded-full bg-slate-50 group-hover:bg-emerald-50 text-slate-400 group-hover:text-emerald-700 flex items-center justify-center transition-colors">
+                    <Check className="w-4 h-4 stroke-[2.5]" />
+                  </div>
                 </div>
+
               </div>
             );
           })}
@@ -222,11 +280,13 @@ export default function HeroBanner() {
       {/* 4. TICKER MARQUEE BANNER: (Exact Copy) */}
       {/* CERTIFIED PARTNERS • STANDARDISED CARE • QUALITY CHECKED • ON-TIME DELIVERY */}
       {/* ========================================================================= */}
-      <div className="border-y border-[#022B22]/10 bg-[#022B22] py-4 overflow-hidden">
+      <div className="border-y border-[#022B22]/10 bg-[#022B22] py-4.5 overflow-hidden">
         <div className="animate-marquee flex items-center gap-10 text-xs sm:text-sm font-extrabold tracking-widest text-white">
           {[...marqueeItems, ...marqueeItems, ...marqueeItems, ...marqueeItems].map((text, i) => (
             <div key={i} className="flex items-center gap-10 shrink-0">
-              <span>{text}</span>
+              <span className="hover:text-[#D4F63D] transition-colors cursor-default">
+                {text}
+              </span>
               <span className="text-[#D4F63D] w-2 h-2 rounded-full inline-block bg-[#D4F63D]" />
             </div>
           ))}
