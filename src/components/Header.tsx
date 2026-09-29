@@ -11,16 +11,16 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full bg-[#FBFDFB]/85 backdrop-blur-md border-b border-[#0A261E]/5 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative h-10 w-36 sm:w-40 flex items-center">
+        {/* Brand Logo - Prominently sized and crystal clear */}
+        <Link href="/" className="flex items-center group py-1">
+          <div className="relative h-12 sm:h-14 w-36 sm:w-44 flex items-center justify-start">
             <Image
               src="/cleclo.png"
               alt="Cleclo Logo"
-              width={160}
-              height={44}
+              width={500}
+              height={200}
               priority
-              className="object-contain h-9 w-auto transition-transform duration-300 group-hover:scale-105"
+              className="h-24 sm:h-28 w-auto max-w-none object-contain scale-[2.1] origin-left transition-transform duration-300 group-hover:scale-[2.15]"
             />
           </div>
         </Link>
@@ -50,13 +50,6 @@ export default function Header() {
             className="hover:text-[#0A2B24] transition-colors flex items-center gap-1.5 py-1"
           >
             Certified Partners
-          </Link>
-          <Link
-            href="#coverage"
-            className="hover:text-[#0A2B24] transition-colors flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full text-xs font-semibold border border-emerald-200/60"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            Delhi NCR Live
           </Link>
         </nav>
 
