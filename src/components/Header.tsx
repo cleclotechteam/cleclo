@@ -11,18 +11,16 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full bg-[#FBFDFB]/85 backdrop-blur-md border-b border-[#0A261E]/5 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Brand Logo - Prominently sized and crystal clear */}
+        {/* Brand Logo */}
         <Link href="/" className="flex items-center group py-1">
-          <div className="relative h-12 sm:h-14 w-36 sm:w-44 flex items-center justify-start">
-            <Image
-              src="/cleclo.png"
-              alt="Cleclo Logo"
-              width={500}
-              height={200}
-              priority
-              className="h-24 sm:h-28 w-auto max-w-none object-contain scale-[2.1] origin-left transition-transform duration-300 group-hover:scale-[2.15]"
-            />
-          </div>
+          <Image
+            src="/cleclo.png"
+            alt="Cleclo Logo"
+            width={150}
+            height={45}
+            priority
+            className="h-9 sm:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+          />
         </Link>
 
         {/* Desktop Navigation Links */}
