@@ -18,6 +18,7 @@ import {
   Flame,
   RefreshCw,
   Activity,
+  Minus,
 } from "lucide-react";
 
 export default function HeroBanner() {
@@ -359,6 +360,8 @@ export default function HeroBanner() {
 
       {/* ========================================================================= */}
       {/* 4. TICKER MARQUEE BANNER: (Exact Copy) */}
+      {/* CERTIFIED PARTNERS • STANDARDISED CARE • QUALITY CHECKED • ON-TIME DELIVERY */}
+      {/* ========================================================================= */}
       {/* CERTIFIED PARTNERS • STANDARDISED CARE • QUALITY CHECKED • ON-TIME DELIVERY */}
       {/* ========================================================================= */}
       <div className="border-y border-[#022B22]/10 bg-[#022B22] py-4.5 overflow-hidden">
