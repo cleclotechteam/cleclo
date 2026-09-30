@@ -227,7 +227,7 @@ export default function HeroBanner() {
           <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-black tracking-tight text-[#0F172A] uppercase leading-[1.1] font-display">
             WHY CUSTOMERS LOVE <br />
             <span className="text-[#00875A]">
-              ASSURED QUALITY.
+              ASSURED QUALITY
             </span>
           </h2>
           

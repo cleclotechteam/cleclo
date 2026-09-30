@@ -300,11 +300,11 @@ export default function WhyCleclo() {
 
             {/* ----------------- TEXT CONTENT LAYER ----------------- */}
             <div className="relative z-10 flex flex-col justify-between h-full">
-              {/* Subtle light dot pattern */}
+              {/* Subtle tactile dot pattern */}
               <div
-                className="absolute inset-0 pointer-events-none opacity-20"
+                className="absolute inset-0 pointer-events-none opacity-25"
                 style={{
-                  backgroundImage: "radial-gradient(circle, #00875a 1px, transparent 1px)",
+                  backgroundImage: "radial-gradient(circle, #00875a 1.5px, transparent 1.5px)",
                   backgroundSize: "16px 16px",
                 }}
               />
