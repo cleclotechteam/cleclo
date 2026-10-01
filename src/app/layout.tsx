@@ -37,7 +37,10 @@ export default function RootLayout({
       lang="en"
       className={`${plusJakartaSans.variable} ${outfit.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-[#FBFDFB] text-[#0A261E] selection:bg-[#D9F958] selection:text-[#0A261E]">
+      <body
+        suppressHydrationWarning
+        className="min-h-full flex flex-col font-sans bg-[#FBFDFB] text-[#0A261E] selection:bg-[#D9F958] selection:text-[#0A261E]"
+      >
         {children}
       </body>
     </html>
