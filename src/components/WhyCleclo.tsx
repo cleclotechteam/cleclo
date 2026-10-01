@@ -271,10 +271,10 @@ export default function WhyCleclo() {
                 <div className="flex items-center justify-between">
                   <div className="bg-white px-3 py-1.5 rounded-xl shadow-md border border-white/80 flex items-center">
                     <Image
-                      src="/cleclo.png"
+                      src="/cleclo-logo.png"
                       alt="Cleclo Logo"
                       width={100}
-                      height={24}
+                      height={25}
                       className="h-5 w-auto object-contain"
                     />
                   </div>

@@ -14,10 +14,10 @@ export default function Header() {
         {/* Brand Logo - Perfectly cropped and clearly visible */}
         <Link href="/" className="flex items-center group py-1">
           <Image
-            src="/cleclo.png"
+            src="/cleclo-logo.png"
             alt="Cleclo Logo"
             width={180}
-            height={42}
+            height={44}
             priority
             className="h-10 sm:h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
           />
