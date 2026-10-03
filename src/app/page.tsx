@@ -11,10 +11,10 @@ export default function Home() {
     <main className="min-h-screen flex flex-col bg-[#FBFDFB]">
       <Header />
       <HeroBanner />
-      <WhatWeOffer />
       <WhyCleclo />
       <StandardInNumbers />
       <GettingStartedProcess />
+      <WhatWeOffer />
     </main>
   );
 }
