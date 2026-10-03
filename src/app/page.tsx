@@ -5,6 +5,9 @@ import WhatWeOffer from "@/components/WhatWeOffer";
 import TrustAndSafety from "@/components/TrustAndSafety";
 import VerificationSystem from "@/components/VerificationSystem";
 import Sustainability from "@/components/Sustainability";
+import WhereWeOperate from "@/components/WhereWeOperate";
+import FaqSection from "@/components/FaqSection";
+import Footer from "@/components/Footer";
 import WhyCleclo from "@/components/WhyCleclo";
 import StandardInNumbers from "@/components/StandardInNumbers";
 import GettingStartedProcess from "@/components/GettingStartedProcess";
@@ -21,6 +24,9 @@ export default function Home() {
       <TrustAndSafety />
       <VerificationSystem />
       <Sustainability />
+      <WhereWeOperate />
+      <FaqSection />
+      <Footer />
     </main>
   );
 }
