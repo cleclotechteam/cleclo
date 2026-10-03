@@ -5,12 +5,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence, useScroll } from "framer-motion";
 import {
-  Sparkles,
   Shirt,
   Wind,
   Crown,
   Check,
   CheckCircle2,
+  ShieldCheck,
 } from "lucide-react";
 
 export default function WhatWeOffer() {
@@ -61,7 +61,7 @@ export default function WhatWeOffer() {
       description:
         "Delicate garments, formal wear and specialty fabrics, handled with fabric-specific protocols.",
       price: "₹ 350.00",
-      icon: Sparkles,
+      icon: ShieldCheck,
       iconColor: "#00B074",
       options: [
         { name: "Suits & Tuxedos", color: "bg-amber-100 text-amber-700" },

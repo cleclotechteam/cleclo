@@ -2,6 +2,7 @@ import React from "react";
 import Header from "@/components/Header";
 import HeroBanner from "@/components/HeroBanner";
 import WhatWeOffer from "@/components/WhatWeOffer";
+import TrustAndSafety from "@/components/TrustAndSafety";
 import WhyCleclo from "@/components/WhyCleclo";
 import StandardInNumbers from "@/components/StandardInNumbers";
 import GettingStartedProcess from "@/components/GettingStartedProcess";
@@ -15,6 +16,7 @@ export default function Home() {
       <StandardInNumbers />
       <GettingStartedProcess />
       <WhatWeOffer />
+      <TrustAndSafety />
     </main>
   );
 }

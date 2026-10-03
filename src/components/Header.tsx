@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, Menu, X, Sparkles, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Menu, X, ShieldCheck } from "lucide-react";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

@@ -11,7 +11,6 @@ import {
   Clock,
   Tag,
   Eye,
-  Sparkles,
 } from "lucide-react";
 
 export default function WhyCleclo() {
