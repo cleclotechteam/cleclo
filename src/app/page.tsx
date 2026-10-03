@@ -4,6 +4,7 @@ import HeroBanner from "@/components/HeroBanner";
 import WhatWeOffer from "@/components/WhatWeOffer";
 import TrustAndSafety from "@/components/TrustAndSafety";
 import VerificationSystem from "@/components/VerificationSystem";
+import Sustainability from "@/components/Sustainability";
 import WhyCleclo from "@/components/WhyCleclo";
 import StandardInNumbers from "@/components/StandardInNumbers";
 import GettingStartedProcess from "@/components/GettingStartedProcess";
@@ -19,6 +20,7 @@ export default function Home() {
       <WhatWeOffer />
       <TrustAndSafety />
       <VerificationSystem />
+      <Sustainability />
     </main>
   );
 }
