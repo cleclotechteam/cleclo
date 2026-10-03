@@ -315,14 +315,7 @@ export default function WhatWeOffer() {
 
         </div>
 
-        {/* Bottom Progress Line */}
-        <div className="w-full bg-slate-100 h-1 rounded-full overflow-hidden">
-          <motion.div
-            className="bg-[#00B074] h-full"
-            style={{ width: `${((activeTab + 1) / 4) * 100}%` }}
-            transition={{ duration: 0.3 }}
-          />
-        </div>
+
 
       </div>
     </section>

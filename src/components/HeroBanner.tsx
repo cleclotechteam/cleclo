@@ -238,7 +238,7 @@ export default function HeroBanner() {
         </div>
 
         {/* 4 Feature Cards Grid / Mobile Horizontal Rail */}
-        <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0 pb-4 sm:pb-0">
+        <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6 overflow-x-auto sm:overflow-visible snap-x snap-mandatory sm:snap-none scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0 pb-4 sm:pb-0">
           {keyFeatures.map((item, idx) => {
             const Icon = item.icon;
             const isActive = activeCardIndex === idx;
@@ -248,7 +248,7 @@ export default function HeroBanner() {
                 key={idx}
                 onMouseEnter={() => setActiveCardIndex(idx)}
                 onClick={() => setActiveCardIndex(idx)}
-                className={`w-[76vw] max-w-[275px] sm:w-auto shrink-0 snap-center group relative p-6 sm:p-7 rounded-[28px] transition-all duration-300 ease-out cursor-pointer flex flex-col justify-between overflow-hidden min-h-[280px] select-none ${
+                className={`w-[76vw] max-w-[275px] sm:w-full sm:max-w-none shrink-0 sm:shrink snap-center group relative p-6 sm:p-7 rounded-[28px] transition-all duration-300 ease-out cursor-pointer flex flex-col justify-between overflow-hidden min-h-[280px] select-none ${
                   isActive
                     ? "bg-[#00875A] text-white shadow-[0_18px_40px_rgba(0,135,90,0.28)] -translate-y-1.5"
                     : "bg-white text-slate-800 border border-slate-200/80 hover:border-emerald-300 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:-translate-y-1"
