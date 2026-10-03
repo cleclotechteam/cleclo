@@ -73,14 +73,14 @@ export default function VerificationSystem() {
           </p>
         </div>
 
-        {/* 3 Step Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-14">
+        {/* 3 Step Cards Horizontal Mobile Rail / Desktop Grid */}
+        <div className="flex md:grid md:grid-cols-3 gap-5 sm:gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-none -mx-4 px-4 md:mx-0 md:px-0 pb-4 md:pb-0 mb-10 md:mb-14">
           {steps.map((step) => {
             const Icon = step.icon;
             return (
               <div
                 key={step.number}
-                className="group relative bg-white rounded-[28px] p-7 sm:p-8 border border-[#0A261E]/8 shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(0,176,116,0.1)] hover:border-[#00B074]/30 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
+                className="w-[78vw] max-w-[290px] md:w-auto shrink-0 snap-center group relative bg-white rounded-[28px] p-6 sm:p-8 border border-[#0A261E]/8 shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(0,176,116,0.1)] hover:border-[#00B074]/30 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
                   {/* Top Row: Big Number & Icon Badge */}

@@ -79,13 +79,13 @@ export default function GettingStartedProcess() {
             </div>
           </div>
 
-          {/* Right Column: Clean White Cards with Big Green Numbers (Exact Reference UI) */}
+          {/* Right Column: Clean White Cards in Mobile Rail View & Desktop Grid */}
           <div className="lg:col-span-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="flex sm:grid sm:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0 pb-4 sm:pb-0">
               {steps.map((step, index) => (
                 <div
                   key={step.number}
-                  className={`bg-white rounded-[28px] p-7 sm:p-8 border border-[#0A261E]/8 shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(0,176,116,0.08)] hover:border-[#00B074]/30 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between min-h-[260px] ${
+                  className={`w-[76vw] max-w-[275px] sm:w-auto shrink-0 snap-center bg-white rounded-[28px] p-6 sm:p-8 border border-[#0A261E]/8 shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(0,176,116,0.08)] hover:border-[#00B074]/30 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between min-h-[250px] ${
                     index === 3 || index === 4
                       ? "sm:col-span-1 xl:col-span-1"
                       : ""

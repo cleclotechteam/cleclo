@@ -86,3 +86,12 @@
   backdrop-filter: blur(10px);
   border: 1px solid rgba(10, 38, 30, 0.08);
 }
+
+/* Hide scrollbars for clean mobile rail views */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
