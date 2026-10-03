@@ -24,30 +24,42 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-8 text-[15px] font-medium text-[#0A2B24]/80">
+        <nav className="hidden lg:flex items-center gap-7 text-[14px] font-semibold text-[#0A2B24]/85">
           <Link
             href="#services"
-            className="hover:text-[#0A2B24] transition-colors flex items-center gap-1.5 py-1"
+            className="hover:text-[#00B074] transition-colors py-1"
           >
             Services
           </Link>
           <Link
-            href="#pricing"
-            className="hover:text-[#0A2B24] transition-colors flex items-center gap-1.5 py-1"
+            href="#trust-and-safety"
+            className="hover:text-[#00B074] transition-colors py-1"
           >
-            Standard Pricing
+            Trust &amp; Safety
           </Link>
           <Link
-            href="#process"
-            className="hover:text-[#0A2B24] transition-colors flex items-center gap-1.5 py-1"
+            href="#verification"
+            className="hover:text-[#00B074] transition-colors py-1"
           >
-            Our 72h Process
+            Verification
           </Link>
           <Link
-            href="#network"
-            className="hover:text-[#0A2B24] transition-colors flex items-center gap-1.5 py-1"
+            href="#sustainability"
+            className="hover:text-[#00B074] transition-colors py-1"
           >
-            Certified Partners
+            Sustainability
+          </Link>
+          <Link
+            href="#where-we-operate"
+            className="hover:text-[#00B074] transition-colors py-1"
+          >
+            Cities
+          </Link>
+          <Link
+            href="#faq"
+            className="hover:text-[#00B074] transition-colors py-1"
+          >
+            FAQ
           </Link>
         </nav>
 
@@ -57,7 +69,7 @@ export default function Header() {
             href="https://cleclo-vendor-dash-psi.vercel.app/#download"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 bg-[#D4F63D] hover:bg-[#c5ea2c] text-[#0A2B24] font-semibold text-sm px-5 py-2.5 rounded-full transition-all duration-300 shadow-[0_4px_14px_rgba(212,246,61,0.35)] hover:shadow-[0_6px_20px_rgba(212,246,61,0.5)] active:scale-95"
+            className="group inline-flex items-center gap-2 bg-[#D4F63D] hover:bg-[#c5ea2c] text-[#0A2B24] font-extrabold text-sm px-5 py-2.5 rounded-full transition-all duration-300 shadow-[0_4px_14px_rgba(212,246,61,0.35)] hover:shadow-[0_6px_20px_rgba(212,246,61,0.5)] active:scale-95"
           >
             <span>Get the App</span>
             <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -67,7 +79,7 @@ export default function Header() {
         {/* Mobile Hamburger Button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-lg text-[#0A2B24] hover:bg-slate-100 transition-colors"
+          className="lg:hidden p-2 rounded-lg text-[#0A2B24] hover:bg-slate-100 transition-colors"
           aria-label="Toggle menu"
         >
           {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -76,35 +88,49 @@ export default function Header() {
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-[#0A261E]/10 bg-white/95 px-6 py-6 space-y-4 backdrop-blur-xl animate-in fade-in slide-in-from-top-4 duration-200">
-          <nav className="flex flex-col space-y-3 font-medium text-[#0A2B24]">
+        <div className="lg:hidden border-b border-[#0A261E]/10 bg-white/95 px-6 py-6 space-y-4 backdrop-blur-xl animate-in fade-in slide-in-from-top-4 duration-200">
+          <nav className="flex flex-col space-y-3 font-semibold text-[#0A2B24]">
             <Link
               href="#services"
               onClick={() => setMobileMenuOpen(false)}
-              className="py-2 hover:text-emerald-700"
+              className="py-2 hover:text-[#00B074]"
             >
               Services
             </Link>
             <Link
-              href="#pricing"
+              href="#trust-and-safety"
               onClick={() => setMobileMenuOpen(false)}
-              className="py-2 hover:text-emerald-700"
+              className="py-2 hover:text-[#00B074]"
             >
-              Standard Pricing
+              Trust &amp; Safety
             </Link>
             <Link
-              href="#process"
+              href="#verification"
               onClick={() => setMobileMenuOpen(false)}
-              className="py-2 hover:text-emerald-700"
+              className="py-2 hover:text-[#00B074]"
             >
-              Our 72h Process
+              3-Step Verification
             </Link>
             <Link
-              href="#network"
+              href="#sustainability"
               onClick={() => setMobileMenuOpen(false)}
-              className="py-2 hover:text-emerald-700"
+              className="py-2 hover:text-[#00B074]"
             >
-              Certified Partners
+              Sustainability
+            </Link>
+            <Link
+              href="#where-we-operate"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 hover:text-[#00B074]"
+            >
+              Cities &amp; Coverage
+            </Link>
+            <Link
+              href="#faq"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 hover:text-[#00B074]"
+            >
+              FAQ
             </Link>
           </nav>
 
@@ -114,7 +140,7 @@ export default function Header() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center gap-2 bg-[#D4F63D] text-[#0A2B24] font-semibold text-sm py-3 rounded-full shadow-md"
+              className="w-full flex items-center justify-center gap-2 bg-[#D4F63D] text-[#0A2B24] font-extrabold text-sm py-3 rounded-full shadow-md"
             >
               <span>Download App</span>
               <ArrowUpRight className="w-4 h-4" />
