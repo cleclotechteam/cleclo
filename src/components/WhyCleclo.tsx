@@ -153,7 +153,7 @@ export default function WhyCleclo() {
               }`}
             >
               <Image
-                src="/traditional-way.jpg"
+                src="/traditional-way-v2.jpg"
                 alt="Traditional Dry Cleaning shop"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -250,7 +250,7 @@ export default function WhyCleclo() {
               }`}
             >
               <Image
-                src="/cleclo-standard.jpg"
+                src="/cleclo-standard-v2.jpg"
                 alt="Cleclo Certified Facility"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
