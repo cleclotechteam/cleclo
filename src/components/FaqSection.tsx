@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, ChevronDown, Smartphone, ShieldCheck } from "lucide-react";
 
 export default function FaqSection() {
-  const downloadUrl = "https://cleclo-vendor-dash-psi.vercel.app/#download";
+  const downloadUrl = "#download";
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const faqs = [
@@ -150,7 +150,7 @@ export default function FaqSection() {
         </div>
 
         {/* Pine Labs Style App Download Banner */}
-        <div className="p-8 sm:p-12 rounded-[36px] bg-[#0A2B24] text-white relative overflow-hidden shadow-2xl">
+        <div id="download" className="p-8 sm:p-12 rounded-[36px] bg-[#0A2B24] text-white relative overflow-hidden shadow-2xl">
           {/* Ambient Glow */}
           <div className="absolute top-0 right-0 w-80 h-80 bg-[#00B074]/20 rounded-full blur-3xl pointer-events-none" />
 

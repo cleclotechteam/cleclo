@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 
 export default function WhyCleclo() {
-  const downloadUrl = "https://cleclo-vendor-dash-psi.vercel.app/#download";
+  const downloadUrl = "#download";
   const sectionRef = useRef<HTMLElement>(null);
 
   // Auto-reveal images for 2 seconds when scrolled into view, plus hover control
@@ -113,21 +113,10 @@ export default function WhyCleclo() {
               <div className="flex flex-wrap items-center gap-3 mb-8">
                 <Link
                   href={downloadUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#11231B] text-white hover:bg-[#1a382b] text-xs sm:text-sm font-semibold transition-all duration-300 shadow-[0_4px_16px_rgba(17,35,27,0.2)] hover:-translate-y-0.5"
                 >
                   <span>Download Cleclo</span>
                   <ArrowRight className="w-4 h-4" />
-                </Link>
-
-                <Link
-                  href={downloadUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center px-5 py-3 rounded-full bg-white text-[#11231B] border border-slate-300 hover:border-slate-400 hover:bg-slate-50 text-xs sm:text-sm font-semibold transition-all duration-300"
-                >
-                  Explore rates
                 </Link>
               </div>
             </div>

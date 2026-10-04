@@ -201,8 +201,6 @@ export default function TrustAndSafety() {
             <div>
               <Link
                 href={downloadUrl}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 bg-[#D4F63D] hover:bg-[#c5ea2c] text-[#0A2B24] font-extrabold text-base px-8 py-3.5 rounded-full transition-all duration-200 shadow-[0_4px_14px_rgba(212,246,61,0.35)] hover:shadow-[0_6px_20px_rgba(212,246,61,0.5)] active:scale-95"
               >
                 <span>Download the Cleclo App</span>
@@ -403,8 +401,6 @@ export default function TrustAndSafety() {
           <div className="pt-2">
             <Link
               href={downloadUrl}
-              target="_blank"
-              rel="noopener noreferrer"
               className="w-full inline-flex items-center justify-center gap-3 bg-[#D4F63D] hover:bg-[#c5ea2c] text-[#022B22] font-extrabold text-sm px-6 py-3.5 rounded-full transition-all duration-200 shadow-[0_4px_14px_rgba(212,246,61,0.35)]"
             >
               <span>Download the Cleclo App</span>

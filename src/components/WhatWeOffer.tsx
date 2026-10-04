@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 
 export default function WhatWeOffer() {
-  const downloadUrl = "https://cleclo-vendor-dash-psi.vercel.app/#download";
+  const downloadUrl = "#download";
   const containerRef = useRef<HTMLDivElement>(null);
   const tabsContainerRef = useRef<HTMLDivElement>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -323,8 +323,6 @@ export default function WhatWeOffer() {
                 <div className="pt-1 sm:pt-2">
                   <Link
                     href={downloadUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="inline-flex items-center justify-center bg-[#D4F63D] hover:bg-[#c5ea2c] text-[#0A2B24] font-extrabold text-xs sm:text-base px-6 py-2.5 sm:px-8 sm:py-3.5 rounded-full transition-all duration-200 shadow-[0_4px_14px_rgba(212,246,61,0.35)] hover:shadow-[0_6px_20px_rgba(212,246,61,0.5)] active:scale-95"
                   >
                     Explore now

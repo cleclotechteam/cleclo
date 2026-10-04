@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 
 export default function HeroBanner() {
-  const downloadUrl = "https://cleclo-vendor-dash-psi.vercel.app/#download";
+  const downloadUrl = "#download";
   const [activeCardIndex, setActiveCardIndex] = useState<number>(1);
 
   const keyFeatures = [
@@ -103,8 +103,6 @@ export default function HeroBanner() {
               {/* Apple App Store Button */}
               <Link
                 href={downloadUrl}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="group flex items-center justify-center gap-3 px-6 py-3.5 rounded-2xl bg-[#022B22] text-white hover:bg-[#0d3f33] transition-all duration-300 shadow-[0_8px_20px_rgba(2,43,34,0.25)] hover:shadow-[0_12px_28px_rgba(2,43,34,0.35)] hover:-translate-y-0.5 active:translate-y-0 text-center"
               >
                 <svg className="w-6 h-6 fill-current shrink-0 transition-transform group-hover:scale-105" viewBox="0 0 384 512">
@@ -119,8 +117,6 @@ export default function HeroBanner() {
               {/* Google Play Button */}
               <Link
                 href={downloadUrl}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="group flex items-center justify-center gap-3 px-6 py-3.5 rounded-2xl bg-[#022B22] text-white hover:bg-[#0d3f33] transition-all duration-300 shadow-[0_8px_20px_rgba(2,43,34,0.25)] hover:shadow-[0_12px_28px_rgba(2,43,34,0.35)] hover:-translate-y-0.5 active:translate-y-0 text-center"
               >
                 <svg className="w-6 h-6 fill-current shrink-0 transition-transform group-hover:scale-105" viewBox="0 0 512 512">
