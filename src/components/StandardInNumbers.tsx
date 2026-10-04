@@ -200,23 +200,23 @@ export default function StandardInNumbers() {
                 />
               </svg>
 
-              {/* Center Content Enclosed Inside Arc (Number, Pill, Title, Desc) */}
-              <div className="absolute top-[22%] xs:top-[24%] sm:top-[30%] left-1/2 -translate-x-1/2 text-center flex flex-col items-center w-full max-w-[210px] xs:max-w-[250px] sm:max-w-md px-2">
+              {/* Step Pill Floating Above Arc Apex */}
+              <div className="absolute top-[-16px] xs:top-[-20px] sm:top-[-28px] left-1/2 -translate-x-1/2 z-20">
+                <span
+                  className={`inline-flex items-center gap-1 px-3 py-0.5 sm:px-4 sm:py-1 rounded-full border ${currentTheme.pill} text-[9px] xs:text-[10px] sm:text-xs font-black tracking-wider uppercase font-mono transition-colors duration-500 shadow-md bg-white/95 backdrop-blur-sm`}
+                >
+                  {steps[activeStep].stepLabel}
+                </span>
+              </div>
+
+              {/* Center Content Enclosed Inside Lower Belly of Semicircle Arc */}
+              <div className="absolute top-[54%] xs:top-[58%] sm:top-[60%] lg:top-[62%] left-1/2 -translate-x-1/2 text-center flex flex-col items-center w-full max-w-[210px] xs:max-w-[250px] sm:max-w-md px-2 z-10">
                 
-                {/* Metric Display */}
+                {/* Metric Display (e.g. 72HRS, EVERY ORDER - In lower bottom of semicircle) */}
                 <div
                   className={`text-2xl xs:text-3xl sm:text-6xl lg:text-[4.25rem] font-black tracking-tight ${currentTheme.metricColor} font-display mb-1 xs:mb-1.5 sm:mb-3 drop-shadow-sm transition-all duration-500 scale-100 leading-none`}
                 >
                   {steps[activeStep].metric}
-                </div>
-
-                {/* Step Pill */}
-                <div className="mb-1 xs:mb-1.5 sm:mb-3.5">
-                  <span
-                    className={`inline-flex items-center gap-1 px-2.5 py-0.5 sm:px-3.5 sm:py-1 rounded-full border ${currentTheme.pill} text-[9px] xs:text-[10px] sm:text-xs font-black tracking-wider uppercase font-mono transition-colors duration-500`}
-                  >
-                    {steps[activeStep].stepLabel}
-                  </span>
                 </div>
 
                 {/* Title */}
