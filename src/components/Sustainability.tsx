@@ -37,7 +37,7 @@ function WordIlluminator({
     progress,
     [wordStart, wordEnd],
     [
-      "rgba(255, 255, 255, 0.40)",
+      "rgba(255, 255, 255, 0.22)",
       accentColor || "rgba(255, 255, 255, 1.0)",
     ]
   );
@@ -96,10 +96,11 @@ function ScrollTextReveal({
 export default function Sustainability() {
   const downloadUrl = "#download";
   const containerRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 85%", "center center"],
+    target: headerRef,
+    offset: ["start 85%", "end 45%"],
   });
 
   const headlineText = "Better for your clothes. Better for the world.";
@@ -158,7 +159,7 @@ export default function Sustainability() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header with Scroll Illumination to 100% White */}
-        <div className="max-w-4xl mb-16 sm:mb-20">
+        <div ref={headerRef} className="max-w-4xl mb-16 sm:mb-20">
           
           {/* Eyebrow */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 mb-6">
@@ -173,8 +174,8 @@ export default function Sustainability() {
             <ScrollTextReveal
               text={headlineText}
               progress={scrollYProgress}
-              startPoint={0.02}
-              endPoint={0.25}
+              startPoint={0.0}
+              endPoint={0.45}
               accentWords={["world."]}
               accentColor="#D4F63D"
             />
@@ -185,8 +186,8 @@ export default function Sustainability() {
             <ScrollTextReveal
               text={descText}
               progress={scrollYProgress}
-              startPoint={0.15}
-              endPoint={0.50}
+              startPoint={0.35}
+              endPoint={0.95}
               accentColor="#FFFFFF"
             />
           </p>
