@@ -54,12 +54,17 @@ export default function WhereWeOperate() {
         
         {/* Top Title Section (Exact Pine Labs Heading Layout from Image) */}
         <div className="max-w-3xl mb-12 sm:mb-16">
-          <p className="text-[#00B074] font-bold text-xs sm:text-sm tracking-[0.2em] uppercase mb-3 font-mono">
-            WHERE WE OPERATE
-          </p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0A2B24] tracking-tight leading-[1.15] font-display">
+          {/* Eyebrow badge matching banner style */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50/90 border border-emerald-200/70 mb-3 max-w-full">
+            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0"></span>
+            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-emerald-900 leading-snug">
+              WHERE WE OPERATE
+            </span>
+          </div>
+
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-[#022B22] tracking-tight leading-[1.15]">
             Built for every kind of <br className="hidden sm:inline" />
-            <span className="text-[#00B074]">Indian city.</span>
+            <span className="text-[#00875A]">Indian city.</span>
           </h2>
           <p className="mt-4 text-base sm:text-lg text-[#0A2B24]/75 font-normal leading-relaxed max-w-2xl">
             Cleclo is currently live in Delhi NCR and expanding city by city — onboarding verified partners before we switch a pincode on.

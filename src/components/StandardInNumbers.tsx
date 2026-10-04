@@ -133,8 +133,8 @@ export default function StandardInNumbers() {
           {/* ========================================================================= */}
           {/* Section Header */}
           {/* ========================================================================= */}
-          <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-black tracking-tight text-[#0F172A] uppercase leading-[1.1] font-display">
+          <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-12 px-2">
+            <h2 className="font-display text-2xl sm:text-4xl lg:text-[2.75rem] font-extrabold tracking-tight text-[#022B22] uppercase leading-[1.1]">
               THE CLECLO STANDARD, <br />
               <span
                 className="transition-colors duration-500"
@@ -143,18 +143,18 @@ export default function StandardInNumbers() {
                 IN NUMBERS
               </span>
             </h2>
-            <p className="text-base sm:text-lg text-slate-500 font-normal leading-relaxed mt-2.5">
-              What “standardised” actually means for you
+            <p className="text-xs sm:text-lg text-slate-500 font-normal leading-relaxed mt-2 max-w-xs sm:max-w-2xl mx-auto">
+              What &ldquo;standardised&rdquo; actually means for you
             </p>
           </div>
 
           {/* ========================================================================= */}
           {/* Semi-Circular Radial Arc Stepper Component */}
           {/* ========================================================================= */}
-          <div className="relative max-w-3xl mx-auto flex flex-col items-center select-none">
+          <div className="relative max-w-3xl mx-auto flex flex-col items-center select-none w-full">
             
-            {/* SVG Radial Gauge Arc */}
-            <div className="relative w-full max-w-[700px] aspect-[2/1.05] flex items-center justify-center overflow-visible">
+            {/* SVG Radial Gauge Arc & Enclosed Center Content */}
+            <div className="relative w-full max-w-[700px] aspect-[2/1.35] xs:aspect-[2/1.25] sm:aspect-[2/1.05] flex items-center justify-center overflow-visible">
               <svg
                 viewBox="0 0 700 370"
                 className="w-full h-full overflow-visible drop-shadow-sm"
@@ -200,77 +200,70 @@ export default function StandardInNumbers() {
                 />
               </svg>
 
-              {/* Center Content (Number, Pill, Title, Desc) */}
-              <div className="absolute top-[32%] sm:top-[30%] left-1/2 -translate-x-1/2 text-center flex flex-col items-center max-w-xs sm:max-w-md px-4">
+              {/* Center Content Enclosed Inside Arc (Number, Pill, Title, Desc) */}
+              <div className="absolute top-[22%] xs:top-[24%] sm:top-[30%] left-1/2 -translate-x-1/2 text-center flex flex-col items-center w-full max-w-[210px] xs:max-w-[250px] sm:max-w-md px-2">
                 
-                {/* Massive Metric Display with Dynamic Color */}
+                {/* Metric Display */}
                 <div
-                  className={`text-4xl sm:text-6xl lg:text-[4.25rem] font-black tracking-tight ${currentTheme.metricColor} font-display mb-3 drop-shadow-sm transition-all duration-500 scale-100`}
+                  className={`text-2xl xs:text-3xl sm:text-6xl lg:text-[4.25rem] font-black tracking-tight ${currentTheme.metricColor} font-display mb-1 xs:mb-1.5 sm:mb-3 drop-shadow-sm transition-all duration-500 scale-100 leading-none`}
                 >
                   {steps[activeStep].metric}
                 </div>
 
-                {/* Step Pill with Dynamic Color */}
-                <div className="mb-3.5">
+                {/* Step Pill */}
+                <div className="mb-1 xs:mb-1.5 sm:mb-3.5">
                   <span
-                    className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border ${currentTheme.pill} text-xs font-black tracking-wider uppercase font-mono transition-colors duration-500`}
+                    className={`inline-flex items-center gap-1 px-2.5 py-0.5 sm:px-3.5 sm:py-1 rounded-full border ${currentTheme.pill} text-[9px] xs:text-[10px] sm:text-xs font-black tracking-wider uppercase font-mono transition-colors duration-500`}
                   >
                     {steps[activeStep].stepLabel}
                   </span>
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl sm:text-2xl font-black text-[#0F172A] tracking-tight font-display mb-2">
+                <h3 className="text-xs xs:text-sm sm:text-2xl font-black text-[#022B22] tracking-tight font-display mb-0.5 xs:mb-1 sm:mb-2 leading-tight">
                   {steps[activeStep].title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-xs sm:text-sm text-slate-500 leading-relaxed max-w-sm">
+                <p className="text-[9px] xs:text-[11px] sm:text-sm text-slate-500 leading-tight sm:leading-relaxed font-normal max-w-[190px] xs:max-w-[230px] sm:max-w-sm">
                   {steps[activeStep].desc}
                 </p>
 
               </div>
             </div>
 
-            {/* ========================================================================= */}
-            {/* Interactive Step Navigation Controls & Indicator Dots */}
-            {/* ========================================================================= */}
-            <div className="flex items-center gap-5 mt-5 sm:mt-7">
-              
-              {/* Previous Button */}
+            {/* Step Navigation Controls & Dots */}
+            <div className="flex items-center gap-4 sm:gap-5 mt-2 xs:mt-3 sm:mt-7 relative z-20">
               <button
                 onClick={() => setActiveStep((prev) => (prev - 1 + steps.length) % steps.length)}
-                className="w-10 h-10 rounded-full bg-white border border-slate-200 text-slate-600 hover:text-[#0F172A] hover:border-slate-400 flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow active:scale-95"
+                className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white border border-slate-200 text-slate-600 hover:text-[#022B22] hover:border-slate-400 flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow active:scale-95 shrink-0"
                 aria-label="Previous step"
               >
-                <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
               </button>
 
-              {/* 4 Indicator Dots */}
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2 sm:gap-2.5">
                 {steps.map((step, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveStep(idx)}
-                    className={`h-2.5 rounded-full transition-all duration-400 ${
+                    className={`h-2 sm:h-2.5 rounded-full transition-all duration-400 ${
                       activeStep === idx
-                        ? `w-9 ${step.theme.dotActive} shadow-md`
-                        : "w-2.5 bg-slate-200 hover:bg-slate-300"
+                        ? `w-6 sm:w-9 ${step.theme.dotActive} shadow-md`
+                        : "w-2 sm:w-2.5 bg-slate-200 hover:bg-slate-300"
                     }`}
                     aria-label={`Jump to step ${idx + 1}`}
                   />
                 ))}
               </div>
 
-              {/* Next Button */}
               <button
                 onClick={() => setActiveStep((prev) => (prev + 1) % steps.length)}
-                className="w-10 h-10 rounded-full bg-white border border-slate-200 text-slate-600 hover:text-[#0F172A] hover:border-slate-400 flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow active:scale-95"
+                className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white border border-slate-200 text-[#022B22] hover:border-slate-400 flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow active:scale-95 shrink-0"
                 aria-label="Next step"
               >
-                <ChevronRight className="w-5 h-5 stroke-[2.5]" />
+                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
               </button>
-
             </div>
 
           </div>

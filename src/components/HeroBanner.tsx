@@ -8,7 +8,6 @@ import {
   Tag,
   Navigation,
   Clock,
-  ArrowRight,
   Smartphone,
   CheckCircle2,
   Zap,
@@ -77,38 +76,38 @@ export default function HeroBanner() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center min-h-[540px]">
           
           {/* LEFT: Pine Labs Bold Typography & Exact Copy */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left z-10 pr-0 lg:pr-6">
+          <div className="lg:col-span-7 flex flex-col items-start text-left z-10 pr-0 lg:pr-6 w-full">
             
             {/* Tag Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50/90 border border-emerald-200/70 mb-8">
-              <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
-              <span className="text-xs font-bold uppercase tracking-wider text-emerald-900">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50/90 border border-emerald-200/70 mb-6 sm:mb-8 max-w-full">
+              <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0"></span>
+              <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-emerald-900 leading-snug">
                 India&apos;s first standardised dry-cleaning network
               </span>
             </div>
 
             {/* Main Headline (Exact Copy) */}
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-[4.75rem] font-extrabold tracking-tight text-[#022B22] leading-[1.05] mb-6">
-              Dry cleaning, <br />
+            <h1 className="font-display text-3xl sm:text-5xl lg:text-[4.75rem] font-extrabold tracking-tight text-[#022B22] leading-[1.1] sm:leading-[1.05] mb-5 sm:mb-7">
+              Dry cleaning, <br className="hidden xs:inline sm:inline" />
               <span className="text-emerald-950">finally organised.</span>
             </h1>
 
             {/* Descriptive Subtitle (Exact Copy) */}
-            <p className="text-base sm:text-lg lg:text-xl text-[#022B22]/75 leading-relaxed max-w-xl mb-10 font-normal">
+            <p className="text-sm sm:text-base lg:text-[1.15rem] text-[#022B22]/80 leading-relaxed sm:leading-[1.7] max-w-2xl lg:max-w-[680px] mb-8 sm:mb-10 font-normal text-pretty">
               Cleclo handles your pickup and delivery end-to-end, while a certified local partner takes care of your garments — one standard price, one standard process and a 72-hour promise, with Express options when you need it sooner.
             </p>
 
             {/* Download Buttons: [Download on the App Store] [Get it on Google Play] */}
-            <div className="flex flex-wrap items-center gap-4 mb-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4 mb-4 sm:mb-5 w-full sm:w-auto">
               
               {/* Apple App Store Button */}
               <Link
                 href={downloadUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center justify-center gap-3 px-6 py-3.5 rounded-2xl bg-[#022B22] text-white hover:bg-[#0d3f33] transition-all duration-300 shadow-[0_8px_20px_rgba(2,43,34,0.25)] hover:shadow-[0_12px_28px_rgba(2,43,34,0.35)] hover:-translate-y-0.5 active:translate-y-0"
+                className="group flex items-center justify-center gap-3 px-6 py-3.5 rounded-2xl bg-[#022B22] text-white hover:bg-[#0d3f33] transition-all duration-300 shadow-[0_8px_20px_rgba(2,43,34,0.25)] hover:shadow-[0_12px_28px_rgba(2,43,34,0.35)] hover:-translate-y-0.5 active:translate-y-0 text-center"
               >
-                <svg className="w-6 h-6 fill-current transition-transform group-hover:scale-105" viewBox="0 0 384 512">
+                <svg className="w-6 h-6 fill-current shrink-0 transition-transform group-hover:scale-105" viewBox="0 0 384 512">
                   <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.6 26.1 2 52.3-14.7 69.5-34z" />
                 </svg>
                 <div className="flex flex-col text-left leading-tight">
@@ -122,9 +121,9 @@ export default function HeroBanner() {
                 href={downloadUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center justify-center gap-3 px-6 py-3.5 rounded-2xl bg-[#022B22] text-white hover:bg-[#0d3f33] transition-all duration-300 shadow-[0_8px_20px_rgba(2,43,34,0.25)] hover:shadow-[0_12px_28px_rgba(2,43,34,0.35)] hover:-translate-y-0.5 active:translate-y-0"
+                className="group flex items-center justify-center gap-3 px-6 py-3.5 rounded-2xl bg-[#022B22] text-white hover:bg-[#0d3f33] transition-all duration-300 shadow-[0_8px_20px_rgba(2,43,34,0.25)] hover:shadow-[0_12px_28px_rgba(2,43,34,0.35)] hover:-translate-y-0.5 active:translate-y-0 text-center"
               >
-                <svg className="w-6 h-6 fill-current transition-transform group-hover:scale-105" viewBox="0 0 512 512">
+                <svg className="w-6 h-6 fill-current shrink-0 transition-transform group-hover:scale-105" viewBox="0 0 512 512">
                   <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z" />
                 </svg>
                 <div className="flex flex-col text-left leading-tight">
@@ -133,23 +132,12 @@ export default function HeroBanner() {
                 </div>
               </Link>
 
-              {/* Pine Labs Style Quick Button */}
-              <Link
-                href={downloadUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 bg-[#D4F63D] hover:bg-[#c6ec2b] text-[#022B22] font-bold text-sm px-6 py-3.5 rounded-2xl transition-all duration-300 shadow-[0_4px_16px_rgba(212,246,61,0.4)] hover:shadow-[0_8px_24px_rgba(212,246,61,0.6)] hover:-translate-y-0.5 active:translate-y-0"
-              >
-                <span>Get started</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-
             </div>
 
             {/* Note text below button: (Exact Copy) */}
-            <p className="text-xs text-[#022B22]/70 font-medium flex items-center gap-1.5 mt-2">
-              <Smartphone className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
-              Ordering, tracking &amp; payments happen inside the Cleclo app.
+            <p className="text-xs text-[#022B22]/70 font-medium flex items-start sm:items-center gap-1.5 mt-1 sm:mt-2">
+              <Smartphone className="w-3.5 h-3.5 text-emerald-700 shrink-0 mt-0.5 sm:mt-0" />
+              <span>Ordering, tracking &amp; payments happen inside the Cleclo app.</span>
             </p>
 
           </div>
@@ -165,49 +153,59 @@ export default function HeroBanner() {
       {/* ========================================================================= */}
       {/* 2. SOCIAL PROOF SECTION (High-End Glassmorphic Trust Bar) */}
       {/* ========================================================================= */}
-      <section className="border-y border-[#022B22]/8 bg-gradient-to-r from-slate-50/80 via-white to-slate-50/80 py-7 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-6">
+      <section className="border-y border-[#022B22]/8 bg-gradient-to-r from-slate-50/80 via-white to-slate-50/80 py-5 sm:py-6 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-6">
           
-          <div className="flex items-center gap-4">
-            {/* Glowing avatar cluster */}
-            <div className="flex -space-x-3 overflow-hidden p-1">
-              <div className="h-10 w-10 rounded-full ring-2 ring-white shadow-sm bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white text-xs font-bold">
-                RS
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4.5 w-full md:w-auto">
+            {/* Glowing avatar cluster + Mobile Live Badge */}
+            <div className="flex items-center gap-3 shrink-0">
+              <div className="flex -space-x-2.5 sm:-space-x-3 overflow-hidden p-0.5">
+                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full ring-2 ring-white shadow-sm bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white text-xs font-bold">
+                  RS
+                </div>
+                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full ring-2 ring-white shadow-sm bg-gradient-to-tr from-amber-500 to-orange-400 flex items-center justify-center text-white text-xs font-bold">
+                  AK
+                </div>
+                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full ring-2 ring-white shadow-sm bg-gradient-to-tr from-indigo-600 to-blue-400 flex items-center justify-center text-white text-xs font-bold">
+                  PM
+                </div>
+                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full ring-2 ring-white shadow-md bg-[#022B22] flex items-center justify-center text-[#D4F63D] text-[10px] sm:text-[11px] font-extrabold">
+                  +5k
+                </div>
               </div>
-              <div className="h-10 w-10 rounded-full ring-2 ring-white shadow-sm bg-gradient-to-tr from-amber-500 to-orange-400 flex items-center justify-center text-white text-xs font-bold">
-                AK
-              </div>
-              <div className="h-10 w-10 rounded-full ring-2 ring-white shadow-sm bg-gradient-to-tr from-indigo-600 to-blue-400 flex items-center justify-center text-white text-xs font-bold">
-                PM
-              </div>
-              <div className="h-10 w-10 rounded-full ring-2 ring-white shadow-md bg-[#022B22] flex items-center justify-center text-[#D4F63D] text-[11px] font-extrabold">
-                +5k
-              </div>
+
+              {/* Mobile-visible Live Network badge next to avatars */}
+              <span className="inline-flex md:hidden items-center gap-1.5 text-[10px] font-bold text-emerald-800 bg-emerald-100/90 px-2.5 py-1 rounded-full border border-emerald-200 shrink-0">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                Live Network
+              </span>
             </div>
             
-            <div>
-              <div className="flex items-center gap-2">
-                <p className="text-xs sm:text-sm font-extrabold uppercase tracking-wide text-[#022B22]">
+            {/* Text description */}
+            <div className="flex flex-col">
+              <div className="flex items-center gap-2 flex-wrap">
+                <p className="text-xs sm:text-sm font-extrabold uppercase tracking-wide text-[#022B22] leading-snug">
                   NEW CLIENTS JOINING EVERY WEEK ACROSS DELHI NCR.
                 </p>
-                <span className="hidden md:inline-flex items-center gap-1 text-[10px] font-bold text-emerald-800 bg-emerald-100/90 px-2 py-0.5 rounded-full border border-emerald-200">
+                <span className="hidden md:inline-flex items-center gap-1 text-[10px] font-bold text-emerald-800 bg-emerald-100/90 px-2 py-0.5 rounded-full border border-emerald-200 shrink-0">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                   Live Network
                 </span>
               </div>
-              <p className="text-xs text-emerald-800/80 font-medium mt-0.5">
+              <p className="text-[11px] sm:text-xs text-emerald-800/80 font-medium mt-0.5 leading-normal">
                 Active pickups across South Delhi, Gurugram, Noida, Greater Noida &amp; Dwarka
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-2xl border border-slate-200/90 shadow-[0_2px_10px_rgba(0,0,0,0.03)]">
-            <div className="flex text-amber-400 text-sm">
+          {/* Rating Pill */}
+          <div className="w-full sm:w-auto flex items-center justify-between sm:justify-start gap-3 bg-white px-4 py-2.5 rounded-2xl border border-slate-200/90 shadow-[0_2px_10px_rgba(0,0,0,0.03)] shrink-0 mt-1 sm:mt-0">
+            <div className="flex text-amber-400 text-sm tracking-widest">
               ★ ★ ★ ★ ★
             </div>
             <div className="flex flex-col text-left leading-tight">
               <span className="text-xs font-extrabold text-[#022B22]">4.9 / 5 Rating</span>
-              <span className="text-[10px] text-slate-500">Verified App Reviews</span>
+              <span className="text-[10px] text-slate-500 font-medium">Verified App Reviews</span>
             </div>
           </div>
 
@@ -248,7 +246,7 @@ export default function HeroBanner() {
                 key={idx}
                 onMouseEnter={() => setActiveCardIndex(idx)}
                 onClick={() => setActiveCardIndex(idx)}
-                className={`w-[76vw] max-w-[275px] sm:w-full sm:max-w-none shrink-0 sm:shrink snap-center group relative p-6 sm:p-7 rounded-[28px] transition-all duration-300 ease-out cursor-pointer flex flex-col justify-between overflow-hidden min-h-[280px] select-none ${
+                className={`w-[68vw] max-w-[245px] sm:w-full sm:max-w-none shrink-0 sm:shrink snap-center group relative p-5 sm:p-7 rounded-[26px] sm:rounded-[28px] transition-all duration-300 ease-out cursor-pointer flex flex-col justify-between overflow-hidden min-h-[270px] sm:min-h-[280px] select-none ${
                   isActive
                     ? "bg-[#00875A] text-white shadow-[0_18px_40px_rgba(0,135,90,0.28)] -translate-y-1.5"
                     : "bg-white text-slate-800 border border-slate-200/80 hover:border-emerald-300 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:-translate-y-1"

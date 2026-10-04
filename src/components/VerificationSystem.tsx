@@ -56,16 +56,17 @@ export default function VerificationSystem() {
         
         {/* Section Header */}
         <div className="max-w-3xl mb-14 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00B074]/10 border border-[#00B074]/20 mb-4">
-            <span className="w-2 h-2 rounded-full bg-[#00B074] animate-pulse" />
-            <span className="text-xs font-mono font-bold tracking-widest text-[#00875A] uppercase">
+          {/* Eyebrow badge matching banner style */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50/90 border border-emerald-200/70 mb-4 max-w-full">
+            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0"></span>
+            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-emerald-900 leading-snug">
               3-STEP VERIFICATION SYSTEM
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0A2B24] tracking-tight leading-[1.15]">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-[#022B22] tracking-tight leading-[1.15]">
             A 3-step verification system, <br className="hidden sm:inline" />
-            <span className="text-[#00B074]">on every order</span>
+            <span className="text-[#00875A]">on every order</span>
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-[#0A2B24]/75 font-normal leading-relaxed">

@@ -92,18 +92,18 @@ export default function TrustAndSafety() {
           {/* LEFT: Light, Airy Typography */}
           <div className="lg:col-span-6 flex flex-col justify-center">
             
-            {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00B074]/10 border border-[#00B074]/20 mb-5 w-fit">
-              <span className="w-2 h-2 rounded-full bg-[#00B074] animate-pulse" />
-              <span className="text-xs font-mono font-bold tracking-widest text-[#00875A] uppercase">
-                Trust &amp; safety
+            {/* Eyebrow badge matching banner style */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50/90 border border-emerald-200/70 mb-5 max-w-full">
+              <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0"></span>
+              <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-emerald-900 leading-snug">
+                TRUST &amp; SAFETY
               </span>
             </div>
 
             {/* Main Headline (Exact Copy) */}
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0A2B24] tracking-tight leading-[1.15] mb-5">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-[#022B22] tracking-tight leading-[1.15] mb-5">
               Standardisation isn&apos;t a tagline. <br className="hidden sm:inline" />
-              <span className="text-[#00B074]">It&apos;s the process.</span>
+              <span className="text-[#00875A]">It&apos;s the process.</span>
             </h2>
 
             {/* Subtitle Paragraph (Exact Copy) */}

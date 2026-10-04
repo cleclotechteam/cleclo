@@ -47,16 +47,19 @@ export default function GettingStartedProcess() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Heading & Intro (Exact Typography & Structure from Reference) */}
           <div className="lg:col-span-4 lg:sticky lg:top-28">
-            {/* Eyebrow */}
-            <p className="text-[#00B074] font-bold text-xs sm:text-sm tracking-[0.25em] uppercase mb-5 font-mono">
-              GETTING STARTED
-            </p>
+            {/* Eyebrow badge matching banner style */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50/90 border border-emerald-200/70 mb-5 max-w-full">
+              <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0"></span>
+              <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-emerald-900 leading-snug">
+                GETTING STARTED
+              </span>
+            </div>
 
             {/* Main Headline */}
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-[#0A2B24] tracking-tight leading-[1.18] font-sans">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-[#022B22] tracking-tight leading-[1.15]">
               One standard. <br />
               Built into <br />
-              <span className="text-[#00B074]">every step.</span>
+              <span className="text-[#00875A]">every step.</span>
             </h2>
 
             {/* Description */}

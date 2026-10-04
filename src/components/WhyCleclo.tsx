@@ -91,15 +91,18 @@ export default function WhyCleclo() {
           {/* ========================================================================= */}
           <div className="lg:col-span-4 flex flex-col justify-between pr-0 lg:pr-2">
             <div>
-              {/* Eyebrow badge */}
-              <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#00875A] font-mono block mb-3">
-                WHY CLECLO
-              </span>
+              {/* Eyebrow badge matching banner style */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50/90 border border-emerald-200/70 mb-4 max-w-full">
+                <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0"></span>
+                <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-emerald-900 leading-snug">
+                  WHY CLECLO
+                </span>
+              </div>
 
-              {/* Main Headline */}
-              <h2 className="text-3xl sm:text-4xl lg:text-[2.6rem] font-medium text-[#11231B] tracking-tight leading-[1.12] font-display mb-4">
-                Every dry cleaner runs on its own rules. <br />
-                <span className="text-[#00875A] font-semibold">We replaced them with a standard.</span>
+              {/* Main Headline (Pine Labs Bold Aesthetic matching Banner) */}
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold tracking-tight text-[#022B22] leading-[1.1] mb-5">
+                Every dry cleaner runs on its own rules. <br className="hidden xs:inline sm:inline" />
+                <span className="text-[#00875A]">We replaced them with a standard.</span>
               </h2>
 
               <p className="text-sm text-slate-500 font-normal leading-relaxed mb-8 max-w-md">
@@ -203,7 +206,7 @@ export default function WhyCleclo() {
                   <span className="text-xs font-semibold text-slate-400">Without Cleclo</span>
                 </div>
 
-                <h3 className="text-2xl font-bold text-[#11231B] tracking-tight leading-snug font-display mb-1">
+                <h3 className="text-2xl font-extrabold text-[#022B22] tracking-tight leading-snug font-display mb-1">
                   The Traditional Way
                 </h3>
                 <p className="text-xs text-slate-500 mb-6 flex items-center justify-between">
@@ -331,7 +334,7 @@ export default function WhyCleclo() {
                     </span>
                   </div>
 
-                  <h3 className="text-2xl font-bold text-[#022B22] tracking-tight leading-snug font-display flex items-center justify-between">
+                  <h3 className="text-2xl font-extrabold text-[#022B22] tracking-tight leading-snug font-display flex items-center justify-between">
                     <span>The Cleclo Standard</span>
                   </h3>
                 </div>
