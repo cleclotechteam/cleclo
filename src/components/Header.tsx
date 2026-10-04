@@ -64,12 +64,20 @@ export default function Header() {
         </nav>
 
         {/* Right Action Buttons */}
-        <div className="hidden lg:flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-3">
           <Link
-            href="https://cleclo-vendor-dash-psi.vercel.app/#download"
+            href="https://cleclo-vendor-dash-psi.vercel.app/vendor"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 bg-[#D4F63D] hover:bg-[#c5ea2c] text-[#0A2B24] font-extrabold text-sm px-5 py-2.5 rounded-full transition-all duration-300 shadow-[0_4px_14px_rgba(212,246,61,0.35)] hover:shadow-[0_6px_20px_rgba(212,246,61,0.5)] active:scale-95"
+            className="group inline-flex items-center gap-1.5 bg-white text-[#0A2B24] border border-slate-300 hover:border-[#00B074] hover:bg-emerald-50/50 font-bold text-xs px-4 py-2.5 rounded-full transition-all duration-300"
+          >
+            <span>Partner as Vendor</span>
+            <ArrowUpRight className="w-3.5 h-3.5 text-[#00875A] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </Link>
+
+          <Link
+            href="#download"
+            className="group inline-flex items-center gap-2 bg-[#D4F63D] hover:bg-[#c5ea2c] text-[#0A2B24] font-extrabold text-xs sm:text-sm px-5 py-2.5 rounded-full transition-all duration-300 shadow-[0_4px_14px_rgba(212,246,61,0.35)] hover:shadow-[0_6px_20px_rgba(212,246,61,0.5)] active:scale-95"
           >
             <span>Get the App</span>
             <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -134,11 +142,20 @@ export default function Header() {
             </Link>
           </nav>
 
-          <div className="pt-4 border-t border-slate-100">
+          <div className="pt-4 border-t border-slate-100 flex flex-col gap-2.5">
             <Link
-              href="https://cleclo-vendor-dash-psi.vercel.app/#download"
+              href="https://cleclo-vendor-dash-psi.vercel.app/vendor"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full flex items-center justify-center gap-2 bg-white border border-slate-200 text-[#0A2B24] font-bold text-xs py-3 rounded-full shadow-sm"
+            >
+              <span>Partner as Vendor</span>
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#00875A]" />
+            </Link>
+
+            <Link
+              href="#download"
               onClick={() => setMobileMenuOpen(false)}
               className="w-full flex items-center justify-center gap-2 bg-[#D4F63D] text-[#0A2B24] font-extrabold text-sm py-3 rounded-full shadow-md"
             >

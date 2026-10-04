@@ -153,8 +153,8 @@ export default function StandardInNumbers() {
           {/* ========================================================================= */}
           <div className="relative max-w-3xl mx-auto flex flex-col items-center select-none w-full">
             
-            {/* SVG Radial Gauge Arc & Enclosed Center Content */}
-            <div className="relative w-full max-w-[700px] aspect-[2/1.35] xs:aspect-[2/1.25] sm:aspect-[2/1.05] flex items-center justify-center overflow-visible">
+            {/* SVG Radial Gauge Arc & Enclosed Center Content (Zoomed & Scaled on Mobile) */}
+            <div className="relative w-full max-w-[700px] aspect-[2/1.35] xs:aspect-[2/1.25] sm:aspect-[2/1.05] flex items-center justify-center overflow-visible scale-[1.12] xs:scale-105 sm:scale-100 origin-center transition-transform duration-300">
               <svg
                 viewBox="0 0 700 370"
                 className="w-full h-full overflow-visible drop-shadow-sm"
@@ -203,29 +203,29 @@ export default function StandardInNumbers() {
               {/* Step Pill Floating Above Arc Apex */}
               <div className="absolute top-[-16px] xs:top-[-20px] sm:top-[-28px] left-1/2 -translate-x-1/2 z-20">
                 <span
-                  className={`inline-flex items-center gap-1 px-3 py-0.5 sm:px-4 sm:py-1 rounded-full border ${currentTheme.pill} text-[9px] xs:text-[10px] sm:text-xs font-black tracking-wider uppercase font-mono transition-colors duration-500 shadow-md bg-white/95 backdrop-blur-sm`}
+                  className={`inline-flex items-center gap-1 px-3 py-0.5 sm:px-4 sm:py-1 rounded-full border ${currentTheme.pill} text-[10px] xs:text-[11px] sm:text-xs font-black tracking-wider uppercase font-mono transition-colors duration-500 shadow-md bg-white/95 backdrop-blur-sm`}
                 >
                   {steps[activeStep].stepLabel}
                 </span>
               </div>
 
-              {/* Center Content Enclosed Inside Lower Belly of Semicircle Arc */}
-              <div className="absolute top-[54%] xs:top-[58%] sm:top-[60%] lg:top-[62%] left-1/2 -translate-x-1/2 text-center flex flex-col items-center w-full max-w-[210px] xs:max-w-[250px] sm:max-w-md px-2 z-10">
+              {/* Center Content Enclosed Inside Middle/Bottom of Semicircle Arc */}
+              <div className="absolute top-[48%] xs:top-[52%] sm:top-[54%] lg:top-[56%] left-1/2 -translate-x-1/2 text-center flex flex-col items-center w-full max-w-[240px] xs:max-w-[280px] sm:max-w-md px-2 z-10">
                 
-                {/* Metric Display (e.g. 72HRS, EVERY ORDER - In lower bottom of semicircle) */}
+                {/* Metric Display (e.g. 72HRS, EVERY ORDER) */}
                 <div
-                  className={`text-2xl xs:text-3xl sm:text-6xl lg:text-[4.25rem] font-black tracking-tight ${currentTheme.metricColor} font-display mb-1 xs:mb-1.5 sm:mb-3 drop-shadow-sm transition-all duration-500 scale-100 leading-none`}
+                  className={`text-2xl xs:text-3xl sm:text-5xl lg:text-[4.25rem] font-black tracking-tight ${currentTheme.metricColor} font-display mb-1 xs:mb-1.5 sm:mb-3 drop-shadow-sm transition-all duration-500 scale-100 leading-none`}
                 >
                   {steps[activeStep].metric}
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xs xs:text-sm sm:text-2xl font-black text-[#022B22] tracking-tight font-display mb-0.5 xs:mb-1 sm:mb-2 leading-tight">
+                <h3 className="text-sm xs:text-base sm:text-2xl font-black text-[#022B22] tracking-tight font-display mb-0.5 xs:mb-1 sm:mb-2 leading-tight">
                   {steps[activeStep].title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-[9px] xs:text-[11px] sm:text-sm text-slate-500 leading-tight sm:leading-relaxed font-normal max-w-[190px] xs:max-w-[230px] sm:max-w-sm">
+                <p className="text-[10px] xs:text-[12px] sm:text-sm text-slate-500 leading-tight sm:leading-relaxed font-normal max-w-[200px] xs:max-w-[240px] sm:max-w-sm">
                   {steps[activeStep].desc}
                 </p>
 

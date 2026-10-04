@@ -17,8 +17,8 @@ function WordIlluminator({
   index,
   totalWords,
   progress,
-  startPoint = 0.15,
-  endPoint = 0.5,
+  startPoint = 0.05,
+  endPoint = 0.45,
   accentColor,
 }: {
   word: string;
@@ -37,7 +37,7 @@ function WordIlluminator({
     progress,
     [wordStart, wordEnd],
     [
-      "rgba(255, 255, 255, 0.22)",
+      "rgba(255, 255, 255, 0.40)",
       accentColor || "rgba(255, 255, 255, 1.0)",
     ]
   );
@@ -49,13 +49,13 @@ function WordIlluminator({
   );
 }
 
-// Scroll Text Reveal helper that splits sentence into interactive illuminated words
+// Scroll Text Reveal helper that illuminates words sequentially into bright white on scroll
 function ScrollTextReveal({
   text,
   progress,
   className = "",
-  startPoint = 0.15,
-  endPoint = 0.5,
+  startPoint = 0.05,
+  endPoint = 0.45,
   accentWords = [],
   accentColor = "#D4F63D",
 }: {
@@ -94,12 +94,12 @@ function ScrollTextReveal({
 }
 
 export default function Sustainability() {
-  const downloadUrl = "https://cleclo-vendor-dash-psi.vercel.app/#download";
+  const downloadUrl = "#download";
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"],
+    offset: ["start 85%", "center center"],
   });
 
   const headlineText = "Better for your clothes. Better for the world.";
@@ -157,7 +157,7 @@ export default function Sustainability() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header with Word-by-Word Scroll Illumination */}
+        {/* Section Header with Scroll Illumination to 100% White */}
         <div className="max-w-4xl mb-16 sm:mb-20">
           
           {/* Eyebrow */}
@@ -168,25 +168,25 @@ export default function Sustainability() {
             </span>
           </div>
 
-          {/* Word-by-Word Scroll Text Illumination Headline */}
+          {/* Headline */}
           <h2 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] mb-6 font-display">
             <ScrollTextReveal
               text={headlineText}
               progress={scrollYProgress}
-              startPoint={0.12}
-              endPoint={0.35}
+              startPoint={0.02}
+              endPoint={0.25}
               accentWords={["world."]}
               accentColor="#D4F63D"
             />
           </h2>
 
-          {/* Word-by-Word Scroll Text Illumination Description */}
+          {/* Description */}
           <p className="text-base sm:text-lg lg:text-xl font-normal leading-relaxed max-w-3xl">
             <ScrollTextReveal
               text={descText}
               progress={scrollYProgress}
-              startPoint={0.32}
-              endPoint={0.62}
+              startPoint={0.15}
+              endPoint={0.50}
               accentColor="#FFFFFF"
             />
           </p>
@@ -260,8 +260,6 @@ export default function Sustainability() {
 
           <Link
             href={downloadUrl}
-            target="_blank"
-            rel="noopener noreferrer"
             className="shrink-0 inline-flex items-center gap-2.5 bg-[#D4F63D] hover:bg-[#c5ea2c] text-[#022B22] font-extrabold text-xs sm:text-sm px-8 py-4 rounded-full transition-all duration-300 shadow-[0_4px_16px_rgba(212,246,61,0.35)] hover:shadow-[0_8px_24px_rgba(212,246,61,0.5)] hover:scale-105 active:scale-95"
           >
             <span>Explore Cleclo App</span>
