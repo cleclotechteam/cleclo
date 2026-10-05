@@ -133,7 +133,7 @@ export default function StandardInNumbers() {
           {/* ========================================================================= */}
           {/* Section Header */}
           {/* ========================================================================= */}
-          <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-12 px-2">
+          <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-14 px-2">
             <h2 className="font-display text-2xl sm:text-4xl lg:text-[2.75rem] font-extrabold tracking-tight text-[#022B22] uppercase leading-[1.1]">
               THE CLECLO STANDARD, <br />
               <span
@@ -200,10 +200,10 @@ export default function StandardInNumbers() {
                 />
               </svg>
 
-              {/* Step Pill Floating Above Arc Apex */}
-              <div className="absolute top-[-16px] xs:top-[-20px] sm:top-[-28px] left-1/2 -translate-x-1/2 z-20">
+              {/* Step Pill Floating Above Arc Apex (Adjusted slightly lower and larger for mobile clearance) */}
+              <div className="absolute top-[6px] xs:top-[8px] sm:top-[-2px] left-1/2 -translate-x-1/2 z-20">
                 <span
-                  className={`inline-flex items-center gap-1 px-3 py-0.5 sm:px-4 sm:py-1 rounded-full border ${currentTheme.pill} text-[10px] xs:text-[11px] sm:text-xs font-black tracking-wider uppercase font-mono transition-colors duration-500 shadow-md bg-white/95 backdrop-blur-sm`}
+                  className={`inline-flex items-center gap-1.5 px-4 py-1 sm:px-5 sm:py-1.5 rounded-full border-2 ${currentTheme.pill} text-xs sm:text-sm font-black tracking-widest uppercase font-mono transition-all duration-500 shadow-lg bg-white backdrop-blur-sm`}
                 >
                   {steps[activeStep].stepLabel}
                 </span>
