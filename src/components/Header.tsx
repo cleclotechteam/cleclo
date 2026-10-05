@@ -9,7 +9,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#FBFDFB]/85 backdrop-blur-md border-b border-[#0A261E]/5 transition-all">
+    <header className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-[#0A261E]/5 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Brand Logo - Perfectly cropped and clearly visible */}
         <Link href="/" className="flex items-center group py-1">
@@ -66,9 +66,7 @@ export default function Header() {
         {/* Right Action Buttons */}
         <div className="hidden lg:flex items-center gap-3">
           <Link
-            href="https://cleclo-vendor-dash-psi.vercel.app/vendor"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/vendor"
             className="group inline-flex items-center gap-1.5 bg-white text-[#0A2B24] border border-slate-300 hover:border-[#00B074] hover:bg-emerald-50/50 font-bold text-xs px-4 py-2.5 rounded-full transition-all duration-300"
           >
             <span>Partner as Vendor</span>
@@ -144,9 +142,7 @@ export default function Header() {
 
           <div className="pt-4 border-t border-slate-100 flex flex-col gap-2.5">
             <Link
-              href="https://cleclo-vendor-dash-psi.vercel.app/vendor"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/vendor"
               onClick={() => setMobileMenuOpen(false)}
               className="w-full flex items-center justify-center gap-2 bg-white border border-slate-200 text-[#0A2B24] font-bold text-xs py-3 rounded-full shadow-sm"
             >
