@@ -187,11 +187,8 @@ export default function VendorWhyCleclo() {
                 <h3 className="text-2xl font-extrabold text-[#022B22] tracking-tight leading-snug font-display mb-1">
                   The Traditional Store
                 </h3>
-                <p className="text-xs text-slate-500 mb-6 flex items-center justify-between">
-                  <span>Paper receipts, zero tracking, variable footfall.</span>
-                  <span className="text-[10px] text-slate-400 group-hover:text-emerald-700 font-medium">
-                    (Hover to see)
-                  </span>
+                <p className="text-xs text-slate-500 mb-6">
+                  Paper receipts, zero tracking, variable footfall.
                 </p>
 
                 <div className="space-y-4">

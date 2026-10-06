@@ -48,28 +48,28 @@ export default function WhyCleclo() {
   const comparisonItems = [
     {
       category: "PRICING",
-      without: "Prices vary wildly from one cleaner to another",
-      withCleclo: "Fixed rate card on the app — zero hidden charges",
+      without: "Prices can vary from one cleaner to another, with limited pricing transparency.",
+      withCleclo: "Transparent rates on the app with no hidden charges.",
     },
     {
       category: "VISIBILITY",
-      without: "No clear visibility after your garments are handed over",
-      withCleclo: "Live GPS & milestone garment tracking door to door",
+      without: "Once your garments are picked up, tracking and status updates are often limited.",
+      withCleclo: "Track your order from pickup through every key milestone to delivery.",
     },
     {
       category: "TIMELINES",
-      without: "Delivery timelines are often uncertain and delayed",
-      withCleclo: "72h standard promise + 24h Express options",
+      without: "Turnaround times can vary, with limited visibility on when your order will arrive.",
+      withCleclo: "72-hour standard turnaround with express options on eligible services.",
     },
     {
       category: "PROCESS",
-      without: "Every cleaner follows their own random process",
-      withCleclo: "Strict standard operating procedures across all partners",
+      without: "Cleaning methods and handling standards depend on the individual cleaner.",
+      withCleclo: "Standardised operating procedures across every verified care partner.",
     },
     {
       category: "QUALITY",
-      without: "Quality can depend entirely on who handles your garments",
-      withCleclo: "Strict 48-point quality inspection on every order",
+      without: "The final result can depend on the facility, equipment and person handling your garments.",
+      withCleclo: "Structured quality checks designed to maintain consistent care standards.",
     },
   ];
 
@@ -106,7 +106,7 @@ export default function WhyCleclo() {
               </h2>
 
               <p className="text-sm text-slate-500 font-normal leading-relaxed mb-8 max-w-md">
-                One standard process, upfront fixed pricing, and live tracking from your doorstep to verified fabric care facilities. Hover over either card to inspect visual standards.
+                Professional garment care shouldn’t depend on who you happen to find. Cleclo brings consistency to every order — with verified care partners, standardised processes, transparent pricing and complete order visibility from pickup to delivery.
               </p>
 
               {/* Action Buttons */}
@@ -124,16 +124,20 @@ export default function WhyCleclo() {
             {/* Core Value Quick Tags */}
             <div className="pt-6 border-t border-slate-100 space-y-2.5">
               <div className="flex items-center gap-2 text-xs font-semibold text-[#11231B]">
-                <Tag className="w-4 h-4 text-[#00875A]" />
-                <span>Zero hidden charges · Transparent rate card</span>
+                <Tag className="w-4 h-4 text-[#00875A] shrink-0" />
+                <span>Transparent Pricing · No Hidden Charges</span>
               </div>
               <div className="flex items-center gap-2 text-xs font-semibold text-[#11231B]">
-                <Clock className="w-4 h-4 text-[#00875A]" />
-                <span>72h standard promise + 24h Express options</span>
+                <Clock className="w-4 h-4 text-[#00875A] shrink-0" />
+                <span>Standardised Care · Every Order, Every Time</span>
               </div>
               <div className="flex items-center gap-2 text-xs font-semibold text-[#11231B]">
-                <ShieldCheck className="w-4 h-4 text-[#00875A]" />
-                <span>48-point quality inspected partner network</span>
+                <Eye className="w-4 h-4 text-[#00875A] shrink-0" />
+                <span>Live Order Tracking · Pickup to Delivery</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs font-semibold text-[#11231B]">
+                <ShieldCheck className="w-4 h-4 text-[#00875A] shrink-0" />
+                <span>Verified Partners · Quality-Checked Facilities</span>
               </div>
             </div>
           </div>
@@ -196,13 +200,10 @@ export default function WhyCleclo() {
                 </div>
 
                 <h3 className="text-2xl font-extrabold text-[#022B22] tracking-tight leading-snug font-display mb-1">
-                  The Traditional Way
+                  The Traditional Experience
                 </h3>
-                <p className="text-xs text-slate-500 mb-6 flex items-center justify-between">
-                  <span>Uncertain pricing, zero tracking, variable results.</span>
-                  <span className="text-[10px] text-slate-400 group-hover:text-emerald-700 font-medium">
-                    (Hover to see)
-                  </span>
+                <p className="text-xs text-slate-500 mb-6">
+                  Different cleaner. Different process. Different outcome.
                 </p>
 
                 {/* 1:1 Parallel Comparison List */}
@@ -227,9 +228,9 @@ export default function WhyCleclo() {
 
               {/* Bottom Status Pill */}
               <div className="pt-5 border-t border-slate-100 flex items-center justify-between mt-6">
-                <span className="text-xs font-semibold text-slate-400">Unpredictable outcome</span>
+                <span className="text-xs font-semibold text-slate-400">Inconsistent Experience</span>
                 <span className="text-xs font-bold text-slate-600 bg-slate-50 px-3 py-1 rounded-lg border border-slate-200/80">
-                  Variable Quality
+                  Variable Standards
                 </span>
               </div>
             </div>
@@ -323,9 +324,12 @@ export default function WhyCleclo() {
                     </span>
                   </div>
 
-                  <h3 className="text-2xl font-extrabold text-[#022B22] tracking-tight leading-snug font-display flex items-center justify-between">
+                  <h3 className="text-2xl font-extrabold text-[#022B22] tracking-tight leading-snug font-display flex items-center justify-between mb-1">
                     <span>The Cleclo Standard</span>
                   </h3>
+                  <p className="text-xs text-emerald-800 font-medium mb-6">
+                    One platform. One process. A consistent standard of care.
+                  </p>
                 </div>
 
                 {/* 1:1 Parallel Comparison List */}
@@ -350,7 +354,7 @@ export default function WhyCleclo() {
 
               {/* Bottom Guaranteed Tag */}
               <div className="relative z-10 pt-5 border-t border-emerald-200/60 flex items-center justify-between mt-6">
-                <span className="text-xs font-semibold text-emerald-900/80">100% Quality Guaranteed</span>
+                <span className="text-xs font-semibold text-emerald-900/80">Standardised Experience</span>
                 <span className="inline-flex items-center gap-1.5 bg-[#00875A] text-white text-xs font-extrabold px-3 py-1 rounded-lg shadow-sm">
                   <span>Cleclo Standard ✓</span>
                 </span>
