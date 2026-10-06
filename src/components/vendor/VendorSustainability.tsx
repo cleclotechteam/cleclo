@@ -152,26 +152,8 @@ export default function VendorSustainability() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Mobile View: Static Solid White Text */}
-        <div className="block lg:hidden max-w-4xl mb-10 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 mb-4 sm:mb-6">
-            <span className="w-2 h-2 rounded-full bg-[#D4F63D] animate-pulse" />
-            <span className="text-xs font-mono font-bold tracking-widest text-[#D4F63D] uppercase">
-              ECO VENDOR STANDARDS
-            </span>
-          </div>
-
-          <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight leading-[1.15] mb-4 sm:mb-6 font-display text-white">
-            Better for your facility. <span className="text-[#D4F63D]">Better for the environment.</span>
-          </h2>
-
-          <p className="text-xs sm:text-lg font-normal leading-relaxed text-slate-100 max-w-3xl">
-            {descText}
-          </p>
-        </div>
-
-        {/* Laptop & Desktop View: Cinematic Scroll Illumination Effect */}
-        <div ref={headerRef} className="hidden lg:block max-w-4xl mb-20">
+        {/* Responsive Cinematic Scroll Illumination Effect for Mobile & Desktop */}
+        <div ref={headerRef} className="max-w-4xl mb-12 sm:mb-16 lg:mb-20">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 mb-6">
             <span className="w-2 h-2 rounded-full bg-[#D4F63D] animate-pulse" />
             <span className="text-xs font-mono font-bold tracking-widest text-[#D4F63D] uppercase">
@@ -179,7 +161,7 @@ export default function VendorSustainability() {
             </span>
           </div>
 
-          <h2 className="text-6xl font-extrabold tracking-tight leading-[1.15] mb-6 font-display">
+          <h2 className="text-2xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] mb-6 font-display">
             <ScrollTextReveal
               text={headlineText}
               progress={scrollYProgress}
@@ -190,7 +172,7 @@ export default function VendorSustainability() {
             />
           </h2>
 
-          <p className="text-xl font-normal leading-relaxed max-w-3xl">
+          <p className="text-xs sm:text-lg lg:text-xl font-normal leading-relaxed max-w-3xl">
             <ScrollTextReveal
               text={descText}
               progress={scrollYProgress}

@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 
 export default function WhereWeOperate() {
-  const downloadUrl = "https://cleclo-vendor-dash-psi.vercel.app/#download";
+  const downloadUrl = "#download";
 
   const tiers = [
     {
@@ -20,7 +20,7 @@ export default function WhereWeOperate() {
         "Our launch markets, starting with Delhi NCR, with the deepest partner network and fastest onboarding.",
       status: "Live now",
       offsetClass: "lg:translate-y-8",
-      imageSrc: "/tier1-delhi-map.jpg",
+      imageSrc: "/tier1-cleclo-metro-v2.jpg",
       imageAlt: "Delhi NCR Live Pickup Map",
     },
     {
@@ -30,7 +30,7 @@ export default function WhereWeOperate() {
         "The same standard price list and SLA, brought to fast-growing cities as partners come online.",
       status: "Onboarding",
       offsetClass: "lg:translate-y-0",
-      imageSrc: "/tier2-network-globe.jpg",
+      imageSrc: "/tier2-cleclo-facility-v2.jpg",
       imageAlt: "Expanding Indian Cities Dry Cleaning Network",
     },
     {
@@ -40,7 +40,7 @@ export default function WhereWeOperate() {
         "Bringing organised, certified dry cleaning to towns that have never had it before.",
       status: "Coming soon",
       offsetClass: "lg:translate-y-8",
-      imageSrc: "/tier3-partner-towns.jpg",
+      imageSrc: "/tier3-cleclo-towns-v2.jpg",
       imageAlt: "Certified Dry Cleaning Partner Onboarding Nodes",
     },
   ];
