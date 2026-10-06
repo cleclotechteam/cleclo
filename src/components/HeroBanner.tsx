@@ -27,39 +27,41 @@ export default function HeroBanner() {
   const keyFeatures = [
     {
       number: "01",
-      title: "Certified Care Partners",
-      desc: "Strictly vetted facility & fabric experts",
-      pill: "48-Point Quality Vetted",
+      title: "VERIFIED CARE PARTNERS",
+      desc: "Every care partner goes through a structured verification process before joining the Cleclo network.",
+      pill: "48-Point Partner Verification",
       icon: Zap,
     },
     {
       number: "02",
-      title: "Standardised Pricing",
-      desc: "Zero hidden charges, transparent rates",
-      pill: "Fixed Rate Card on App",
+      title: "STANDARDISED PRICING",
+      desc: "Standardised pricing across services ensures clear, consistent rates with no hidden charges.",
+      pill: "Fixed Rates on the App",
       icon: RefreshCw,
     },
     {
       number: "03",
-      title: "End-to-End Order Tracking",
-      desc: "Live garment status from door to door",
-      pill: "Live GPS & Status Milestones",
+      title: "COMPLETE ORDER VISIBILITY",
+      desc: "Stay informed at every stage with live order status and milestone updates, giving you complete visibility throughout the care journey.",
+      pill: "Live Status & Order Milestones",
       icon: Activity,
     },
     {
       number: "04",
-      title: "Same-Day to Scheduled Delivery",
-      desc: "72h standard promise + Express options",
-      pill: "72h Standard + 24h Express",
+      title: "RELIABLE, SCHEDULED DELIVERY",
+      desc: "Choose a delivery timeline that works for you, with standard turnaround and express options available on eligible services.",
+      pill: "72H Standard • Express Available",
       icon: Clock,
     },
   ];
 
   const marqueeItems = [
-    "CERTIFIED PARTNERS",
+    "VERIFIED PARTNERS",
     "STANDARDISED CARE",
     "QUALITY CHECKED",
-    "ON-TIME DELIVERY",
+    "TRACKED ORDERS",
+    "RELIABLE DELIVERY",
+    "TRANSPARENT PRICING",
   ];
 
   return (
@@ -147,62 +149,37 @@ export default function HeroBanner() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 2. SOCIAL PROOF SECTION (High-End Glassmorphic Trust Bar) */}
+      {/* 2. SOCIAL PROOF SECTION */}
       {/* ========================================================================= */}
       <section className="border-y border-[#022B22]/8 bg-gradient-to-r from-slate-50/80 via-white to-slate-50/80 py-5 sm:py-6 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
           
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4.5 w-full md:w-auto">
-            {/* Glowing avatar cluster + Mobile Live Badge */}
-            <div className="flex items-center gap-3 shrink-0">
-              <div className="flex -space-x-2.5 sm:-space-x-3 overflow-hidden p-0.5">
-                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full ring-2 ring-white shadow-sm bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white text-xs font-bold">
-                  RS
-                </div>
-                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full ring-2 ring-white shadow-sm bg-gradient-to-tr from-amber-500 to-orange-400 flex items-center justify-center text-white text-xs font-bold">
-                  AK
-                </div>
-                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full ring-2 ring-white shadow-sm bg-gradient-to-tr from-indigo-600 to-blue-400 flex items-center justify-center text-white text-xs font-bold">
-                  PM
-                </div>
-                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full ring-2 ring-white shadow-md bg-[#022B22] flex items-center justify-center text-[#D4F63D] text-[10px] sm:text-[11px] font-extrabold">
-                  +5k
-                </div>
+          <div className="flex items-center gap-3 shrink-0">
+            {/* Avatar cluster */}
+            <div className="flex -space-x-2.5 sm:-space-x-3 overflow-hidden p-0.5">
+              <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full ring-2 ring-white shadow-sm bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white text-xs font-bold">
+                RS
               </div>
-
-              {/* Mobile-visible Live Network badge next to avatars */}
-              <span className="inline-flex md:hidden items-center gap-1.5 text-[10px] font-bold text-emerald-800 bg-emerald-100/90 px-2.5 py-1 rounded-full border border-emerald-200 shrink-0">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                Live Network
-              </span>
-            </div>
-            
-            {/* Text description */}
-            <div className="flex flex-col">
-              <div className="flex items-center gap-2 flex-wrap">
-                <p className="text-xs sm:text-sm font-extrabold uppercase tracking-wide text-[#022B22] leading-snug">
-                  NEW CLIENTS JOINING EVERY WEEK ACROSS DELHI NCR.
-                </p>
-                <span className="hidden md:inline-flex items-center gap-1 text-[10px] font-bold text-emerald-800 bg-emerald-100/90 px-2 py-0.5 rounded-full border border-emerald-200 shrink-0">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                  Live Network
-                </span>
+              <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full ring-2 ring-white shadow-sm bg-gradient-to-tr from-amber-500 to-orange-400 flex items-center justify-center text-white text-xs font-bold">
+                AK
               </div>
-              <p className="text-[11px] sm:text-xs text-emerald-800/80 font-medium mt-0.5 leading-normal">
-                Active pickups across South Delhi, Gurugram, Noida, Greater Noida &amp; Dwarka
-              </p>
+              <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full ring-2 ring-white shadow-sm bg-gradient-to-tr from-indigo-600 to-blue-400 flex items-center justify-center text-white text-xs font-bold">
+                PM
+              </div>
+              <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full ring-2 ring-white shadow-md bg-[#022B22] flex items-center justify-center text-[#D4F63D] text-[10px] sm:text-[11px] font-extrabold">
+                +5k
+              </div>
             </div>
           </div>
-
-          {/* Rating Pill */}
-          <div className="w-full sm:w-auto flex items-center justify-between sm:justify-start gap-3 bg-white px-4 py-2.5 rounded-2xl border border-slate-200/90 shadow-[0_2px_10px_rgba(0,0,0,0.03)] shrink-0 mt-1 sm:mt-0">
-            <div className="flex text-amber-400 text-sm tracking-widest">
-              ★ ★ ★ ★ ★
-            </div>
-            <div className="flex flex-col text-left leading-tight">
-              <span className="text-xs font-extrabold text-[#022B22]">4.9 / 5 Rating</span>
-              <span className="text-[10px] text-slate-500 font-medium">Verified App Reviews</span>
-            </div>
+          
+          {/* Text description */}
+          <div className="flex flex-col">
+            <p className="text-xs sm:text-sm font-extrabold uppercase tracking-wide text-[#022B22] leading-snug">
+              NEW CLIENTS JOINING EVERY WEEK ACROSS DELHI NCR.
+            </p>
+            <p className="text-[11px] sm:text-xs text-emerald-800/80 font-medium mt-0.5 leading-normal">
+              Active Pickups across Delhi NCR — North, South, East, West, Central Delhi, Gurugram &amp; Noida
+            </p>
           </div>
 
         </div>
@@ -219,15 +196,15 @@ export default function HeroBanner() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
           <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-black tracking-tight text-[#0F172A] uppercase leading-[1.1] font-display">
-            WHY CUSTOMERS LOVE <br />
+            WHY CUSTOMERS CHOOSE <br />
             <span className="text-[#00875A]">
-              ASSURED QUALITY
+              CLECLO
             </span>
           </h2>
           
-          <p className="text-sm sm:text-base text-slate-500 font-normal leading-relaxed mt-2.5 max-w-lg mx-auto">
-            Simple to book. Easy to manage. <br className="hidden sm:inline" />
-            Built to deliver pristine dry cleaning every single time.
+          <p className="text-sm sm:text-base text-slate-500 font-normal leading-relaxed mt-3 max-w-2xl mx-auto">
+            Professional care. Standardised processes. Complete visibility. <br className="hidden sm:inline" />
+            From pickup to delivery, every order is managed through a quality-first system designed for consistent results.
           </p>
         </div>
 

@@ -26,6 +26,12 @@ export default function Header() {
         {/* Desktop Navigation Links */}
         <nav className="hidden lg:flex items-center gap-7 text-[14px] font-semibold text-[#0A2B24]/85">
           <Link
+            href="#process"
+            className="hover:text-[#00B074] transition-colors py-1"
+          >
+            How It Works
+          </Link>
+          <Link
             href="#services"
             className="hover:text-[#00B074] transition-colors py-1"
           >
@@ -38,12 +44,6 @@ export default function Header() {
             Trust &amp; Safety
           </Link>
           <Link
-            href="#verification"
-            className="hover:text-[#00B074] transition-colors py-1"
-          >
-            Verification
-          </Link>
-          <Link
             href="#sustainability"
             className="hover:text-[#00B074] transition-colors py-1"
           >
@@ -53,13 +53,13 @@ export default function Header() {
             href="#where-we-operate"
             className="hover:text-[#00B074] transition-colors py-1"
           >
-            Cities
+            Coverage
           </Link>
           <Link
             href="#faq"
             className="hover:text-[#00B074] transition-colors py-1"
           >
-            FAQ
+            FAQ’S
           </Link>
         </nav>
 
@@ -97,6 +97,13 @@ export default function Header() {
         <div className="lg:hidden border-b border-[#0A261E]/10 bg-white/95 px-6 py-6 space-y-4 backdrop-blur-xl animate-in fade-in slide-in-from-top-4 duration-200">
           <nav className="flex flex-col space-y-3 font-semibold text-[#0A2B24]">
             <Link
+              href="#process"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 hover:text-[#00B074]"
+            >
+              How It Works
+            </Link>
+            <Link
               href="#services"
               onClick={() => setMobileMenuOpen(false)}
               className="py-2 hover:text-[#00B074]"
@@ -111,13 +118,6 @@ export default function Header() {
               Trust &amp; Safety
             </Link>
             <Link
-              href="#verification"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-2 hover:text-[#00B074]"
-            >
-              3-Step Verification
-            </Link>
-            <Link
               href="#sustainability"
               onClick={() => setMobileMenuOpen(false)}
               className="py-2 hover:text-[#00B074]"
@@ -129,14 +129,14 @@ export default function Header() {
               onClick={() => setMobileMenuOpen(false)}
               className="py-2 hover:text-[#00B074]"
             >
-              Cities &amp; Coverage
+              Coverage
             </Link>
             <Link
               href="#faq"
               onClick={() => setMobileMenuOpen(false)}
               className="py-2 hover:text-[#00B074]"
             >
-              FAQ
+              FAQ’S
             </Link>
           </nav>
 

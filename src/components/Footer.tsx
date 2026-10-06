@@ -105,17 +105,17 @@ export default function Footer() {
               </h4>
               <ul className="space-y-2.5 text-slate-300 font-medium">
                 <li>
-                  <Link href="https://cleclo-vendor-dash-psi.vercel.app/vendor" target="_blank" className="hover:text-white transition-colors">
+                  <Link href="/vendor" className="hover:text-white transition-colors">
                     Partner With Us
                   </Link>
                 </li>
                 <li>
-                  <Link href="https://cleclo-vendor-dash-psi.vercel.app/login" target="_blank" className="hover:text-white transition-colors">
+                  <Link href="/vendor#login" className="hover:text-white transition-colors">
                     Vendor Login
                   </Link>
                 </li>
                 <li>
-                  <Link href="https://cleclo-vendor-dash-psi.vercel.app/#" target="_blank" className="hover:text-white transition-colors">
+                  <Link href="/vendor#support" className="hover:text-white transition-colors">
                     Partner Support
                   </Link>
                 </li>
@@ -129,17 +129,17 @@ export default function Footer() {
               </h4>
               <ul className="space-y-2.5 text-slate-300 font-medium">
                 <li>
-                  <Link href="https://cleclo-vendor-dash-psi.vercel.app/#" target="_blank" className="hover:text-white transition-colors">
+                  <Link href="#ride" className="hover:text-white transition-colors">
                     Ride With Us
                   </Link>
                 </li>
                 <li>
-                  <Link href="https://cleclo-vendor-dash-psi.vercel.app/#" target="_blank" className="hover:text-white transition-colors">
+                  <Link href="#download" className="hover:text-white transition-colors">
                     Rider App
                   </Link>
                 </li>
                 <li>
-                  <Link href="https://cleclo-vendor-dash-psi.vercel.app/#" target="_blank" className="hover:text-white transition-colors">
+                  <Link href="#support" className="hover:text-white transition-colors">
                     Rider Support
                   </Link>
                 </li>
@@ -153,17 +153,17 @@ export default function Footer() {
               </h4>
               <ul className="space-y-2.5 text-slate-300 font-medium">
                 <li>
-                  <Link href="https://cleclo-vendor-dash-psi.vercel.app/#why" target="_blank" className="hover:text-white transition-colors">
+                  <Link href="#why" className="hover:text-white transition-colors">
                     About Cleclo
                   </Link>
                 </li>
                 <li>
-                  <Link href="https://cleclo-vendor-dash-psi.vercel.app/#" target="_blank" className="hover:text-white transition-colors">
+                  <Link href="#careers" className="hover:text-white transition-colors">
                     Careers
                   </Link>
                 </li>
                 <li>
-                  <Link href="https://cleclo-vendor-dash-psi.vercel.app/#" target="_blank" className="hover:text-white transition-colors">
+                  <Link href="#blog" className="hover:text-white transition-colors">
                     Blog
                   </Link>
                 </li>
@@ -177,7 +177,7 @@ export default function Footer() {
               </h4>
               <ul className="space-y-2.5 text-slate-300 font-medium">
                 <li>
-                  <Link href="https://cleclo-vendor-dash-psi.vercel.app/#faq" target="_blank" className="hover:text-white transition-colors">
+                  <Link href="#faq" className="hover:text-white transition-colors">
                     Help Centre
                   </Link>
                 </li>
@@ -196,17 +196,17 @@ export default function Footer() {
               </h4>
               <ul className="space-y-2.5 text-slate-300 font-medium">
                 <li>
-                  <Link href="https://cleclo-vendor-dash-psi.vercel.app/#" target="_blank" className="hover:text-white transition-colors">
+                  <Link href="#terms" className="hover:text-white transition-colors">
                     Terms of Service
                   </Link>
                 </li>
                 <li>
-                  <Link href="https://cleclo-vendor-dash-psi.vercel.app/#" target="_blank" className="hover:text-white transition-colors">
+                  <Link href="#privacy" className="hover:text-white transition-colors">
                     Privacy Policy
                   </Link>
                 </li>
                 <li>
-                  <Link href="https://cleclo-vendor-dash-psi.vercel.app/#" target="_blank" className="hover:text-white transition-colors">
+                  <Link href="#refund" className="hover:text-white transition-colors">
                     Refund Policy
                   </Link>
                 </li>
