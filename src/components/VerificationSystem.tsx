@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 
 export default function VerificationSystem() {
-  const downloadUrl = "https://cleclo-vendor-dash-psi.vercel.app/#download";
+  const downloadUrl = "#download";
 
   const steps = [
     {
@@ -21,7 +21,7 @@ export default function VerificationSystem() {
       description:
         "Your order details and the condition of each item are logged the moment you book — a reference point that stays with your order end to end.",
       icon: Smartphone,
-      tag: "DIGITAL LOGGED",
+      tag: "Digitally Logged",
       badge: "Step 01",
     },
     {
@@ -118,7 +118,7 @@ export default function VerificationSystem() {
                   </span>
                   <div className="flex items-center gap-1 text-xs font-bold text-[#00875A]">
                     <CheckCircle2 className="w-4 h-4 text-[#00B074]" />
-                    <span>Verified Audit</span>
+                    <span>Verified</span>
                   </div>
                 </div>
               </div>

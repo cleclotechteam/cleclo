@@ -115,7 +115,7 @@ export default function Sustainability() {
       description:
         "Our Hydrocarbon and Wet Cleaning systems are designed for effective, fabric-appropriate care. Solvent recovery and recycling processes help minimise waste and reduce discharge into the environment.",
       icon: RefreshCw,
-      badge: "Solvent Recovery & Eco-SOPs",
+      badge: "Lower Waste. Smarter Care.",
     },
     {
       number: "02",
@@ -124,7 +124,7 @@ export default function Sustainability() {
       description:
         "We use biodegradable and compostable packaging alternatives to reduce dependence on conventional single-use plastic.",
       icon: Leaf,
-      badge: "Zero Single-Use Plastic",
+      badge: "Less Plastic. Better Alternatives.",
     },
     {
       number: "03",
@@ -133,7 +133,7 @@ export default function Sustainability() {
       description:
         "Electric vehicles for pickup and delivery help reduce emissions across the Cleclo journey.",
       icon: Zap,
-      badge: "Zero-Emission Fleet",
+      badge: "Lower Emissions. Cleaner Mobility.",
     },
   ];
 
@@ -267,7 +267,7 @@ export default function Sustainability() {
                 A better clean shouldn’t come at a greater cost to the world around us.
               </p>
               <p className="text-xs sm:text-sm text-slate-300 mt-1">
-                Thoughtful eco-cleaning, zero single-use plastics &amp; electric fleet delivery.
+                Thoughtful care, responsible choices and a lighter footprint — at every step.
               </p>
             </div>
           </div>

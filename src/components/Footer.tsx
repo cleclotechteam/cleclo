@@ -221,7 +221,7 @@ export default function Footer() {
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-medium">
           <p>© 2026 Cleclo. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <span className="text-[#00B074] font-bold">India&apos;s Standardised Dry Cleaning Network</span>
+            <span className="text-[#00B074] font-bold">Building India’s Standard for Garment Care</span>
           </div>
         </div>
 
