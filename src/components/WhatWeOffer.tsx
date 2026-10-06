@@ -7,7 +7,6 @@ import { motion, AnimatePresence, useScroll } from "framer-motion";
 import {
   Shirt,
   Wind,
-  Crown,
   Check,
   CheckCircle2,
   ShieldCheck,
@@ -25,17 +24,15 @@ export default function WhatWeOffer() {
     offset: ["start start", "end end"],
   });
 
-  // Automatically update active service as the user scrolls down the page
+  // Automatically update active service as the user scrolls down the page (3 services)
   useEffect(() => {
     const unsubscribe = scrollYProgress.on("change", (latest) => {
-      if (latest < 0.25) {
+      if (latest < 0.33) {
         setActiveTab(0);
-      } else if (latest < 0.5) {
+      } else if (latest < 0.66) {
         setActiveTab(1);
-      } else if (latest < 0.75) {
-        setActiveTab(2);
       } else {
-        setActiveTab(3);
+        setActiveTab(2);
       }
     });
     return () => unsubscribe();
@@ -58,7 +55,7 @@ export default function WhatWeOffer() {
     if (containerRef.current) {
       const containerTop = containerRef.current.offsetTop;
       const containerHeight = containerRef.current.offsetHeight;
-      const targetScroll = containerTop + (index / 4) * containerHeight;
+      const targetScroll = containerTop + (index / 3) * containerHeight;
       window.scrollTo({
         top: targetScroll,
         behavior: "smooth",
@@ -123,25 +120,6 @@ export default function WhatWeOffer() {
         { name: "Occasion Wear", desc: "Delicate Finishing", color: "bg-purple-100 text-purple-700" },
       ],
     },
-    {
-      id: "premium-leather",
-      number: "04",
-      title: "Premium & Leather Care",
-      headline: "Luxury Designer Wear & Leather Restoration.",
-      description:
-        "Designer wear, leather and high-value items, with specialised handling and packaging.",
-      cta: "Explore Premium Care →",
-      protocolLabel: "PREMIUM CARE PROTOCOL",
-      priceLabel: "View Rates →",
-      icon: Crown,
-      iconColor: "#8B5CF6",
-      options: [
-        { name: "Pure Leather Jackets", desc: "Restoration & Conditioning Care", color: "bg-purple-100 text-purple-700" },
-        { name: "Couture & Designer Wear", desc: "Specialised Luxury Care", color: "bg-amber-100 text-amber-700" },
-        { name: "Designer Handbags & Footwear", desc: "Delicate Precision Care", color: "bg-sky-100 text-sky-700" },
-        { name: "Breathable Storage Packaging", desc: "Preservation & Protection Care", color: "bg-[#00B074]/10 text-[#00875A]" },
-      ],
-    },
   ];
 
   const currentService = services[activeTab];
@@ -150,7 +128,7 @@ export default function WhatWeOffer() {
     <section
       ref={containerRef}
       id="services"
-      className="relative bg-white min-h-[300vh] lg:min-h-[360vh] pb-8 lg:pb-16"
+      className="relative bg-white min-h-[220vh] lg:min-h-[260vh] pb-8 lg:pb-16"
     >
       {/* Sticky Container for Sticky Scroll Experience with Generous Bottom Padding */}
       <div className="sticky top-8 lg:top-12 h-[calc(100vh-3rem)] sm:h-[calc(100vh-4rem)] flex flex-col justify-between py-4 sm:py-6 pb-8 sm:pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -174,7 +152,7 @@ export default function WhatWeOffer() {
             {/* Step Counter Indicator */}
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-extrabold text-[#00B074] bg-[#00B074]/10 px-3 py-1 rounded-full border border-[#00B074]/20">
-                0{activeTab + 1} / 04
+                0{activeTab + 1} / 03
               </span>
               <span className="text-xs text-[#0A2B24]/50 font-medium hidden sm:inline">
                 (Scroll to switch services)
