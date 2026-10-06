@@ -71,68 +71,75 @@ export default function WhatWeOffer() {
       id: "dry-cleaning",
       number: "01",
       title: "Dry Cleaning",
-      headline: "Delicate treatment for formal wear & specialty fabrics.",
+      headline: "Precision Care for Every Garment",
       description:
-        "Delicate garments, formal wear and specialty fabrics, handled with fabric-specific protocols.",
-      price: "₹ 350.00",
+        "From everyday essentials to delicate occasion wear, every garment is handled through fabric-specific care protocols designed for a consistently better finish.",
+      cta: "Explore Dry Cleaning →",
+      protocolLabel: "DRY CLEANING PROTOCOL",
+      priceLabel: "View Rates →",
       icon: ShieldCheck,
       iconColor: "#00B074",
       options: [
-        { name: "Suits & Tuxedos", color: "bg-amber-100 text-amber-700" },
-        { name: "Silk Sarees & Lehengas", color: "bg-sky-100 text-sky-700" },
-        { name: "Woolen Trench Coats", color: "bg-purple-100 text-purple-700" },
-        { name: "Blazered Formals", color: "bg-emerald-100 text-emerald-700" },
+        { name: "Suits & Tuxedos", desc: "Structured Garment Care", color: "bg-amber-100 text-amber-700" },
+        { name: "Silk Sarees & Lehengas", desc: "Delicate Fabric Care", color: "bg-sky-100 text-sky-700" },
+        { name: "Woollens & Outerwear", desc: "Specialised Fibre Care", color: "bg-purple-100 text-purple-700" },
       ],
     },
     {
       id: "washing",
       number: "02",
       title: "Washing",
-      headline: "Everyday freshness, sorted by fabric & colour.",
+      headline: "Freshness, Carefully Standardised.",
       description:
-        "Everyday garments, sorted by fabric and colour, with standardised wash cycles and quality checks.",
-      price: "₹ 149.00 / kg",
+        "Everyday garments are sorted by fabric, colour and care requirement, then processed through controlled wash cycles for a clean, fresh and consistent finish.",
+      cta: "Explore Washing →",
+      protocolLabel: "WASH CARE PROTOCOL",
+      priceLabel: "View Rates →",
       icon: Shirt,
       iconColor: "#0284C7",
       options: [
-        { name: "Daily Cotton Shirts", color: "bg-sky-100 text-sky-700" },
-        { name: "Denims & Casual Wear", color: "bg-indigo-100 text-indigo-700" },
-        { name: "Bed Linens & Covers", color: "bg-[#00B074]/10 text-[#00875A]" },
-        { name: "Activewear & Sportswear", color: "bg-amber-100 text-amber-700" },
+        { name: "Cotton Shirts & T-Shirts", desc: "Everyday Fabric Care", color: "bg-sky-100 text-sky-700" },
+        { name: "Denims & Casual Wear", desc: "Colour & Fibre Care", color: "bg-indigo-100 text-indigo-700" },
+        { name: "Activewear & Sportswear", desc: "Performance Fabric Care", color: "bg-amber-100 text-amber-700" },
+        { name: "Bed Linen & Covers", desc: "Freshness & Hygiene Care", color: "bg-[#00B074]/10 text-[#00875A]" },
       ],
     },
     {
       id: "steam-ironing",
       number: "03",
       title: "Steam Ironing",
-      headline: "Professional pressing with fabric-safe finish.",
+      headline: "A Better Finish, Every Time.",
       description:
-        "Professional pressing with fabric-safe temperature control and consistent finishing.",
-      price: "₹ 25.00 / item",
+        "Professional steam finishing that helps restore crispness, shape and presentation — with temperature-controlled care suited to the garment.",
+      cta: "Explore Steam Ironing →",
+      protocolLabel: "STEAM FINISH PROTOCOL",
+      priceLabel: "View Rates →",
       icon: Wind,
       iconColor: "#EAB308",
       options: [
-        { name: "Crisp Formal Shirts", color: "bg-amber-100 text-amber-700" },
-        { name: "Trouser Crease Press", color: "bg-emerald-100 text-emerald-700" },
-        { name: "Kurtas & Jackets", color: "bg-sky-100 text-sky-700" },
-        { name: "Hanger Finish Packaging", color: "bg-purple-100 text-purple-700" },
+        { name: "Formal Shirts", desc: "Crisp Collar & Cuff Finish", color: "bg-amber-100 text-amber-700" },
+        { name: "Trousers & Creases", desc: "Sharp, Defined Finish", color: "bg-emerald-100 text-emerald-700" },
+        { name: "Kurtas & Jackets", desc: "Shape & Structure Care", color: "bg-sky-100 text-sky-700" },
+        { name: "Occasion Wear", desc: "Delicate Finishing", color: "bg-purple-100 text-purple-700" },
       ],
     },
     {
       id: "premium-leather",
       number: "04",
       title: "Premium & Leather Care",
-      headline: "Luxury designer wear & leather restoration.",
+      headline: "Luxury Designer Wear & Leather Restoration.",
       description:
         "Designer wear, leather and high-value items, with specialised handling and packaging.",
-      price: "Custom Quote",
+      cta: "Explore Premium Care →",
+      protocolLabel: "PREMIUM CARE PROTOCOL",
+      priceLabel: "View Rates →",
       icon: Crown,
       iconColor: "#8B5CF6",
       options: [
-        { name: "Pure Leather Jackets", color: "bg-purple-100 text-purple-700" },
-        { name: "Couture Bridal Wear", color: "bg-amber-100 text-amber-700" },
-        { name: "Designer Handbags", color: "bg-sky-100 text-sky-700" },
-        { name: "Breathable Storage Box", color: "bg-[#00B074]/10 text-[#00875A]" },
+        { name: "Pure Leather Jackets", desc: "Restoration & Conditioning Care", color: "bg-purple-100 text-purple-700" },
+        { name: "Couture & Designer Wear", desc: "Specialised Luxury Care", color: "bg-amber-100 text-amber-700" },
+        { name: "Designer Handbags & Footwear", desc: "Delicate Precision Care", color: "bg-sky-100 text-sky-700" },
+        { name: "Breathable Storage Packaging", desc: "Preservation & Protection Care", color: "bg-[#00B074]/10 text-[#00875A]" },
       ],
     },
   ];
@@ -205,13 +212,13 @@ export default function WhatWeOffer() {
           
           {/* LEFT: Clean Soft Backdrop + Floating App Screen + Official Cleclo Logo */}
           <div className="lg:col-span-6 relative">
-            <div className="bg-[#F3F4F3] rounded-[24px] sm:rounded-[40px] p-3 sm:p-8 relative overflow-hidden flex items-center justify-center min-h-[250px] xs:min-h-[280px] sm:min-h-[440px]">
+            <div className="bg-[#F3F4F3] rounded-[24px] sm:rounded-[40px] p-3 sm:p-8 relative overflow-hidden flex items-center justify-center min-h-[260px] xs:min-h-[290px] sm:min-h-[450px]">
               
               {/* Floating App Screen Card */}
               <div className="w-full max-w-[240px] xs:max-w-[270px] sm:max-w-[330px] bg-white rounded-[20px] sm:rounded-[28px] p-3.5 sm:p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-slate-100/80 relative z-10">
                 
                 {/* Official Cleclo Logo at Top (Positioned cleanly without overlap) */}
-                <div className="flex justify-center mb-3 sm:mb-5 pt-0.5">
+                <div className="flex justify-center mb-1.5 sm:mb-2 pt-0.5">
                   <Image
                     src="/cleclo-logo.png"
                     alt="Cleclo Logo"
@@ -223,7 +230,7 @@ export default function WhatWeOffer() {
                 </div>
 
                 <p className="text-[8px] sm:text-[10px] font-mono font-bold tracking-widest text-slate-400 uppercase text-center mb-2.5 sm:mb-4">
-                  GARMENT CARE PROTOCOL
+                  {currentService.protocolLabel}
                 </p>
 
                 {/* Dynamic Item Options List */}
@@ -239,15 +246,22 @@ export default function WhatWeOffer() {
                     {currentService.options.map((opt, i) => (
                       <div
                         key={i}
-                        className="flex items-center justify-between p-2 sm:p-3 rounded-xl bg-[#F8FAFC] border border-slate-100"
+                        className="flex items-center justify-between p-2 sm:p-2.5 rounded-xl bg-[#F8FAFC] border border-slate-100"
                       >
-                        <div className="flex items-center gap-2 sm:gap-3">
-                          <div className={`w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full ${opt.color.split(" ")[0]} flex items-center justify-center`}>
+                        <div className="flex items-center gap-2 sm:gap-2.5">
+                          <div className={`w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full ${opt.color.split(" ")[0]} flex items-center justify-center shrink-0 mt-0.5`}>
                             <Check className="w-2 h-2 sm:w-2.5 sm:h-2.5 stroke-[3]" />
                           </div>
-                          <span className="text-[10px] sm:text-xs font-semibold text-[#0A2B24]">
-                            {opt.name}
-                          </span>
+                          <div className="flex flex-col text-left">
+                            <span className="text-[10px] sm:text-xs font-bold text-[#0A2B24] leading-tight">
+                              {opt.name}
+                            </span>
+                            {opt.desc && (
+                              <span className="text-[8px] sm:text-[10px] font-medium text-slate-400 leading-tight mt-0.5">
+                                {opt.desc}
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -267,21 +281,21 @@ export default function WhatWeOffer() {
                 <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-[#00B074] text-white flex items-center justify-center mb-1 sm:mb-1.5 shadow-sm">
                   <CheckCircle2 className="w-4 h-4 sm:w-6 sm:h-6 stroke-[2.5]" />
                 </div>
-                <p className="text-[9px] sm:text-xs font-extrabold text-[#0A2B24] leading-tight">
-                  72h Standard
+                <p className="text-[9px] sm:text-xs font-extrabold text-[#0A2B24] leading-tight uppercase">
+                  72H STANDARD
                 </p>
                 <p className="text-[8px] sm:text-[10px] font-bold text-[#00875A] mt-0.5">
                   Verified Care
                 </p>
               </motion.div>
 
-              {/* Dark Teal Bottom Price Pill */}
+              {/* Dark Teal Bottom Booking Pill */}
               <div className="absolute bottom-2.5 left-2.5 right-2.5 sm:left-8 sm:right-8 z-20 bg-[#024B3C] text-white rounded-xl sm:rounded-2xl p-2.5 px-3.5 sm:p-3.5 sm:px-6 flex items-center justify-between shadow-lg">
                 <span className="text-[11px] sm:text-sm font-extrabold tracking-wide">
                   Book {currentService.title}
                 </span>
-                <span className="text-[11px] sm:text-sm font-mono font-bold text-[#D4F63D]">
-                  {currentService.price}
+                <span className="text-[11px] sm:text-sm font-bold text-[#D4F63D]">
+                  {currentService.priceLabel}
                 </span>
               </div>
 
@@ -325,7 +339,7 @@ export default function WhatWeOffer() {
                     href={downloadUrl}
                     className="inline-flex items-center justify-center bg-[#D4F63D] hover:bg-[#c5ea2c] text-[#0A2B24] font-extrabold text-xs sm:text-base px-6 py-2.5 sm:px-8 sm:py-3.5 rounded-full transition-all duration-200 shadow-[0_4px_14px_rgba(212,246,61,0.35)] hover:shadow-[0_6px_20px_rgba(212,246,61,0.5)] active:scale-95"
                   >
-                    Explore now
+                    {currentService.cta}
                   </Link>
                 </div>
 
@@ -334,8 +348,6 @@ export default function WhatWeOffer() {
           </div>
 
         </div>
-
-
 
       </div>
     </section>
