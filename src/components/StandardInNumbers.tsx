@@ -8,7 +8,7 @@ export default function StandardInNumbers() {
     {
       stepNumber: "01",
       stepLabel: "STEP 01",
-      metric: "72HRS",
+      metric: "72 HRS",
       title: "Standard turnaround",
       desc: "A defined pickup-to-delivery window, so you know when to expect your order.",
       icon: Clock,
