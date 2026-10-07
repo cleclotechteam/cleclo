@@ -210,7 +210,7 @@ export default function VendorSmarterWay() {
         </div>
 
         {/* Bottom Trust Badges Bar */}
-        <div className="p-4 sm:p-8 rounded-[24px] sm:rounded-[32px] bg-[#022B22] text-white border border-emerald-900 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-5 w-full overflow-hidden">
+        <div className="p-4 sm:p-8 rounded-[24px] sm:rounded-[32px] bg-[#00875A] text-white border border-[#00875A] shadow-2xl flex flex-col md:flex-row items-center justify-between gap-5 w-full overflow-hidden">
           
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 w-full md:w-auto min-w-0">
             {trustBadges.map((badge, idx) => {

@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Sparkles, CheckCircle2, Zap } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Star, CheckCircle2, Zap, Shirt, WashingMachine, Wind, Gem, ChevronRight } from "lucide-react";
 
 export default function VendorServicesWorkflows() {
   const [activeCard, setActiveCard] = useState<number>(0);
@@ -9,6 +10,8 @@ export default function VendorServicesWorkflows() {
   const categories = [
     {
       title: "Dry Clean",
+      hint: "Delicates, formal & specialty fabrics",
+      icon: Shirt,
       headline: "Enable professional dry-cleaning workflows for delicate garments, formal wear and specialty fabrics.",
       bullets: [
         "Configurable stain treatment workflows.",
@@ -18,6 +21,8 @@ export default function VendorServicesWorkflows() {
     },
     {
       title: "Washing",
+      hint: "Everyday garments, configurable cycles",
+      icon: WashingMachine,
       headline: "Enable standardized washing workflows for everyday garments with configurable processes across fabric types.",
       bullets: [
         "Fabric-wise and color-based wash segregation.",
@@ -27,6 +32,8 @@ export default function VendorServicesWorkflows() {
     },
     {
       title: "Steam Iron",
+      hint: "Pressing & finishing on a timer",
+      icon: Wind,
       headline: "Provide professional pressing and finishing services with controlled turnaround times.",
       bullets: [
         "Consistent finishing quality.",
@@ -36,6 +43,8 @@ export default function VendorServicesWorkflows() {
     },
     {
       title: "Premium Care",
+      hint: "Luxury, designer & high-value items",
+      icon: Gem,
       headline: "Enable premium-care workflows for luxury garments, designer wear and high-value items.",
       bullets: [
         "Specialized handling protocols.",
@@ -45,90 +54,137 @@ export default function VendorServicesWorkflows() {
     },
   ];
 
-  return (
-    <section className="py-16 sm:py-24 bg-[#022B22] text-white relative overflow-hidden">
-      
-      {/* Subtle Ambient Glow */}
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#00B074]/15 rounded-full blur-[140px] pointer-events-none -z-10" />
+  const active = categories[activeCard];
+  const ActiveIcon = active.icon;
 
+  return (
+    <section className="py-16 sm:py-24 bg-white border-t border-slate-100 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-[#D4F63D]" />
-            <span className="text-xs font-mono font-bold tracking-widest text-[#D4F63D] uppercase">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 mb-4">
+            <Star className="w-3.5 h-3.5 text-[#00875A] fill-current" />
+            <span className="text-xs font-mono font-bold tracking-widest text-[#00875A] uppercase">
               Services &amp; Workflows
             </span>
           </div>
 
-          <h2 className="font-display text-2xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight mb-4">
-            Services &amp; Standardised <br />
-            <span className="text-[#D4F63D]">Processing Categories</span>
+          <h2 className="font-display text-2xl sm:text-5xl font-extrabold tracking-tight text-[#022B22] leading-tight mb-3">
+            Services &amp; Standardised <br className="hidden sm:inline" />
+            <span className="text-[#00875A]">Processing Categories</span>
           </h2>
+          <p className="text-xs sm:text-base text-slate-600 leading-relaxed">
+            Pick the services your outlets offer. Each one runs on a standard, configurable workflow.
+          </p>
         </div>
 
-        {/* 4 Category Cards - Mobile Horizontal Scroll Rail / Desktop Grid */}
-        <div className="flex md:grid md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0 pb-4 sm:pb-0 mb-6 sm:mb-12">
-          {categories.map((item, idx) => {
-            const isActive = activeCard === idx;
-            return (
-              <div
-                key={idx}
-                onClick={() => setActiveCard(idx)}
-                onMouseEnter={() => setActiveCard(idx)}
-                className={`w-[80vw] max-w-[290px] md:w-full md:max-w-none shrink-0 md:shrink snap-center p-6 sm:p-8 rounded-[28px] sm:rounded-[32px] border backdrop-blur-md transition-all duration-300 flex flex-col justify-between cursor-pointer select-none min-h-[300px] ${
-                  isActive
-                    ? "bg-white/10 border-[#D4F63D] shadow-[0_12px_32px_rgba(212,246,61,0.15)] -translate-y-1"
-                    : "bg-white/5 border-white/10 hover:border-[#D4F63D]/40"
-                }`}
-              >
-                <div>
-                  <div className="inline-block text-xs font-mono font-extrabold tracking-widest text-[#D4F63D] uppercase px-3 py-1 rounded-md bg-white/10 border border-white/15 mb-4">
-                    CATEGORY {idx + 1}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8 items-stretch">
+
+          {/* Service selector: 2x2 grid on mobile, vertical list on desktop */}
+          <div className="lg:col-span-5 grid grid-cols-2 lg:grid-cols-1 gap-2.5 sm:gap-3" role="tablist">
+            {categories.map((item, idx) => {
+              const Icon = item.icon;
+              const isActive = activeCard === idx;
+              return (
+                <button
+                  key={item.title}
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => setActiveCard(idx)}
+                  onMouseEnter={() => setActiveCard(idx)}
+                  className={`relative text-left flex items-center gap-3 sm:gap-4 p-3 sm:p-5 rounded-2xl border transition-all duration-300 ${
+                    isActive
+                      ? "bg-[#F0F9F5] border-[#00875A] shadow-[0_10px_28px_rgba(0,135,90,0.12)]"
+                      : "bg-white border-slate-200 hover:border-[#00875A]/40 hover:bg-slate-50"
+                  }`}
+                >
+                  {/* Active accent bar (desktop) */}
+                  <span
+                    className={`hidden lg:block absolute left-0 top-4 bottom-4 w-1 rounded-r-full transition-colors ${
+                      isActive ? "bg-[#00875A]" : "bg-transparent"
+                    }`}
+                  />
+
+                  <div
+                    className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+                      isActive ? "bg-[#00875A] text-white" : "bg-emerald-50 text-[#00875A]"
+                    }`}
+                  >
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.1]" />
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight mb-3 font-display">
-                    {item.title}
-                  </h3>
+                  <div className="min-w-0 flex-1">
+                    <span className="hidden sm:block text-[10px] font-mono font-bold tracking-widest text-slate-400 uppercase">
+                      Category 0{idx + 1}
+                    </span>
+                    <span className="block font-display text-sm sm:text-lg font-extrabold text-[#022B22] leading-tight">
+                      {item.title}
+                    </span>
+                    <span className="hidden lg:block text-xs text-slate-500 mt-0.5 truncate">{item.hint}</span>
+                  </div>
 
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal mb-6">
-                    {item.headline}
+                  <ChevronRight
+                    className={`hidden lg:block w-5 h-5 shrink-0 transition-all ${
+                      isActive ? "text-[#00875A] translate-x-0.5" : "text-slate-300"
+                    }`}
+                  />
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Detail panel */}
+          <div className="lg:col-span-7">
+            <div className="h-full rounded-3xl border border-slate-200 bg-gradient-to-br from-[#F0F9F5] via-white to-white p-5 sm:p-10 relative overflow-hidden">
+              <div className="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-[#D4F63D]/20 blur-3xl pointer-events-none" />
+
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeCard}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.25 }}
+                  className="relative"
+                  role="tabpanel"
+                >
+                  <div className="flex items-center justify-between mb-5 sm:mb-6">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white border border-emerald-200 text-[#00875A] flex items-center justify-center shadow-sm">
+                      <ActiveIcon className="w-6 h-6 sm:w-7 sm:h-7 stroke-[2]" />
+                    </div>
+                    <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest text-[#00875A] bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full uppercase">
+                      Category 0{activeCard + 1} / 0{categories.length}
+                    </span>
+                  </div>
+
+                  <h3 className="font-display text-2xl sm:text-4xl font-extrabold text-[#022B22] tracking-tight mb-3">
+                    {active.title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-6 sm:mb-8 max-w-xl">
+                    {active.headline}
                   </p>
 
-                  <div className="space-y-3 pt-4 border-t border-white/10">
-                    {item.bullets.map((b, bIdx) => (
-                      <div key={bIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200">
-                        <CheckCircle2 className="w-4 h-4 text-[#D4F63D] shrink-0 mt-0.5" />
+                  <ul className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
+                    {active.bullets.map((b) => (
+                      <li
+                        key={b}
+                        className="flex sm:flex-col items-start gap-2.5 sm:gap-3 p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/80 text-xs sm:text-sm font-medium text-[#022B22] leading-snug"
+                      >
+                        <CheckCircle2 className="w-5 h-5 text-[#00875A] shrink-0" />
                         <span>{b}</span>
-                      </div>
+                      </li>
                     ))}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Mobile Rail Indicator Dots */}
-        <div className="flex items-center justify-center gap-1.5 md:hidden mb-8">
-          {categories.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setActiveCard(idx)}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                activeCard === idx
-                  ? "w-6 bg-[#D4F63D]"
-                  : "w-1.5 bg-white/20"
-              }`}
-              aria-label={`Go to slide ${idx + 1}`}
-            />
-          ))}
+                  </ul>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
         </div>
 
         {/* Bottom Note */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-white/10 border border-white/15 text-center flex items-center justify-center gap-2 text-xs sm:text-sm text-[#D4F63D] font-bold">
-          <Zap className="w-4 h-4 stroke-[2.5] shrink-0" />
+        <div className="mt-6 sm:mt-10 p-4 sm:p-5 rounded-2xl bg-[#F6FAEC] border border-[#D4F63D] flex items-center justify-center gap-2.5 text-xs sm:text-sm text-[#022B22] font-bold text-center">
+          <Zap className="w-4 h-4 stroke-[2.5] shrink-0 text-[#00875A]" />
           <span>Priority turnaround options can be configured across all service categories.</span>
         </div>
 

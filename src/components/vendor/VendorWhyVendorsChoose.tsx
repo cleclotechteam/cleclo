@@ -70,8 +70,8 @@ export default function VendorWhyVendorsChoose() {
           </p>
         </div>
 
-        {/* 6 Feature Cards - Mobile Horizontal Scroll Rail / Desktop Grid */}
-        <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0 pb-4 sm:pb-0 mb-6 sm:mb-12">
+        {/* 6 Feature Cards - Mobile 2-col Compact Grid / Desktop Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 mb-8 sm:mb-12">
           {features.map((item, idx) => {
             const Icon = item.icon;
             const isActive = activeCard === idx;
@@ -80,27 +80,27 @@ export default function VendorWhyVendorsChoose() {
                 key={idx}
                 onClick={() => setActiveCard(idx)}
                 onMouseEnter={() => setActiveCard(idx)}
-                className={`w-[78vw] max-w-[280px] md:w-full md:max-w-none shrink-0 md:shrink snap-center p-6 sm:p-7 rounded-[28px] border transition-all duration-300 flex flex-col justify-between group min-h-[260px] cursor-pointer select-none ${
+                className={`p-4 sm:p-7 rounded-2xl sm:rounded-[28px] border transition-all duration-300 flex flex-col justify-between group sm:min-h-[260px] cursor-pointer select-none ${
                   isActive
-                    ? "bg-white border-[#00875A] shadow-[0_12px_32px_rgba(0,135,90,0.12)] -translate-y-1"
+                    ? "bg-white border-[#00875A] shadow-[0_12px_32px_rgba(0,135,90,0.12)] sm:-translate-y-1"
                     : "bg-white border-slate-200/90 hover:border-[#00875A]"
                 }`}
               >
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-[#022B22] text-[#D4F63D] flex items-center justify-center mb-5 shadow-md group-hover:scale-110 transition-transform">
-                    <Icon className="w-6 h-6 stroke-[2.2]" />
+                  <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-emerald-50 text-[#00875A] border border-emerald-200/80 flex items-center justify-center mb-3 sm:mb-5 shadow-md group-hover:scale-110 transition-transform">
+                    <Icon className="w-4.5 h-4.5 sm:w-6 sm:h-6 stroke-[2.2]" />
                   </div>
 
-                  <h3 className="text-lg sm:text-xl font-extrabold text-[#022B22] tracking-tight mb-2.5 font-display group-hover:text-[#00875A] transition-colors">
+                  <h3 className="text-sm sm:text-xl font-extrabold text-[#022B22] tracking-tight leading-snug mb-1.5 sm:mb-2.5 font-display group-hover:text-[#00875A] transition-colors">
                     {item.title}
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                  <p className="text-[11px] sm:text-sm text-slate-600 leading-relaxed font-normal">
                     {item.desc}
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center gap-1.5 text-xs font-bold text-[#00875A]">
+                <div className="hidden sm:flex mt-6 pt-4 border-t border-slate-100 items-center gap-1.5 text-xs font-bold text-[#00875A]">
                   <CheckCircle2 className="w-4 h-4" />
                   <span>Cleclo Verified Advantage</span>
                 </div>
@@ -109,31 +109,15 @@ export default function VendorWhyVendorsChoose() {
           })}
         </div>
 
-        {/* Mobile Rail Indicator Dots */}
-        <div className="flex items-center justify-center gap-1.5 md:hidden mb-8">
-          {features.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setActiveCard(idx)}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                activeCard === idx
-                  ? "w-6 bg-[#00875A]"
-                  : "w-1.5 bg-slate-200"
-              }`}
-              aria-label={`Go to slide ${idx + 1}`}
-            />
-          ))}
-        </div>
-
         {/* Bottom Callout Box */}
-        <div className="p-5 sm:p-8 rounded-[24px] sm:rounded-[32px] bg-[#022B22] text-white border border-emerald-900 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        <div className="p-5 sm:p-8 rounded-[24px] sm:rounded-[32px] bg-[#00875A] text-white border border-[#00875A] shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <div className="flex items-center gap-3 text-left">
             <HeartHandshake className="w-7 h-7 sm:w-8 sm:h-8 text-[#D4F63D] shrink-0" />
             <div>
               <p className="font-extrabold text-xs sm:text-base text-white">
                 Join rapidly growing laundry and drycleaning vendor network who trust Cleclo.
               </p>
-              <p className="text-[11px] sm:text-xs text-slate-300 mt-0.5">
+              <p className="text-[11px] sm:text-xs text-white/85 mt-0.5">
                 Designed for long-term partnerships, not short-term transactions.
               </p>
             </div>

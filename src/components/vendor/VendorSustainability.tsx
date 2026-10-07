@@ -1,105 +1,13 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
-import { RefreshCw, Leaf, Zap, ArrowRight, CheckCircle2 } from "lucide-react";
+import { RefreshCw, Leaf, Zap, ArrowRight, Recycle } from "lucide-react";
 
-// Individual Word Scroll Illuminator Component for Desktop
-function WordIlluminator({
-  word,
-  index,
-  totalWords,
-  progress,
-  startPoint = 0.05,
-  endPoint = 0.45,
-  accentColor,
-}: {
-  word: string;
-  index: number;
-  totalWords: number;
-  progress: MotionValue<number>;
-  startPoint?: number;
-  endPoint?: number;
-  accentColor?: string;
-}) {
-  const step = (endPoint - startPoint) / totalWords;
-  const wordStart = startPoint + index * step;
-  const wordEnd = wordStart + step * 1.5;
-
-  const color = useTransform(
-    progress,
-    [wordStart, wordEnd],
-    [
-      "rgba(255, 255, 255, 0.22)",
-      accentColor || "rgba(255, 255, 255, 1.0)",
-    ]
-  );
-
-  return (
-    <motion.span style={{ color }} className="inline-block mr-[0.28em]">
-      {word}
-    </motion.span>
-  );
-}
-
-function ScrollTextReveal({
-  text,
-  progress,
-  className = "",
-  startPoint = 0.05,
-  endPoint = 0.45,
-  accentWords = [],
-  accentColor = "#D4F63D",
-}: {
-  text: string;
-  progress: MotionValue<number>;
-  className?: string;
-  startPoint?: number;
-  endPoint?: number;
-  accentWords?: string[];
-  accentColor?: string;
-}) {
-  const words = text.split(" ");
-
-  return (
-    <span className={className}>
-      {words.map((word, i) => {
-        const isAccent = accentWords.some((aw) =>
-          word.toLowerCase().includes(aw.toLowerCase())
-        );
-
-        return (
-          <WordIlluminator
-            key={i}
-            word={word}
-            index={i}
-            totalWords={words.length}
-            progress={progress}
-            startPoint={startPoint}
-            endPoint={endPoint}
-            accentColor={isAccent ? accentColor : "rgba(255, 255, 255, 1.0)"}
-          />
-        );
-      })}
-    </span>
-  );
-}
-
+// Vendor sustainability uses a light split layout with stacked pillar rows,
+// distinct from the customer site's dark scroll-illuminated version.
 export default function VendorSustainability() {
   const signupUrl = "#signup";
-  const [activeCard, setActiveCard] = useState<number>(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: headerRef,
-    offset: ["start 85%", "end 45%"],
-  });
-
-  const headlineText = "Better for your facility. Better for the environment.";
-  const descText =
-    "Cleclo empowers vendor partners with advanced solvent recovery processes, zero single-use plastic compostable packaging, and EV delivery fleets to build a more thoughtful standard for fabric care across India.";
 
   const pillars = [
     {
@@ -132,149 +40,89 @@ export default function VendorSustainability() {
   ];
 
   return (
-    <section
-      ref={containerRef}
-      id="sustainability"
-      className="py-16 sm:py-24 lg:py-32 bg-[#022B22] text-white relative overflow-hidden"
-    >
-      {/* Subtle Ambient Radial Lighting */}
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#00B074]/15 rounded-full blur-[140px] pointer-events-none -z-10" />
-      <div className="absolute bottom-0 left-1/3 w-[400px] h-[400px] bg-[#D4F63D]/10 rounded-full blur-[120px] pointer-events-none -z-10" />
-
-      {/* Tactile background grid matrix */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-10"
-        style={{
-          backgroundImage: "radial-gradient(circle, #ffffff 1.2px, transparent 1.2px)",
-          backgroundSize: "20px 20px",
-        }}
-      />
+    <section id="sustainability" className="py-16 sm:py-24 lg:py-28 bg-[#F6FAEC] relative overflow-hidden">
+      {/* Soft lime wash */}
+      <div className="absolute -top-32 -right-32 w-[420px] h-[420px] bg-[#D4F63D]/25 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Responsive Cinematic Scroll Illumination Effect for Mobile & Desktop */}
-        <div ref={headerRef} className="max-w-4xl mb-12 sm:mb-16 lg:mb-20">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 mb-6">
-            <span className="w-2 h-2 rounded-full bg-[#D4F63D] animate-pulse" />
-            <span className="text-xs font-mono font-bold tracking-widest text-[#D4F63D] uppercase">
-              ECO VENDOR STANDARDS
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+
+          {/* Left: heading + impact panel */}
+          <div className="lg:col-span-5 lg:sticky lg:top-28">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-[#00875A] text-white text-[11px] font-mono font-bold tracking-widest uppercase mb-5">
+              <Recycle className="w-3.5 h-3.5" />
+              Eco Vendor Standards
             </span>
+
+            <h2 className="font-display text-3xl sm:text-5xl font-extrabold tracking-tight text-[#022B22] leading-[1.1] mb-5">
+              Better for your facility.{" "}
+              <span
+                className="box-decoration-clone"
+                style={{ backgroundImage: "linear-gradient(transparent 62%, #D4F63D 62%, #D4F63D 92%, transparent 92%)" }}
+              >
+                Better for the environment.
+              </span>
+            </h2>
+
+            <p className="text-sm sm:text-lg text-slate-600 leading-relaxed mb-8">
+              Cleclo empowers vendor partners with advanced solvent recovery processes, zero single-use plastic
+              compostable packaging, and EV delivery fleets to build a more thoughtful standard for fabric care
+              across India.
+            </p>
+
+            <Link
+              href={signupUrl}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#00875A] hover:bg-[#006B47] text-white font-extrabold text-xs sm:text-sm px-7 py-4 rounded-xl transition-all duration-300 shadow-md group"
+            >
+              <span>See How Cleclo Works</span>
+              <ArrowRight className="w-4 h-4 text-[#D4F63D] transition-transform group-hover:translate-x-0.5" />
+            </Link>
           </div>
 
-          <h2 className="text-2xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] mb-6 font-display">
-            <ScrollTextReveal
-              text={headlineText}
-              progress={scrollYProgress}
-              startPoint={0.0}
-              endPoint={0.45}
-              accentWords={["environment."]}
-              accentColor="#D4F63D"
-            />
-          </h2>
-
-          <p className="text-xs sm:text-lg lg:text-xl font-normal leading-relaxed max-w-3xl">
-            <ScrollTextReveal
-              text={descText}
-              progress={scrollYProgress}
-              startPoint={0.35}
-              endPoint={0.95}
-              accentColor="#FFFFFF"
-            />
-          </p>
-        </div>
-
-        {/* 3 Pillar Cards - Mobile Horizontal Scroll Rail / Desktop Grid */}
-        <div className="flex sm:grid sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 overflow-x-auto sm:overflow-visible snap-x snap-mandatory sm:snap-none scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0 pb-4 sm:pb-0 mb-6 sm:mb-16">
-          {pillars.map((pillar, idx) => {
-            const Icon = pillar.icon;
-            const isActive = activeCard === idx;
-            return (
-              <div
-                key={pillar.number}
-                onClick={() => setActiveCard(idx)}
-                onMouseEnter={() => setActiveCard(idx)}
-                className={`w-[80vw] max-w-[285px] sm:w-full sm:max-w-none shrink-0 sm:shrink snap-center group relative p-6 sm:p-8 rounded-[28px] sm:rounded-[32px] border backdrop-blur-md transition-all duration-300 flex flex-col justify-between cursor-pointer select-none min-h-[300px] ${
-                  isActive
-                    ? "bg-white/10 border-[#D4F63D] shadow-[0_12px_32px_rgba(212,246,61,0.15)] -translate-y-1"
-                    : "bg-white/5 border-white/10 hover:border-[#D4F63D]/40"
-                }`}
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="w-12 h-12 rounded-2xl bg-[#00B074]/20 border border-[#00B074]/30 text-[#D4F63D] flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                      <Icon className="w-6 h-6 stroke-[2.2]" />
+          {/* Right: stacked pillar rows */}
+          <div className="lg:col-span-7">
+            <div className="rounded-2xl sm:rounded-3xl bg-white border border-[#022B22]/10 shadow-[0_10px_40px_rgba(2,43,34,0.06)] divide-y divide-slate-100 overflow-hidden">
+              {pillars.map((pillar) => {
+                const Icon = pillar.icon;
+                return (
+                  <div
+                    key={pillar.number}
+                    className="group flex gap-4 sm:gap-6 p-5 sm:p-8 hover:bg-[#FBFDF5] transition-colors"
+                  >
+                    <div className="flex flex-col items-center gap-2 shrink-0">
+                      <div className="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-[#D4F63D] text-[#022B22] flex items-center justify-center transition-transform group-hover:-rotate-6">
+                        <Icon className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.2]" />
+                      </div>
+                      <span className="text-[11px] font-mono font-bold text-slate-400">{pillar.number}</span>
                     </div>
 
-                    <span className="text-xs font-mono font-bold tracking-widest text-slate-400 bg-white/5 px-2.5 py-1 rounded-full border border-white/10">
-                      {pillar.number}
-                    </span>
+                    <div className="min-w-0">
+                      <span className="text-[10px] sm:text-[11px] font-mono font-bold tracking-widest text-[#00875A] uppercase">
+                        {pillar.category}
+                      </span>
+                      <h3 className="font-display text-lg sm:text-2xl font-extrabold text-[#022B22] tracking-tight mt-1 mb-2">
+                        {pillar.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3">
+                        {pillar.description}
+                      </p>
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#022B22] bg-[#F6FAEC] border border-[#D4F63D] px-2.5 py-1 rounded-md">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#00875A]" />
+                        {pillar.badge}
+                      </span>
+                    </div>
                   </div>
-
-                  <span className="inline-block text-[10px] font-mono font-bold tracking-widest text-[#D4F63D] uppercase px-2.5 py-1 rounded-md bg-white/10 border border-white/15 mb-3">
-                    {pillar.category}
-                  </span>
-
-                  <h3 className="text-lg sm:text-2xl font-extrabold text-white tracking-tight mb-3 group-hover:text-[#D4F63D] transition-colors font-display">
-                    {pillar.title}
-                  </h3>
-
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
-                    {pillar.description}
-                  </p>
-                </div>
-
-                <div className="mt-8 pt-5 border-t border-white/10 flex items-center justify-between">
-                  <span className="text-[11px] font-bold text-slate-400">
-                    {pillar.badge}
-                  </span>
-                  <CheckCircle2 className="w-4 h-4 text-[#D4F63D]" />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Mobile Rail Indicator Dots */}
-        <div className="flex items-center justify-center gap-1.5 sm:hidden mb-8">
-          {pillars.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setActiveCard(idx)}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                activeCard === idx
-                  ? "w-6 bg-[#D4F63D]"
-                  : "w-1.5 bg-white/20"
-              }`}
-              aria-label={`Go to pillar ${idx + 1}`}
-            />
-          ))}
-        </div>
-
-        {/* Bottom Banner Callout */}
-        <div className="p-6 sm:p-10 rounded-[28px] sm:rounded-[32px] bg-gradient-to-r from-white/10 via-white/5 to-white/10 border border-white/15 backdrop-blur-xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
-          <div className="flex items-center gap-4 text-center md:text-left">
-            <div className="w-12 h-12 rounded-2xl bg-[#D4F63D] text-[#022B22] flex items-center justify-center shrink-0 shadow-md font-extrabold text-xl">
-              ✓
+                );
+              })}
             </div>
-            <div className="text-left">
-              <p className="font-extrabold text-sm sm:text-xl text-white">
-                Empower your facility with eco-friendly dry cleaning standards.
-              </p>
-              <p className="text-xs sm:text-sm text-slate-300 mt-1">
-                Hydrocarbon recovery, compostable covers &amp; zero single-use plastic.
-              </p>
-            </div>
+
+            <p className="mt-5 text-xs sm:text-sm text-slate-500 flex items-center gap-2">
+              <Leaf className="w-4 h-4 text-[#00875A] shrink-0" />
+              Hydrocarbon recovery, compostable covers &amp; zero single-use plastic, supplied to every partner.
+            </p>
           </div>
 
-          <Link
-            href={signupUrl}
-            className="w-full md:w-auto shrink-0 inline-flex items-center justify-center gap-2.5 bg-[#D4F63D] hover:bg-[#c5ea2c] text-[#022B22] font-extrabold text-xs sm:text-sm px-8 py-4 rounded-full transition-all duration-300 shadow-[0_4px_16px_rgba(212,246,61,0.35)] hover:shadow-[0_8px_24px_rgba(212,246,61,0.5)] hover:scale-105 active:scale-95"
-          >
-            <span>See How Cleclo Works</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
         </div>
-
       </div>
     </section>
   );

@@ -65,7 +65,7 @@ export default function MobileDeviceVideo() {
     <div className="relative w-full max-w-[420px] aspect-[9/16] sm:h-[580px] flex items-center justify-center">
       
       {/* 3D Realistic Soft Studio Shadow underneath */}
-      <div className="absolute -bottom-8 w-3/4 h-12 bg-[#0A2B24]/20 rounded-full blur-2xl transform scale-y-50" />
+      <div className="absolute -bottom-8 w-3/4 h-12 bg-slate-900/20 rounded-full blur-2xl transform scale-y-50" />
       <div className="absolute -bottom-4 w-1/2 h-8 bg-emerald-950/25 rounded-full blur-xl transform scale-y-50" />
 
       {/* 3D Floating Isometric Phone Chassis (Pine Labs Reference Angle) */}
@@ -80,7 +80,7 @@ export default function MobileDeviceVideo() {
         <div className="absolute inset-0 rounded-[48px] border-[3px] border-[#D4F63D]/40 pointer-events-none" />
 
         {/* Outer Bezel */}
-        <div className="relative w-full h-full rounded-[40px] bg-[#0A261E] p-2.5 overflow-hidden flex flex-col shadow-inner">
+        <div className="relative w-full h-full rounded-[40px] bg-slate-900 p-2.5 overflow-hidden flex flex-col shadow-inner">
           
           {/* Inner OLED Display Screen */}
           <div className="relative w-full h-full rounded-[32px] bg-[#FBFDFB] overflow-hidden flex flex-col text-[#0A261E]">
@@ -106,7 +106,7 @@ export default function MobileDeviceVideo() {
                 {/* App Screen Header */}
                 <div className="flex items-center justify-between pb-3 border-b border-[#0A2B24]/10 mb-3">
                   <div className="flex items-center gap-1.5">
-                    <div className="w-6 h-6 rounded-lg bg-[#0A2B24] flex items-center justify-center text-[#D4F63D] text-[11px] font-bold">
+                    <div className="w-6 h-6 rounded-lg bg-[#00875A] flex items-center justify-center text-[#D4F63D] text-[11px] font-bold">
                       C
                     </div>
                     <span className="font-extrabold text-xs tracking-tight text-[#0A2B24]">
@@ -119,7 +119,7 @@ export default function MobileDeviceVideo() {
                 </div>
 
                 {/* Animated Order Tracker Card */}
-                <div className="p-3.5 rounded-2xl bg-gradient-to-br from-[#0A2B24] to-[#123E34] text-white shadow-lg mb-3.5 relative overflow-hidden">
+                <div className="p-3.5 rounded-2xl bg-gradient-to-br from-[#00875A] to-[#00B074] text-white shadow-lg mb-3.5 relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-24 h-24 bg-[#D4F63D]/10 rounded-full blur-xl pointer-events-none" />
                   
                   <div className="flex items-center justify-between text-[11px] mb-1.5 text-slate-300">

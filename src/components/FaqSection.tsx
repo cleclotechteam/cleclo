@@ -122,7 +122,7 @@ export default function FaqSection() {
 
                   <div
                     className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 ${
-                      isOpen ? "rotate-180 bg-[#0A2B24] text-white" : "bg-slate-100 text-slate-500"
+                      isOpen ? "rotate-180 bg-[#00875A] text-white" : "bg-slate-100 text-slate-500"
                     }`}
                   >
                     <ChevronDown className="w-4 h-4 stroke-[2.5]" />
@@ -150,7 +150,7 @@ export default function FaqSection() {
         </div>
 
         {/* Pine Labs Style App Download Banner */}
-        <div id="download" className="p-8 sm:p-12 rounded-[36px] bg-[#0A2B24] text-white relative overflow-hidden shadow-2xl">
+        <div id="download" className="p-8 sm:p-12 rounded-[36px] bg-[#00875A] text-white relative overflow-hidden shadow-2xl">
           {/* Ambient Glow */}
           <div className="absolute top-0 right-0 w-80 h-80 bg-[#00B074]/20 rounded-full blur-3xl pointer-events-none" />
 
@@ -163,7 +163,7 @@ export default function FaqSection() {
               Bookings live in the <span className="text-[#D4F63D]">Cleclo app.</span>
             </h3>
 
-            <p className="text-sm sm:text-base text-slate-300 font-normal leading-relaxed mb-8">
+            <p className="text-sm sm:text-base text-white/85 font-normal leading-relaxed mb-8">
               Live tracking, standard pricing and payments — all in one place, for every order you place.
             </p>
 

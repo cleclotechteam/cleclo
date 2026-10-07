@@ -80,10 +80,10 @@ export default function VendorHero() {
           </p>
         </div>
 
-        {/* Live Vendor Stats Bar (Matching Customer Site Bento Style - Mobile Rail / Desktop Grid) */}
-        <div className="flex md:grid md:grid-cols-3 gap-4 sm:gap-5 max-w-5xl mx-auto overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0 pb-4 sm:pb-0 mb-12 sm:mb-16">
+        {/* Live Vendor Stats Bar (Mobile Stack / Desktop Grid) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-5 max-w-5xl mx-auto mb-12 sm:mb-16">
           
-          <div className="w-[80vw] max-w-[280px] md:w-full md:max-w-none shrink-0 md:shrink snap-center p-5 sm:p-6 rounded-[28px] bg-white border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex items-center gap-4">
+          <div className="p-4 sm:p-6 rounded-2xl sm:rounded-[28px] bg-white border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex items-center gap-4">
             <div className="w-12 h-12 rounded-2xl bg-emerald-100/80 border border-emerald-200 text-[#00875A] flex items-center justify-center shrink-0">
               <TrendingUp className="w-6 h-6 stroke-[2.2]" />
             </div>
@@ -93,7 +93,7 @@ export default function VendorHero() {
             </div>
           </div>
 
-          <div className="w-[80vw] max-w-[280px] md:w-full md:max-w-none shrink-0 md:shrink snap-center p-5 sm:p-6 rounded-[28px] bg-white border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex items-center gap-4">
+          <div className="p-4 sm:p-6 rounded-2xl sm:rounded-[28px] bg-white border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex items-center gap-4">
             <div className="w-12 h-12 rounded-2xl bg-amber-100/80 border border-amber-200 text-amber-600 flex items-center justify-center shrink-0">
               <Star className="w-6 h-6 stroke-[2.2] fill-amber-500" />
             </div>
@@ -103,13 +103,13 @@ export default function VendorHero() {
             </div>
           </div>
 
-          <div className="w-[80vw] max-w-[280px] md:w-full md:max-w-none shrink-0 md:shrink snap-center p-5 sm:p-6 rounded-[28px] bg-[#022B22] text-white border border-emerald-900 shadow-xl flex items-center gap-4">
+          <div className="p-4 sm:p-6 rounded-2xl sm:rounded-[28px] bg-[#00875A] text-white border border-[#00875A] shadow-xl flex items-center gap-4">
             <div className="w-12 h-12 rounded-2xl bg-[#D4F63D] text-[#022B22] flex items-center justify-center shrink-0 font-extrabold">
               <Zap className="w-6 h-6 stroke-[2.5]" />
             </div>
             <div>
               <div className="text-xl sm:text-2xl font-extrabold font-display text-white">1 Unified Platform</div>
-              <p className="text-xs text-slate-300 font-medium">Orders, Deliveries &amp; Payments</p>
+              <p className="text-xs text-white/85 font-medium">Orders, Deliveries &amp; Payments</p>
             </div>
           </div>
 
@@ -130,7 +130,7 @@ export default function VendorHero() {
         </div>
 
         {/* Vendor Platform Interface Preview Card */}
-        <div className="max-w-5xl mx-auto rounded-[36px] bg-[#022B22] border border-emerald-800/80 p-6 sm:p-10 text-white shadow-2xl relative overflow-hidden group">
+        <div className="max-w-5xl mx-auto rounded-[36px] bg-[#00875A] border border-[#00875A] p-6 sm:p-10 text-white shadow-2xl relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-96 h-96 bg-[#00B074]/20 rounded-full blur-[120px] pointer-events-none" />
           
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8 relative z-10">
@@ -141,7 +141,7 @@ export default function VendorHero() {
               <h2 className="text-2xl sm:text-4xl font-extrabold font-display tracking-tight text-white mb-4">
                 Everything your laundry business needs to scale effortlessly.
               </h2>
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal mb-6">
+              <p className="text-sm sm:text-base text-white/85 leading-relaxed font-normal mb-6">
                 Connect your existing machines and store staff to Cleclo&apos;s intelligent vendor dashboard. Track customer pickups, order SOP stages, and automated payouts in real time.
               </p>
               
@@ -170,7 +170,7 @@ export default function VendorHero() {
                 🚀
               </div>
               <span className="text-lg font-bold text-white mb-1">Ready to Partner?</span>
-              <p className="text-xs text-slate-300 mb-4 max-w-[200px]">Join India&apos;s fastest growing laundry partner network.</p>
+              <p className="text-xs text-white/85 mb-4 max-w-[200px]">Join India&apos;s fastest growing laundry partner network.</p>
               
               <Link
                 href={signupUrl}

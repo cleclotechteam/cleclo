@@ -160,9 +160,9 @@ export default function VendorWhereWeOperate() {
         </div>
 
         {/* Bottom Callout */}
-        <div className="text-center p-6 sm:p-8 rounded-3xl bg-[#022B22] text-white">
+        <div className="text-center p-6 sm:p-8 rounded-3xl bg-[#00875A] text-white">
           <h3 className="text-lg sm:text-2xl font-extrabold font-display mb-2 text-white">Don&apos;t see your city listed?</h3>
-          <p className="text-xs sm:text-sm text-slate-300 mb-6">We launch new vendor hubs every month. Register your facility to be notified first.</p>
+          <p className="text-xs sm:text-sm text-white/85 mb-6">We launch new vendor hubs every month. Register your facility to be notified first.</p>
           <Link
             href={signupUrl}
             className="inline-flex items-center gap-2 bg-[#D4F63D] text-[#022B22] font-extrabold text-xs sm:text-sm px-7 py-3.5 rounded-full hover:bg-[#c5ea2c] transition-all shadow-md"

@@ -142,7 +142,7 @@ export default function VendorGettingStartedProcess() {
                   onClick={() => handleStepClick(index)}
                   className={`w-[85vw] max-w-[320px] sm:w-full shrink-0 sm:shrink snap-center transition-all duration-500 ease-out cursor-pointer p-6 sm:p-9 rounded-[32px] sm:rounded-[36px] border select-none sm:absolute sm:inset-x-0 ${
                     isCurrent
-                      ? "bg-[#022B22] text-white border-emerald-800 shadow-[0_20px_50px_rgba(2,43,34,0.3)] opacity-100 z-30 scale-100 sm:translate-y-0"
+                      ? "bg-[#00875A] text-white border-[#00875A] shadow-[0_20px_50px_rgba(2,43,34,0.3)] opacity-100 z-30 scale-100 sm:translate-y-0"
                       : isPassed
                       ? "bg-slate-100/90 text-slate-400 border-slate-200/80 shadow-sm opacity-90 z-10 scale-95 sm:-translate-y-6"
                       : "bg-white text-slate-400 border-slate-200/80 shadow-sm opacity-70 z-0 scale-90 sm:translate-y-6"
