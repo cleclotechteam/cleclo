@@ -6,7 +6,7 @@ import ToolFlipBook from "./ToolFlipBook";
 
 export default function VendorWhyChooseUs() {
   return (
-    <section id="features" className="py-16 sm:py-24 bg-gradient-to-b from-white via-[#FBF9F4] to-white relative overflow-hidden">
+    <section id="features" className="py-16 sm:py-24 bg-gradient-to-b from-white via-[#F0F9F5] to-white relative overflow-hidden">
       {/* Soft tri-colour glows */}
       <div className="absolute top-20 -left-24 w-72 h-72 rounded-full bg-emerald-200/30 blur-[110px] pointer-events-none" />
       <div className="absolute top-1/3 -right-24 w-72 h-72 rounded-full bg-sky-200/30 blur-[110px] pointer-events-none" />

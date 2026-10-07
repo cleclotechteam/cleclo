@@ -204,19 +204,19 @@ function Paper({ side, num, children }: { side: "left" | "right" | "single"; num
   const bindingOnRight = side === "left";
   return (
     <div
-      className={`relative h-full w-full overflow-hidden bg-[#FFFDF8] text-[#022B22] ${
+      className={`relative h-full w-full overflow-hidden bg-white text-[#022B22] ${
         side === "left" ? "rounded-l-[0.6em]" : side === "right" ? "rounded-r-[0.6em]" : "rounded-r-[0.6em]"
       }`}
     >
       <div
         className="absolute inset-0 opacity-70"
-        style={{ backgroundImage: "radial-gradient(#e8e1cf 0.08em, transparent 0.09em)", backgroundSize: "1.5em 1.5em" }}
+        style={{ backgroundImage: "radial-gradient(#E2E8F0 0.08em, transparent 0.09em)", backgroundSize: "1.5em 1.5em" }}
       />
       {/* binding shade */}
       <div
         className={`absolute top-0 bottom-0 w-[3em] pointer-events-none ${bindingOnRight ? "right-0" : "left-0"}`}
         style={{
-          background: `linear-gradient(${bindingOnRight ? "270deg" : "90deg"}, rgba(60,45,20,0.13), rgba(60,45,20,0) 100%)`,
+          background: `linear-gradient(${bindingOnRight ? "270deg" : "90deg"}, rgba(15,23,42,0.07), rgba(15,23,42,0) 100%)`,
         }}
       />
       <div className="relative h-full flex flex-col px-[2.2em] pt-[2em] pb-[2.4em]">{children}</div>
