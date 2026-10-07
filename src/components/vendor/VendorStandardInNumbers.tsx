@@ -2,11 +2,14 @@
 
 import React, { useState } from "react";
 import { Clock, ShieldCheck, Navigation, CreditCard, Activity, ArrowUpRight } from "lucide-react";
+import { useRail, RailDots, RAIL_BASE, RAIL_CARD } from "./MobileRail";
 
 // Vendor "In Numbers" is a dashboard-style KPI scorecard.
 // (The semicircle radial gauge is intentionally kept exclusive to the customer site.)
 export default function VendorStandardInNumbers() {
   const [activeTile, setActiveTile] = useState(0);
+  // on mobile the centred card in the swipe rail is the highlighted one
+  const { ref: railRef, index: railIndex, goTo: railGoTo } = useRail(4, setActiveTile);
 
   const kpis = [
     {
@@ -88,7 +91,7 @@ export default function VendorStandardInNumbers() {
         </div>
 
         {/* KPI Tiles: 1 col mobile, 2 col tablet, 4 col desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+        <div ref={railRef} className={`${RAIL_BASE} sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:gap-5 sm:overflow-visible sm:mx-0 sm:px-0 sm:pb-0`}>
           {kpis.map((kpi, idx) => {
             const Icon = kpi.icon;
             const isActive = activeTile === idx;
@@ -98,7 +101,7 @@ export default function VendorStandardInNumbers() {
                 key={kpi.label}
                 onMouseEnter={() => setActiveTile(idx)}
                 onClick={() => setActiveTile(idx)}
-                className={`relative rounded-2xl border p-5 sm:p-6 flex flex-col transition-all duration-300 cursor-pointer select-none ${
+                className={`${RAIL_CARD} sm:w-auto sm:max-w-none relative rounded-2xl border p-5 sm:p-6 flex flex-col transition-all duration-300 cursor-pointer select-none ${
                   isActive
                     ? "bg-[#00875A] border-[#00875A] text-white shadow-[0_18px_40px_rgba(2,43,34,0.25)]"
                     : "bg-white border-slate-200 text-[#022B22] hover:border-[#00875A]/50"
@@ -173,6 +176,7 @@ export default function VendorStandardInNumbers() {
             );
           })}
         </div>
+        <RailDots count={kpis.length} index={railIndex} onSelect={railGoTo} className="sm:hidden mt-2" />
 
       </div>
     </section>

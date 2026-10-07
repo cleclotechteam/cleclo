@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import TopologyField from "./TopologyField";
 import {
   TrendingUp,
   Cpu,
@@ -49,8 +50,11 @@ export default function VendorWhyVendorsChoose() {
   ];
 
   return (
-    <section className="py-16 sm:py-24 bg-slate-50/70 relative overflow-hidden border-t border-slate-200/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 sm:py-24 bg-[#F8FAFC] relative overflow-hidden border-t border-slate-200/80">
+      {/* Rotating vendor-network topology in the background */}
+      <TopologyField background="#F8FAFC" ink="#00875A" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
@@ -82,8 +86,8 @@ export default function VendorWhyVendorsChoose() {
                 onMouseEnter={() => setActiveCard(idx)}
                 className={`p-4 sm:p-7 rounded-2xl sm:rounded-[28px] border transition-all duration-300 flex flex-col justify-between group sm:min-h-[260px] cursor-pointer select-none ${
                   isActive
-                    ? "bg-white border-[#00875A] shadow-[0_12px_32px_rgba(0,135,90,0.12)] sm:-translate-y-1"
-                    : "bg-white border-slate-200/90 hover:border-[#00875A]"
+                    ? "bg-white/85 backdrop-blur-sm border-[#00875A] shadow-[0_12px_32px_rgba(0,135,90,0.12)] sm:-translate-y-1"
+                    : "bg-white/70 backdrop-blur-sm border-slate-200/90 hover:border-[#00875A]"
                 }`}
               >
                 <div>

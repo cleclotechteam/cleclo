@@ -2,9 +2,13 @@
 
 import React, { useState } from "react";
 import { ShieldCheck, CheckCircle2, Award } from "lucide-react";
+import EmeraldHorizon from "./EmeraldHorizon";
+import { useRail, RailDots, RAIL_BASE, RAIL_CARD } from "./MobileRail";
 
 export default function VendorTrustSafety() {
   const [activeCard, setActiveCard] = useState<number>(0);
+  // on mobile the centred card in the swipe rail is the highlighted one
+  const { ref: railRef, index: railIndex, goTo: railGoTo } = useRail(3, setActiveCard);
 
   const steps = [
     {
@@ -26,7 +30,10 @@ export default function VendorTrustSafety() {
 
   return (
     <section className="py-16 sm:py-24 bg-white relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Emerald glow rising from a moving horizon */}
+      <EmeraldHorizon />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
@@ -47,7 +54,7 @@ export default function VendorTrustSafety() {
         </div>
 
         {/* 3 Step Verification Cards - Mobile Stack / Desktop Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-6 mb-8 sm:mb-12">
+        <div ref={railRef} className={`${RAIL_BASE} md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:mx-0 md:px-0 md:pb-0 md:mb-12`}>
           {steps.map((step, idx) => {
             const isActive = activeCard === idx;
             return (
@@ -55,7 +62,7 @@ export default function VendorTrustSafety() {
                 key={idx}
                 onClick={() => setActiveCard(idx)}
                 onMouseEnter={() => setActiveCard(idx)}
-                className={`p-5 sm:p-8 rounded-2xl sm:rounded-[32px] border flex flex-col justify-between transition-all duration-300 md:min-h-[260px] cursor-pointer select-none ${
+                className={`${RAIL_CARD} md:w-auto md:max-w-none p-5 sm:p-8 rounded-2xl sm:rounded-[32px] border flex flex-col justify-between transition-all duration-300 md:min-h-[260px] cursor-pointer select-none ${
                   isActive
                     ? "bg-white border-[#00875A] shadow-[0_12px_30px_rgba(0,135,90,0.12)] md:-translate-y-1"
                     : "bg-slate-50/80 border-slate-200/80 hover:bg-white hover:border-[#00875A]"
@@ -83,6 +90,8 @@ export default function VendorTrustSafety() {
             );
           })}
         </div>
+
+        <RailDots count={steps.length} index={railIndex} onSelect={railGoTo} className="md:hidden mt-2 mb-8" />
 
         {/* Impact Callout Pill */}
         <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-center flex items-center justify-center gap-2.5 text-xs sm:text-sm text-[#00875A] font-extrabold shadow-sm">

@@ -3,12 +3,14 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, UserPlus, Settings2, Inbox, Wallet } from "lucide-react";
+import { useRail, RailDots, RAIL_BASE, RAIL_CARD } from "./MobileRail";
 
 // Vendor onboarding shown as a connected timeline:
 // vertical stepper on mobile, horizontal track on desktop.
 export default function VendorHowItWorks() {
   const signupUrl = "#signup";
   const [activeStep, setActiveStep] = useState<number>(0);
+  const { ref: railRef, index: railIndex, goTo: railGoTo } = useRail<HTMLOListElement>(4);
 
   const steps = [
     {
@@ -132,38 +134,47 @@ export default function VendorHowItWorks() {
           </div>
         </div>
 
-        {/* ===== Mobile / tablet: vertical stepper ===== */}
-        <ol className="lg:hidden relative">
-          {steps.map((step, idx) => {
-            const Icon = step.icon;
-            const isLast = idx === steps.length - 1;
-            return (
-              <li key={step.num} className="relative flex gap-4 sm:gap-6 pb-8 last:pb-0">
-                {/* Connector line */}
-                {!isLast && (
-                  <span className="absolute left-[21px] sm:left-[25px] top-12 sm:top-14 bottom-0 w-0.5 bg-gradient-to-b from-[#00875A] to-[#00875A]/15" />
-                )}
+        {/* ===== Mobile / tablet: left-to-right step rail ===== */}
+        <div className="lg:hidden">
+          <ol ref={railRef} className={`${RAIL_BASE} sm:gap-4`}>
+            {steps.map((step, idx) => {
+              const Icon = step.icon;
+              const isLast = idx === steps.length - 1;
+              return (
+                <li
+                  key={step.num}
+                  className={`${RAIL_CARD} sm:w-[46vw] sm:max-w-[340px] rounded-2xl bg-white border border-slate-200 shadow-[0_8px_24px_rgba(15,23,42,0.05)] p-5 flex flex-col`}
+                >
+                  {/* Step marker with a connector pointing to the next step */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-11 h-11 rounded-full bg-[#00875A] text-white border-4 border-[#EAF7D0] flex items-center justify-center shrink-0">
+                      <Icon className="w-4.5 h-4.5 stroke-[2.3]" />
+                    </div>
+                    <span className="text-[10px] font-mono font-bold text-[#00875A] tracking-widest shrink-0">
+                      STEP {step.num}
+                    </span>
+                    {!isLast ? (
+                      <span className="flex-1 h-0.5 rounded-full bg-gradient-to-r from-[#00875A] to-[#00875A]/10" />
+                    ) : (
+                      <span className="ml-auto text-[10px] font-mono font-bold text-slate-400">DONE ✓</span>
+                    )}
+                  </div>
 
-                <div className="w-11 h-11 sm:w-[52px] sm:h-[52px] rounded-full bg-[#00875A] text-white border-4 border-[#EAF7D0] flex items-center justify-center shrink-0 relative z-10">
-                  <Icon className="w-4.5 h-4.5 sm:w-5 sm:h-5 stroke-[2.3]" />
-                </div>
-
-                <div className="pt-1 min-w-0">
-                  <span className="text-[10px] sm:text-xs font-mono font-bold text-[#00875A] tracking-widest">
-                    STEP {step.num}
-                  </span>
-                  <h3 className="font-display text-lg sm:text-xl font-extrabold text-[#022B22] tracking-tight mt-0.5 mb-1.5">
+                  <h3 className="font-display text-lg font-extrabold text-[#022B22] tracking-tight mb-1.5">
                     {step.title}
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">{step.caption}</p>
-                  <span className="inline-block mt-3 text-[11px] font-bold px-2.5 py-1 rounded-md bg-[#F4F7F2] text-[#022B22] border border-slate-200">
-                    {step.detail}
+                  <span className="self-start mt-auto pt-3">
+                    <span className="inline-block text-[11px] font-bold px-2.5 py-1 rounded-md bg-[#F4F7F2] text-[#022B22] border border-slate-200">
+                      {step.detail}
+                    </span>
                   </span>
-                </div>
-              </li>
-            );
-          })}
-        </ol>
+                </li>
+              );
+            })}
+          </ol>
+          <RailDots count={steps.length} index={railIndex} onSelect={railGoTo} className="mt-2" />
+        </div>
 
       </div>
     </section>

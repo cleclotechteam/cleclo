@@ -3,11 +3,13 @@
 import React from "react";
 import Link from "next/link";
 import { RefreshCw, Leaf, Zap, ArrowRight, Recycle } from "lucide-react";
+import { useRail, RailDots, RAIL_BASE, RAIL_CARD } from "./MobileRail";
 
 // Vendor sustainability uses a light split layout with stacked pillar rows,
 // distinct from the customer site's dark scroll-illuminated version.
 export default function VendorSustainability() {
   const signupUrl = "#signup";
+  const { ref: railRef, index: railIndex, goTo: railGoTo } = useRail(3);
 
   const pillars = [
     {
@@ -81,13 +83,17 @@ export default function VendorSustainability() {
 
           {/* Right: stacked pillar rows */}
           <div className="lg:col-span-7">
-            <div className="rounded-2xl sm:rounded-3xl bg-white border border-[#022B22]/10 shadow-[0_10px_40px_rgba(2,43,34,0.06)] divide-y divide-slate-100 overflow-hidden">
+            {/* Mobile: swipe rail of separate cards. sm+: one stacked panel with dividers. */}
+            <div
+              ref={railRef}
+              className={`${RAIL_BASE} sm:block sm:overflow-hidden sm:mx-0 sm:px-0 sm:pb-0 sm:gap-0 sm:rounded-3xl sm:bg-white sm:border sm:border-[#022B22]/10 sm:shadow-[0_10px_40px_rgba(2,43,34,0.06)] sm:divide-y sm:divide-slate-100`}
+            >
               {pillars.map((pillar) => {
                 const Icon = pillar.icon;
                 return (
                   <div
                     key={pillar.number}
-                    className="group flex gap-4 sm:gap-6 p-5 sm:p-8 hover:bg-[#FBFDF5] transition-colors"
+                    className={`${RAIL_CARD} sm:w-auto sm:max-w-none rounded-2xl sm:rounded-none bg-white border border-[#022B22]/10 sm:border-0 shadow-[0_8px_24px_rgba(2,43,34,0.06)] sm:shadow-none group flex gap-4 sm:gap-6 p-5 sm:p-8 hover:bg-[#FBFDF5] transition-colors`}
                   >
                     <div className="flex flex-col items-center gap-2 shrink-0">
                       <div className="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-[#D4F63D] text-[#022B22] flex items-center justify-center transition-transform group-hover:-rotate-6">
@@ -115,6 +121,7 @@ export default function VendorSustainability() {
                 );
               })}
             </div>
+            <RailDots count={pillars.length} index={railIndex} onSelect={railGoTo} className="sm:hidden mt-2" />
 
             <p className="mt-5 text-xs sm:text-sm text-slate-500 flex items-center gap-2">
               <Leaf className="w-4 h-4 text-[#00875A] shrink-0" />
