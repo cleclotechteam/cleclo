@@ -121,7 +121,7 @@ export default function StandardInNumbers() {
     <div ref={containerRef} className="relative h-[240vh]">
       
       {/* Sticky Content Wrapper pinned while user scrolls */}
-      <div className="sticky top-0 h-screen flex flex-col justify-center bg-[#FFFFFF] overflow-hidden">
+      <div className="sticky top-0 h-screen flex flex-col justify-center sm:pt-20 bg-[#FFFFFF] overflow-hidden">
         
         {/* Dynamic ambient background glow that matches active step color */}
         <div
@@ -133,7 +133,7 @@ export default function StandardInNumbers() {
           {/* ========================================================================= */}
           {/* Section Header */}
           {/* ========================================================================= */}
-          <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-14 px-2">
+          <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-8 lg:mb-10 px-2">
             <h2 className="font-display text-2xl sm:text-4xl lg:text-[2.75rem] font-extrabold tracking-tight text-[#022B22] uppercase leading-[1.1]">
               THE CLECLO STANDARD, <br />
               <span
@@ -149,19 +149,18 @@ export default function StandardInNumbers() {
           </div>
 
           {/* ========================================================================= */}
-          {/* Semi-Circular Radial Arc Stepper Component */}
+          {/* Semi-Circular Radial Arc Stepper — MOBILE (< 640px).                       */}
+          {/* Kept separate from desktop so tuning one never disturbs the other.         */}
           {/* ========================================================================= */}
-          <div className="relative max-w-3xl mx-auto flex flex-col items-center select-none w-full">
-            
-            {/* SVG Radial Gauge Arc & Enclosed Center Content (Zoomed & Scaled on Mobile) */}
-            <div className="relative w-full max-w-[700px] aspect-[2/1.35] xs:aspect-[2/1.25] sm:aspect-[2/1.05] flex items-center justify-center overflow-visible scale-[1.12] xs:scale-105 sm:scale-100 origin-center transition-transform duration-300">
+          <div className="sm:hidden relative max-w-3xl mx-auto flex flex-col items-center select-none w-full">
+            <div className="relative w-full max-w-[700px] aspect-[2/1.35] xs:aspect-[2/1.25] flex items-center justify-center overflow-visible scale-[1.12] xs:scale-105 origin-center transition-transform duration-300">
               <svg
                 viewBox="0 0 700 370"
                 className="w-full h-full overflow-visible drop-shadow-sm"
               >
                 <defs>
                   {/* Dynamic Color Glow Filter */}
-                  <filter id="arcStepGlow" x="-30%" y="-30%" width="160%" height="160%">
+                  <filter id="arcStepGlow-m" x="-30%" y="-30%" width="160%" height="160%">
                     <feDropShadow
                       dx="0"
                       dy="0"
@@ -170,7 +169,7 @@ export default function StandardInNumbers() {
                       floodOpacity="0.65"
                     />
                   </filter>
-                  <linearGradient id="arcColorGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <linearGradient id="arcColorGradient-m" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stopColor={currentTheme.stop1} />
                     <stop offset="100%" stopColor={currentTheme.stop2} />
                   </linearGradient>
@@ -190,82 +189,182 @@ export default function StandardInNumbers() {
                 <path
                   d="M 50 350 A 300 300 0 0 1 650 350"
                   fill="none"
-                  stroke="url(#arcColorGradient)"
+                  stroke="url(#arcColorGradient-m)"
                   strokeWidth="6.5"
                   strokeDasharray={`${segmentLength} ${arcLength}`}
                   strokeDashoffset={strokeOffset}
                   strokeLinecap="round"
-                  filter="url(#arcStepGlow)"
+                  filter="url(#arcStepGlow-m)"
                   className="transition-all duration-700 ease-out"
                 />
               </svg>
 
-              {/* Step Pill Floating Above Arc Apex (Adjusted slightly lower and larger for mobile clearance) */}
-              <div className="absolute top-[6px] xs:top-[8px] sm:top-[-2px] left-1/2 -translate-x-1/2 z-20">
+              {/* Step Pill Floating Above Arc Apex */}
+              <div className="absolute top-[6px] xs:top-[8px] left-1/2 -translate-x-1/2 z-20">
                 <span
-                  className={`inline-flex items-center gap-1.5 px-4 py-1 sm:px-5 sm:py-1.5 rounded-full border-2 ${currentTheme.pill} text-xs sm:text-sm font-black tracking-widest uppercase font-mono transition-all duration-500 shadow-lg bg-white backdrop-blur-sm`}
+                  className={`inline-flex items-center gap-1.5 px-4 py-1 rounded-full border-2 ${currentTheme.pill} text-xs font-black tracking-widest uppercase font-mono transition-all duration-500 shadow-lg bg-white backdrop-blur-sm`}
                 >
                   {steps[activeStep].stepLabel}
                 </span>
               </div>
 
               {/* Center Content Enclosed Inside Middle/Bottom of Semicircle Arc */}
-              <div className="absolute top-[48%] xs:top-[52%] sm:top-[54%] lg:top-[56%] left-1/2 -translate-x-1/2 text-center flex flex-col items-center w-full max-w-[240px] xs:max-w-[280px] sm:max-w-md px-2 z-10">
-                
-                {/* Metric Display (e.g. 72HRS, EVERY ORDER) */}
+              <div className="absolute top-[48%] xs:top-[52%] left-1/2 -translate-x-1/2 text-center flex flex-col items-center w-full max-w-[240px] xs:max-w-[280px] px-2 z-10">
                 <div
-                  className={`text-2xl xs:text-3xl sm:text-5xl lg:text-[4.25rem] font-black tracking-tight ${currentTheme.metricColor} font-display mb-1 xs:mb-1.5 sm:mb-3 drop-shadow-sm transition-all duration-500 scale-100 leading-none`}
+                  className={`text-2xl xs:text-3xl font-black tracking-tight ${currentTheme.metricColor} font-display mb-1 xs:mb-1.5 drop-shadow-sm transition-all duration-500 scale-100 leading-none`}
                 >
                   {steps[activeStep].metric}
                 </div>
-
-                {/* Title */}
-                <h3 className="text-sm xs:text-base sm:text-2xl font-black text-[#022B22] tracking-tight font-display mb-0.5 xs:mb-1 sm:mb-2 leading-tight">
+                <h3 className="text-sm xs:text-base font-black text-[#022B22] tracking-tight font-display mb-0.5 xs:mb-1 leading-tight">
                   {steps[activeStep].title}
                 </h3>
-
-                {/* Description */}
-                <p className="text-[10px] xs:text-[12px] sm:text-sm text-slate-500 leading-tight sm:leading-relaxed font-normal max-w-[200px] xs:max-w-[240px] sm:max-w-sm">
+                <p className="text-[10px] xs:text-[12px] text-slate-500 leading-tight font-normal max-w-[200px] xs:max-w-[240px]">
                   {steps[activeStep].desc}
                 </p>
-
               </div>
             </div>
 
             {/* Step Navigation Controls & Dots */}
-            <div className="flex items-center gap-4 sm:gap-5 mt-2 xs:mt-3 sm:mt-7 relative z-20">
+            <div className="flex items-center gap-4 mt-2 xs:mt-3 relative z-20">
               <button
                 onClick={() => setActiveStep((prev) => (prev - 1 + steps.length) % steps.length)}
-                className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white border border-slate-200 text-slate-600 hover:text-[#022B22] hover:border-slate-400 flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow active:scale-95 shrink-0"
+                className="w-8 h-8 rounded-full bg-white border border-slate-200 text-slate-600 hover:text-[#022B22] hover:border-slate-400 flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow active:scale-95 shrink-0"
                 aria-label="Previous step"
               >
-                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+                <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
               </button>
-
-              <div className="flex items-center gap-2 sm:gap-2.5">
+              <div className="flex items-center gap-2">
                 {steps.map((step, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveStep(idx)}
-                    className={`h-2 sm:h-2.5 rounded-full transition-all duration-400 ${
+                    className={`h-2 rounded-full transition-all duration-400 ${
                       activeStep === idx
-                        ? `w-6 sm:w-9 ${step.theme.dotActive} shadow-md`
-                        : "w-2 sm:w-2.5 bg-slate-200 hover:bg-slate-300"
+                        ? `w-6 ${step.theme.dotActive} shadow-md`
+                        : "w-2 bg-slate-200 hover:bg-slate-300"
                     }`}
                     aria-label={`Jump to step ${idx + 1}`}
                   />
                 ))}
               </div>
-
               <button
                 onClick={() => setActiveStep((prev) => (prev + 1) % steps.length)}
-                className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white border border-slate-200 text-[#022B22] hover:border-slate-400 flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow active:scale-95 shrink-0"
+                className="w-8 h-8 rounded-full bg-white border border-slate-200 text-[#022B22] hover:border-slate-400 flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow active:scale-95 shrink-0"
                 aria-label="Next step"
               >
-                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+                <ChevronRight className="w-4 h-4 stroke-[2.5]" />
               </button>
             </div>
+          </div>
 
+          {/* ========================================================================= */}
+          {/* Semi-Circular Radial Arc Stepper — DESKTOP / LAPTOP (>= 640px)              */}
+          {/* ========================================================================= */}
+          <div className="hidden sm:flex relative max-w-3xl mx-auto flex-col items-center select-none w-full">
+            <div className="relative w-full max-w-[700px] aspect-[2/1.05] flex items-center justify-center overflow-visible">
+              <svg
+                viewBox="0 0 700 370"
+                className="w-full h-full overflow-visible drop-shadow-sm"
+              >
+                <defs>
+                  {/* Dynamic Color Glow Filter */}
+                  <filter id="arcStepGlow-d" x="-30%" y="-30%" width="160%" height="160%">
+                    <feDropShadow
+                      dx="0"
+                      dy="0"
+                      stdDeviation="6"
+                      floodColor={currentTheme.glow}
+                      floodOpacity="0.65"
+                    />
+                  </filter>
+                  <linearGradient id="arcColorGradient-d" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor={currentTheme.stop1} />
+                    <stop offset="100%" stopColor={currentTheme.stop2} />
+                  </linearGradient>
+                </defs>
+
+                {/* Background Full Semi-Circle Dashed Track */}
+                <path
+                  d="M 50 350 A 300 300 0 0 1 650 350"
+                  fill="none"
+                  stroke="#E2E8F0"
+                  strokeWidth="2.5"
+                  strokeDasharray="6, 8"
+                  strokeLinecap="round"
+                />
+
+                {/* Active Glowing Arc Segment */}
+                <path
+                  d="M 50 350 A 300 300 0 0 1 650 350"
+                  fill="none"
+                  stroke="url(#arcColorGradient-d)"
+                  strokeWidth="6.5"
+                  strokeDasharray={`${segmentLength} ${arcLength}`}
+                  strokeDashoffset={strokeOffset}
+                  strokeLinecap="round"
+                  filter="url(#arcStepGlow-d)"
+                  className="transition-all duration-700 ease-out"
+                />
+              </svg>
+
+              {/* Step Pill Floating Above Arc Apex */}
+              <div className="absolute top-[-2px] left-1/2 -translate-x-1/2 z-20">
+                <span
+                  className={`inline-flex items-center gap-1.5 px-5 py-1.5 rounded-full border-2 ${currentTheme.pill} text-sm font-black tracking-widest uppercase font-mono transition-all duration-500 shadow-lg bg-white backdrop-blur-sm`}
+                >
+                  {steps[activeStep].stepLabel}
+                </span>
+              </div>
+
+              {/* Center content sits inside the arc: metric stays on ONE line and is sized
+                  to the arc's inner width, so long metrics like "EVERY ORDER" never wrap
+                  down into the controls. */}
+              <div className="absolute top-[38%] left-1/2 -translate-x-1/2 text-center flex flex-col items-center w-[78%] z-10">
+                <div
+                  className={`whitespace-nowrap text-[2.75rem] md:text-5xl lg:text-[3.5rem] font-black tracking-tight ${currentTheme.metricColor} font-display mb-3 drop-shadow-sm transition-all duration-500 leading-none`}
+                >
+                  {steps[activeStep].metric}
+                </div>
+                <h3 className="text-xl lg:text-2xl font-black text-[#022B22] tracking-tight font-display mb-2 leading-tight">
+                  {steps[activeStep].title}
+                </h3>
+                <p className="text-sm text-slate-500 leading-relaxed font-normal max-w-sm">
+                  {steps[activeStep].desc}
+                </p>
+              </div>
+            </div>
+
+            {/* Step Navigation Controls & Dots */}
+            <div className="flex items-center gap-5 mt-6 relative z-20">
+              <button
+                onClick={() => setActiveStep((prev) => (prev - 1 + steps.length) % steps.length)}
+                className="w-10 h-10 rounded-full bg-white border border-slate-200 text-slate-600 hover:text-[#022B22] hover:border-slate-400 flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow active:scale-95 shrink-0"
+                aria-label="Previous step"
+              >
+                <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+              </button>
+              <div className="flex items-center gap-2.5">
+                {steps.map((step, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveStep(idx)}
+                    className={`h-2.5 rounded-full transition-all duration-400 ${
+                      activeStep === idx
+                        ? `w-9 ${step.theme.dotActive} shadow-md`
+                        : "w-2.5 bg-slate-200 hover:bg-slate-300"
+                    }`}
+                    aria-label={`Jump to step ${idx + 1}`}
+                  />
+                ))}
+              </div>
+              <button
+                onClick={() => setActiveStep((prev) => (prev + 1) % steps.length)}
+                className="w-10 h-10 rounded-full bg-white border border-slate-200 text-[#022B22] hover:border-slate-400 flex items-center justify-center transition-all duration-200 shadow-sm hover:shadow active:scale-95 shrink-0"
+                aria-label="Next step"
+              >
+                <ChevronRight className="w-5 h-5 stroke-[2.5]" />
+              </button>
+            </div>
           </div>
 
         </div>
