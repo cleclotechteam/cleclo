@@ -84,9 +84,9 @@ export default function VendorFaq() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center p-8 rounded-3xl bg-[#00875A] text-white">
+        <div className="text-center p-8 rounded-3xl bg-[#022B22] text-white">
           <h3 className="text-xl font-bold font-display mb-2 text-white">Have more questions?</h3>
-          <p className="text-xs sm:text-sm text-white/85 mb-6">Our vendor partner team is available 24/7 to help you onboard.</p>
+          <p className="text-xs sm:text-sm text-slate-300 mb-6">Our vendor partner team is available 24/7 to help you onboard.</p>
           <Link
             href={signupUrl}
             target="_blank"

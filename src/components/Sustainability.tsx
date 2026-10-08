@@ -141,7 +141,7 @@ export default function Sustainability() {
     <section
       ref={containerRef}
       id="sustainability"
-      className="py-24 lg:py-32 bg-[#00875A] text-white relative overflow-hidden"
+      className="py-24 lg:py-32 bg-[#022B22] text-white relative overflow-hidden"
     >
       {/* Subtle Ambient Radial Lighting */}
       <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#00B074]/15 rounded-full blur-[140px] pointer-events-none -z-10" />
@@ -205,7 +205,7 @@ export default function Sustainability() {
                       <Icon className="w-6 h-6 stroke-[2.2]" />
                     </div>
 
-                    <span className="text-xs font-mono font-bold tracking-widest text-white/70 bg-white/5 px-2.5 py-1 rounded-full border border-white/10">
+                    <span className="text-xs font-mono font-bold tracking-widest text-slate-400 bg-white/5 px-2.5 py-1 rounded-full border border-white/10">
                       {pillar.number}
                     </span>
                   </div>
@@ -221,14 +221,14 @@ export default function Sustainability() {
                   </h3>
 
                   {/* Description (Exact user copy) */}
-                  <p className="text-xs sm:text-sm text-white/85 leading-relaxed font-normal">
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
                     {pillar.description}
                   </p>
                 </div>
 
                 {/* Footer Badge */}
                 <div className="mt-8 pt-5 border-t border-white/10 flex items-center justify-between">
-                  <span className="text-[11px] font-bold text-white/70">
+                  <span className="text-[11px] font-bold text-slate-400">
                     {pillar.badge}
                   </span>
                   <CheckCircle2 className="w-4 h-4 text-[#D4F63D]" />
@@ -248,7 +248,7 @@ export default function Sustainability() {
               <p className="font-extrabold text-lg sm:text-xl text-white">
                 A better clean shouldn’t come at a greater cost to the world around us.
               </p>
-              <p className="text-xs sm:text-sm text-white/85 mt-1">
+              <p className="text-xs sm:text-sm text-slate-300 mt-1">
                 Thoughtful care, responsible choices and a lighter footprint — at every step.
               </p>
             </div>

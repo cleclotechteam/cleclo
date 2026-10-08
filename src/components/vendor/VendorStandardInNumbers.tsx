@@ -79,7 +79,7 @@ export default function VendorStandardInNumbers() {
             </p>
           </div>
 
-          <div className="inline-flex items-center gap-3 self-start md:self-auto px-4 py-2.5 rounded-xl bg-[#00875A] text-white shadow-lg">
+          <div className="inline-flex items-center gap-3 self-start md:self-auto px-4 py-2.5 rounded-xl bg-[#022B22] text-white shadow-lg">
             <span className="relative flex h-2.5 w-2.5">
               <span className="absolute inline-flex h-full w-full rounded-full bg-[#D4F63D] opacity-75 animate-ping" />
               <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#D4F63D]" />
@@ -103,7 +103,7 @@ export default function VendorStandardInNumbers() {
                 onClick={() => setActiveTile(idx)}
                 className={`${RAIL_CARD} sm:w-auto sm:max-w-none relative rounded-2xl border p-5 sm:p-6 flex flex-col transition-all duration-300 cursor-pointer select-none ${
                   isActive
-                    ? "bg-[#00875A] border-[#00875A] text-white shadow-[0_18px_40px_rgba(2,43,34,0.25)]"
+                    ? "bg-[#022B22] border-[#022B22] text-white shadow-[0_18px_40px_rgba(2,43,34,0.25)]"
                     : "bg-white border-slate-200 text-[#022B22] hover:border-[#00875A]/50"
                 }`}
               >
@@ -119,7 +119,7 @@ export default function VendorStandardInNumbers() {
                     </div>
                     <span
                       className={`text-[11px] font-mono font-bold uppercase tracking-widest ${
-                        isActive ? "text-white/80" : "text-slate-400"
+                        isActive ? "text-slate-300" : "text-slate-400"
                       }`}
                     >
                       {kpi.label}
@@ -149,7 +149,7 @@ export default function VendorStandardInNumbers() {
                 </h3>
                 <p
                   className={`text-xs sm:text-sm leading-relaxed ${
-                    isActive ? "text-white/80" : "text-slate-500"
+                    isActive ? "text-slate-300" : "text-slate-500"
                   }`}
                 >
                   {kpi.desc}
@@ -158,7 +158,7 @@ export default function VendorStandardInNumbers() {
                 {/* Mini progress meter (journey stage) */}
                 <div className="mt-auto pt-5">
                   <div className="flex items-center justify-between text-[10px] font-mono font-bold uppercase tracking-wider mb-1.5">
-                    <span className={isActive ? "text-white/70" : "text-slate-400"}>
+                    <span className="text-slate-400">
                       Stage {idx + 1}/{kpis.length}
                     </span>
                     <span className={isActive ? "text-[#D4F63D]" : "text-[#00875A]"}>{kpi.meter}%</span>

@@ -19,7 +19,7 @@ export default function VendorCtaBanner() {
     <section className="py-16 sm:py-24 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="p-6 sm:p-14 rounded-[28px] sm:rounded-[36px] bg-[#00875A] text-white border border-[#00875A] shadow-2xl relative overflow-hidden">
+        <div className="p-6 sm:p-14 rounded-[28px] sm:rounded-[36px] bg-[#022B22] text-white border border-emerald-900 shadow-2xl relative overflow-hidden">
           
           {/* Ambient Glow */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-[#00B074]/20 rounded-full blur-[140px] pointer-events-none" />
@@ -40,7 +40,7 @@ export default function VendorCtaBanner() {
             </h2>
 
             {/* Subheadline */}
-            <p className="text-xs sm:text-lg text-white/85 font-normal leading-relaxed mb-8 max-w-2xl">
+            <p className="text-xs sm:text-lg text-slate-300 font-normal leading-relaxed mb-8 max-w-2xl">
               Join Cleclo and start receiving orders through a structured, automated platform built to help laundry vendors scale without operational complexity.
             </p>
 

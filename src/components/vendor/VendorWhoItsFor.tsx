@@ -67,7 +67,7 @@ export default function VendorWhoItsFor() {
   ];
 
   return (
-    <section id="who-its-for" className="py-20 sm:py-28 bg-[#00875A] text-white relative overflow-hidden">
+    <section id="who-its-for" className="py-20 sm:py-28 bg-[#022B22] text-white relative overflow-hidden">
       
       {/* Subtle Ambient Radial Lighting */}
       <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#00B074]/15 rounded-full blur-[140px] pointer-events-none -z-10" />
@@ -98,7 +98,7 @@ export default function VendorWhoItsFor() {
             <span className="text-[#D4F63D]">Laundry Business in India.</span>
           </h2>
 
-          <p className="text-base sm:text-xl text-white/85 font-normal leading-relaxed">
+          <p className="text-base sm:text-xl text-slate-300 font-normal leading-relaxed">
             Whether you operate a single retail counter, a multi-outlet network, or a high-capacity commercial plant, Cleclo provides the software, logistics, and demand to accelerate your revenue.
           </p>
         </div>
@@ -119,7 +119,7 @@ export default function VendorWhoItsFor() {
                       <Icon className="w-7 h-7 stroke-[2.2]" />
                     </div>
 
-                    <span className="text-xs font-mono font-bold tracking-widest text-white/70 bg-white/5 px-3 py-1 rounded-full border border-white/10">
+                    <span className="text-xs font-mono font-bold tracking-widest text-slate-400 bg-white/5 px-3 py-1 rounded-full border border-white/10">
                       {item.number}
                     </span>
                   </div>
@@ -138,14 +138,14 @@ export default function VendorWhoItsFor() {
                     {item.subtitle}
                   </p>
 
-                  <p className="text-xs sm:text-sm text-white/85 leading-relaxed font-normal mb-6">
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal mb-6">
                     {item.description}
                   </p>
 
                   {/* Features List */}
                   <div className="space-y-2.5 pt-4 border-t border-white/10">
                     {item.features.map((feat, fIdx) => (
-                      <div key={fIdx} className="flex items-center gap-2.5 text-xs text-white/90">
+                      <div key={fIdx} className="flex items-center gap-2.5 text-xs text-slate-200">
                         <CheckCircle2 className="w-4 h-4 text-[#D4F63D] shrink-0" />
                         <span>{feat}</span>
                       </div>
@@ -155,7 +155,7 @@ export default function VendorWhoItsFor() {
 
                 {/* Footer Link */}
                 <div className="mt-8 pt-5 border-t border-white/10 flex items-center justify-between">
-                  <span className="text-xs font-bold text-white/70">Cleclo Partner Ready</span>
+                  <span className="text-xs font-bold text-slate-400">Cleclo Partner Ready</span>
                   <Link
                     href={signupUrl}
                     target="_blank"
@@ -181,7 +181,7 @@ export default function VendorWhoItsFor() {
               <p className="font-extrabold text-lg sm:text-xl text-white">
                 Transform your laundry business into a scalable profit machine today.
               </p>
-              <p className="text-xs sm:text-sm text-white/85 mt-1">
+              <p className="text-xs sm:text-sm text-slate-300 mt-1">
                 Zero upfront software fees. Onboard your shop in under 15 minutes.
               </p>
             </div>

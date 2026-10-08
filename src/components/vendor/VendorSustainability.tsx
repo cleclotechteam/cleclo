@@ -51,7 +51,7 @@ export default function VendorSustainability() {
 
           {/* Left: heading + impact panel */}
           <div className="lg:col-span-5 lg:sticky lg:top-28">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-[#00875A] text-white text-[11px] font-mono font-bold tracking-widest uppercase mb-5">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-[#022B22] text-[#D4F63D] text-[11px] font-mono font-bold tracking-widest uppercase mb-5">
               <Recycle className="w-3.5 h-3.5" />
               Eco Vendor Standards
             </span>
@@ -74,7 +74,7 @@ export default function VendorSustainability() {
 
             <Link
               href={signupUrl}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#00875A] hover:bg-[#006B47] text-white font-extrabold text-xs sm:text-sm px-7 py-4 rounded-xl transition-all duration-300 shadow-md group"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#022B22] hover:bg-[#00875A] text-white font-extrabold text-xs sm:text-sm px-7 py-4 rounded-xl transition-all duration-300 shadow-md group"
             >
               <span>See How Cleclo Works</span>
               <ArrowRight className="w-4 h-4 text-[#D4F63D] transition-transform group-hover:translate-x-0.5" />

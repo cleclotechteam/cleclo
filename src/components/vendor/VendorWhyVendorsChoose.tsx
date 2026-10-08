@@ -91,7 +91,7 @@ export default function VendorWhyVendorsChoose() {
                 }`}
               >
                 <div>
-                  <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-emerald-50 text-[#00875A] border border-emerald-200/80 flex items-center justify-center mb-3 sm:mb-5 shadow-md group-hover:scale-110 transition-transform">
+                  <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#022B22] text-[#D4F63D] flex items-center justify-center mb-3 sm:mb-5 shadow-md group-hover:scale-110 transition-transform">
                     <Icon className="w-4.5 h-4.5 sm:w-6 sm:h-6 stroke-[2.2]" />
                   </div>
 
@@ -114,14 +114,14 @@ export default function VendorWhyVendorsChoose() {
         </div>
 
         {/* Bottom Callout Box */}
-        <div className="p-5 sm:p-8 rounded-[24px] sm:rounded-[32px] bg-[#00875A] text-white border border-[#00875A] shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        <div className="p-5 sm:p-8 rounded-[24px] sm:rounded-[32px] bg-[#022B22] text-white border border-emerald-900 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <div className="flex items-center gap-3 text-left">
             <HeartHandshake className="w-7 h-7 sm:w-8 sm:h-8 text-[#D4F63D] shrink-0" />
             <div>
               <p className="font-extrabold text-xs sm:text-base text-white">
                 Join rapidly growing laundry and drycleaning vendor network who trust Cleclo.
               </p>
-              <p className="text-[11px] sm:text-xs text-white/85 mt-0.5">
+              <p className="text-[11px] sm:text-xs text-slate-300 mt-0.5">
                 Designed for long-term partnerships, not short-term transactions.
               </p>
             </div>

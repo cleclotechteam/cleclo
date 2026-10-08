@@ -69,7 +69,7 @@ export default function VendorTrustSafety() {
                 }`}
               >
                 <div>
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-emerald-50 text-[#00875A] border border-emerald-200/80 font-black text-lg sm:text-xl flex items-center justify-center mb-4 sm:mb-6 shadow-md">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#022B22] text-[#D4F63D] font-black text-lg sm:text-xl flex items-center justify-center mb-4 sm:mb-6 shadow-md">
                     {step.num}
                   </div>
 

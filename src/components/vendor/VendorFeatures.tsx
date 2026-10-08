@@ -63,7 +63,7 @@ export default function VendorFeatures() {
                 className="p-7 rounded-[28px] bg-slate-50/70 border border-slate-200/80 hover:bg-white hover:border-emerald-300 hover:shadow-[0_8px_30px_rgba(0,135,90,0.08)] transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-[#00875A] border border-emerald-200/80 flex items-center justify-center mb-6 shadow-md group-hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 rounded-2xl bg-[#022B22] text-[#D4F63D] flex items-center justify-center mb-6 shadow-md group-hover:scale-110 transition-transform">
                     <Icon className="w-6 h-6 stroke-[2.2]" />
                   </div>
 
@@ -91,7 +91,7 @@ export default function VendorFeatures() {
             href={signupUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-[#00875A] hover:bg-[#006B47] text-white font-extrabold text-sm px-8 py-4 rounded-full transition-all duration-300 shadow-xl hover:scale-105"
+            className="inline-flex items-center gap-2 bg-[#022B22] hover:bg-[#11231B] text-white font-extrabold text-sm px-8 py-4 rounded-full transition-all duration-300 shadow-xl hover:scale-105"
           >
             <span>See How Cleclo Works</span>
             <ArrowUpRight className="w-4 h-4 text-[#D4F63D]" />

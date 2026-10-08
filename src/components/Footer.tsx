@@ -7,7 +7,7 @@ import { Mail, MapPin, ArrowUpRight } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#00875A] text-white border-t border-white/10 pt-16 pb-12 relative overflow-hidden">
+    <footer className="bg-[#0A2B24] text-white border-t border-white/10 pt-16 pb-12 relative overflow-hidden">
       {/* Background Soft Glow */}
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#00B074]/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -28,11 +28,11 @@ export default function Footer() {
               />
             </Link>
 
-            <p className="text-xs sm:text-sm text-white/85 font-normal leading-relaxed max-w-sm">
+            <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed max-w-sm">
               Cleclo brings together technology, standardised processes and verified local partners to make dry cleaning more consistent, convenient and reliable — from pickup to delivery.
             </p>
 
-            <div className="space-y-2 pt-2 text-xs text-white/85 font-medium">
+            <div className="space-y-2 pt-2 text-xs text-slate-300 font-medium">
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#D4F63D]" />
                 <a href="mailto:customersupport@cleclo.in" className="hover:text-white transition-colors">
@@ -57,7 +57,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
-                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#00B074] text-white/85 hover:text-white flex items-center justify-center transition-all duration-200 border border-white/10 hover:border-[#00B074] group"
+                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#00B074] text-slate-300 hover:text-white flex items-center justify-center transition-all duration-200 border border-white/10 hover:border-[#00B074] group"
                 >
                   <svg className="w-4 h-4 fill-none stroke-current stroke-[2] transition-transform group-hover:scale-110" viewBox="0 0 24 24">
                     <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
@@ -72,7 +72,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="X (Twitter)"
-                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#00B074] text-white/85 hover:text-white flex items-center justify-center transition-all duration-200 border border-white/10 hover:border-[#00B074] group"
+                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#00B074] text-slate-300 hover:text-white flex items-center justify-center transition-all duration-200 border border-white/10 hover:border-[#00B074] group"
                 >
                   <svg className="w-3.5 h-3.5 fill-current transition-transform group-hover:scale-110" viewBox="0 0 24 24">
                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -85,7 +85,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
-                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#00B074] text-white/85 hover:text-white flex items-center justify-center transition-all duration-200 border border-white/10 hover:border-[#00B074] group"
+                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#00B074] text-slate-300 hover:text-white flex items-center justify-center transition-all duration-200 border border-white/10 hover:border-[#00B074] group"
                 >
                   <svg className="w-4 h-4 fill-current transition-transform group-hover:scale-110" viewBox="0 0 24 24">
                     <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
@@ -103,7 +103,7 @@ export default function Footer() {
               <h4 className="font-extrabold text-white uppercase tracking-wider mb-4 font-mono text-[11px] text-[#D4F63D]">
                 For Vendors
               </h4>
-              <ul className="space-y-2.5 text-white/85 font-medium">
+              <ul className="space-y-2.5 text-slate-300 font-medium">
                 <li>
                   <Link href="/vendor" className="hover:text-white transition-colors">
                     Partner With Us
@@ -127,7 +127,7 @@ export default function Footer() {
               <h4 className="font-extrabold text-white uppercase tracking-wider mb-4 font-mono text-[11px] text-[#D4F63D]">
                 For Delivery Partners
               </h4>
-              <ul className="space-y-2.5 text-white/85 font-medium">
+              <ul className="space-y-2.5 text-slate-300 font-medium">
                 <li>
                   <Link href="#ride" className="hover:text-white transition-colors">
                     Ride With Us
@@ -151,7 +151,7 @@ export default function Footer() {
               <h4 className="font-extrabold text-white uppercase tracking-wider mb-4 font-mono text-[11px] text-[#D4F63D]">
                 Company
               </h4>
-              <ul className="space-y-2.5 text-white/85 font-medium">
+              <ul className="space-y-2.5 text-slate-300 font-medium">
                 <li>
                   <Link href="#why" className="hover:text-white transition-colors">
                     About Cleclo
@@ -175,7 +175,7 @@ export default function Footer() {
               <h4 className="font-extrabold text-white uppercase tracking-wider mb-4 font-mono text-[11px] text-[#D4F63D]">
                 Support
               </h4>
-              <ul className="space-y-2.5 text-white/85 font-medium">
+              <ul className="space-y-2.5 text-slate-300 font-medium">
                 <li>
                   <Link href="#faq" className="hover:text-white transition-colors">
                     Help Centre
@@ -194,7 +194,7 @@ export default function Footer() {
               <h4 className="font-extrabold text-white uppercase tracking-wider mb-4 font-mono text-[11px] text-[#D4F63D]">
                 Legal
               </h4>
-              <ul className="space-y-2.5 text-white/85 font-medium">
+              <ul className="space-y-2.5 text-slate-300 font-medium">
                 <li>
                   <Link href="#terms" className="hover:text-white transition-colors">
                     Terms of Service
@@ -218,7 +218,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Copyright */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/70 font-medium">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-medium">
           <p>© 2026 Cleclo. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <span className="text-[#00B074] font-bold">Building India’s Standard for Garment Care</span>

@@ -325,7 +325,7 @@ export default function TrustAndSafety() {
                   onClick={() => handleStepClick(idx)}
                   className={`flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-bold transition-all duration-200 shrink-0 border select-none ${
                     isActive
-                      ? "bg-[#00875A] text-white border-[#00875A] shadow-sm"
+                      ? "bg-[#022B22] text-white border-[#022B22] shadow-sm"
                       : "bg-white text-slate-700 border-slate-200/80 hover:bg-slate-50"
                   }`}
                 >

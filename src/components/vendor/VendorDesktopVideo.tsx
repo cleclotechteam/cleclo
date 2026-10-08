@@ -103,7 +103,7 @@ export default function VendorDesktopVideo() {
 
         {/* Video Auto-Play Badge */}
         <div className="hidden sm:flex items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 text-[10px] font-extrabold uppercase font-mono tracking-wider bg-[#00875A] text-white px-3 py-1 rounded-full shadow-sm">
+          <span className="inline-flex items-center gap-1.5 text-[10px] font-extrabold uppercase font-mono tracking-wider bg-[#022B22] text-[#D4F63D] px-3 py-1 rounded-full shadow-sm">
             <Play className="w-3 h-3 fill-current" />
             <span>Auto Playing Video</span>
           </span>
@@ -194,14 +194,14 @@ export default function VendorDesktopVideo() {
 
                   {/* Right Column: Live Mockup Feature Display Card */}
                   <div className="lg:col-span-5 flex justify-center">
-                    <div className="w-full max-w-md p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-[#00875A] text-white border border-[#00875A] shadow-2xl flex flex-col justify-between h-[190px] sm:h-[230px] relative overflow-hidden">
+                    <div className="w-full max-w-md p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-[#022B22] text-white border border-emerald-900 shadow-2xl flex flex-col justify-between h-[190px] sm:h-[230px] relative overflow-hidden">
                       <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4F63D]/10 rounded-full blur-2xl pointer-events-none" />
 
                       <div className="flex items-center justify-between">
                         <div className="w-12 h-12 rounded-2xl bg-[#D4F63D] text-[#022B22] flex items-center justify-center font-black shadow-lg">
                           {React.createElement(scenes[activeStep].icon, { className: "w-6 h-6 stroke-[2.5]" })}
                         </div>
-                        <span className="text-[10px] font-mono font-bold text-white/85 bg-white/10 px-2.5 py-1 rounded-full border border-white/10">
+                        <span className="text-[10px] font-mono font-bold text-slate-300 bg-white/10 px-2.5 py-1 rounded-full border border-white/10">
                           Live OS Video Feed
                         </span>
                       </div>
@@ -215,7 +215,7 @@ export default function VendorDesktopVideo() {
                         </p>
                       </div>
 
-                      <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-white/85 font-mono">
+                      <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-300 font-mono">
                         <span>Cleclo Vendor Partner OS</span>
                         <span className="text-[#D4F63D]">Verified ✓</span>
                       </div>
@@ -239,7 +239,7 @@ export default function VendorDesktopVideo() {
                 </button>
                 <button
                   onClick={() => setActiveStep((prev) => (prev + 1) % scenes.length)}
-                  className="px-4 py-2 rounded-full bg-[#00875A] hover:bg-[#006B47] text-white text-xs font-extrabold transition-all hover:scale-105 flex items-center gap-1 shadow-md"
+                  className="px-4 py-2 rounded-full bg-[#022B22] hover:bg-[#11231B] text-white text-xs font-extrabold transition-all hover:scale-105 flex items-center gap-1 shadow-md"
                   aria-label="Next scene"
                 >
                   Next Scene <ChevronRight className="w-3.5 h-3.5 text-[#D4F63D]" />

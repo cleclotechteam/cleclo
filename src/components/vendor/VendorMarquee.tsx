@@ -14,9 +14,9 @@ export default function VendorMarquee() {
   ];
 
   return (
-    <div className="w-full bg-[#00875A] border-y border-white/15 py-4.5 overflow-hidden relative select-none">
+    <div className="w-full bg-[#022B22] border-y border-emerald-900/60 py-4.5 overflow-hidden relative select-none">
       {/* Subtle ambient lighting */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#00875A] via-transparent to-[#00875A] z-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#022B22] via-transparent to-[#022B22] z-10 pointer-events-none" />
 
       <div className="flex whitespace-nowrap animate-marquee">
         {[...Array(4)].map((_, arrayIdx) => (

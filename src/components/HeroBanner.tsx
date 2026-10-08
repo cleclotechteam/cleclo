@@ -105,13 +105,13 @@ export default function HeroBanner() {
               {/* Apple App Store Button */}
               <Link
                 href={downloadUrl}
-                className="group flex items-center justify-center gap-3 px-6 py-3.5 rounded-2xl bg-[#00875A] text-white hover:bg-[#006B47] transition-all duration-300 shadow-[0_8px_20px_rgba(2,43,34,0.25)] hover:shadow-[0_12px_28px_rgba(2,43,34,0.35)] hover:-translate-y-0.5 active:translate-y-0 text-center"
+                className="group flex items-center justify-center gap-3 px-6 py-3.5 rounded-2xl bg-[#022B22] text-white hover:bg-[#0d3f33] transition-all duration-300 shadow-[0_8px_20px_rgba(2,43,34,0.25)] hover:shadow-[0_12px_28px_rgba(2,43,34,0.35)] hover:-translate-y-0.5 active:translate-y-0 text-center"
               >
                 <svg className="w-6 h-6 fill-current shrink-0 transition-transform group-hover:scale-105" viewBox="0 0 384 512">
                   <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.6 26.1 2 52.3-14.7 69.5-34z" />
                 </svg>
                 <div className="flex flex-col text-left leading-tight">
-                  <span className="text-[10px] uppercase tracking-wider text-white/85">Download on the</span>
+                  <span className="text-[10px] uppercase tracking-wider text-slate-300">Download on the</span>
                   <span className="text-sm sm:text-base font-bold font-display">App Store</span>
                 </div>
               </Link>
@@ -119,13 +119,13 @@ export default function HeroBanner() {
               {/* Google Play Button */}
               <Link
                 href={downloadUrl}
-                className="group flex items-center justify-center gap-3 px-6 py-3.5 rounded-2xl bg-[#00875A] text-white hover:bg-[#006B47] transition-all duration-300 shadow-[0_8px_20px_rgba(2,43,34,0.25)] hover:shadow-[0_12px_28px_rgba(2,43,34,0.35)] hover:-translate-y-0.5 active:translate-y-0 text-center"
+                className="group flex items-center justify-center gap-3 px-6 py-3.5 rounded-2xl bg-[#022B22] text-white hover:bg-[#0d3f33] transition-all duration-300 shadow-[0_8px_20px_rgba(2,43,34,0.25)] hover:shadow-[0_12px_28px_rgba(2,43,34,0.35)] hover:-translate-y-0.5 active:translate-y-0 text-center"
               >
                 <svg className="w-6 h-6 fill-current shrink-0 transition-transform group-hover:scale-105" viewBox="0 0 512 512">
                   <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z" />
                 </svg>
                 <div className="flex flex-col text-left leading-tight">
-                  <span className="text-[10px] uppercase tracking-wider text-white/85">Get it on</span>
+                  <span className="text-[10px] uppercase tracking-wider text-slate-300">Get it on</span>
                   <span className="text-sm sm:text-base font-bold font-display">Google Play</span>
                 </div>
               </Link>
@@ -166,7 +166,7 @@ export default function HeroBanner() {
               <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full ring-2 ring-white shadow-sm bg-gradient-to-tr from-indigo-600 to-blue-400 flex items-center justify-center text-white text-xs font-bold">
                 PM
               </div>
-              <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full ring-2 ring-white shadow-md bg-[#00875A] flex items-center justify-center text-[#D4F63D] text-[10px] sm:text-[11px] font-extrabold">
+              <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full ring-2 ring-white shadow-md bg-[#022B22] flex items-center justify-center text-[#D4F63D] text-[10px] sm:text-[11px] font-extrabold">
                 +5k
               </div>
             </div>
@@ -335,7 +335,7 @@ export default function HeroBanner() {
       {/* ========================================================================= */}
       {/* CERTIFIED PARTNERS • STANDARDISED CARE • QUALITY CHECKED • ON-TIME DELIVERY */}
       {/* ========================================================================= */}
-      <div className="border-y border-[#00875A]/10 bg-[#00875A] py-4.5 overflow-hidden">
+      <div className="border-y border-[#022B22]/10 bg-[#022B22] py-4.5 overflow-hidden">
         <div className="animate-marquee flex items-center gap-10 text-xs sm:text-sm font-extrabold tracking-widest text-white">
           {[...marqueeItems, ...marqueeItems, ...marqueeItems, ...marqueeItems].map((text, i) => (
             <div key={i} className="flex items-center gap-10 shrink-0">

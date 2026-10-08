@@ -113,7 +113,7 @@ export default function WhyCleclo() {
               <div className="flex flex-wrap items-center gap-3 mb-8">
                 <Link
                   href={downloadUrl}
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#00875A] text-white hover:bg-[#006B47] text-xs sm:text-sm font-semibold transition-all duration-300 shadow-[0_4px_16px_rgba(17,35,27,0.2)] hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#11231B] text-white hover:bg-[#1a382b] text-xs sm:text-sm font-semibold transition-all duration-300 shadow-[0_4px_16px_rgba(17,35,27,0.2)] hover:-translate-y-0.5"
                 >
                   <span>Download Cleclo</span>
                   <ArrowRight className="w-4 h-4" />
@@ -256,7 +256,7 @@ export default function WhyCleclo() {
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/30" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#022B22]/90 via-[#022B22]/45 to-black/30" />
               
               <div className="relative z-10 h-full p-7 flex flex-col justify-between text-white">
                 {/* Header with REAL CLECLO LOGO */}

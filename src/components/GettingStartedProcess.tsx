@@ -154,7 +154,7 @@ export default function GettingStartedProcess() {
             <div className="mt-8 pt-6 border-t border-[#0A261E]/10">
               <Link
                 href={downloadUrl}
-                className="inline-flex items-center gap-2 bg-[#00875A] hover:bg-[#006B47] text-white font-semibold text-xs sm:text-sm px-5 py-3 rounded-full transition-all duration-300 shadow-sm hover:shadow-md group"
+                className="inline-flex items-center gap-2 bg-[#0A2B24] hover:bg-[#00875A] text-white font-semibold text-xs sm:text-sm px-5 py-3 rounded-full transition-all duration-300 shadow-sm hover:shadow-md group"
               >
                 <span>Download the Cleclo App</span>
                 <ArrowUpRight className="w-4 h-4 text-[#D4F63D] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

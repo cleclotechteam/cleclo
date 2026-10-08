@@ -92,7 +92,7 @@ export default function VendorHowItWorks() {
                     onMouseEnter={() => setActiveStep(idx)}
                     className={`w-14 h-14 rounded-full flex items-center justify-center border-4 transition-all duration-300 ${
                       reached
-                        ? "bg-[#00875A] border-[#D4F63D] text-white"
+                        ? "bg-[#022B22] border-[#D4F63D] text-[#D4F63D]"
                         : "bg-white border-slate-200 text-slate-400"
                     } ${idx === activeStep ? "scale-110 shadow-lg" : ""}`}
                     aria-label={`Step ${step.num}: ${step.title}`}
@@ -123,7 +123,7 @@ export default function VendorHowItWorks() {
                   <p className="text-sm text-slate-500 leading-relaxed">{step.caption}</p>
                   <span
                     className={`inline-block mt-4 text-[11px] font-bold px-3 py-1 rounded-md transition-colors ${
-                      isActive ? "bg-[#00875A] text-white" : "bg-slate-100 text-slate-500"
+                      isActive ? "bg-[#022B22] text-[#D4F63D]" : "bg-slate-100 text-slate-500"
                     }`}
                   >
                     {step.detail}
@@ -147,7 +147,7 @@ export default function VendorHowItWorks() {
                 >
                   {/* Step marker with a connector pointing to the next step */}
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-11 h-11 rounded-full bg-[#00875A] text-white border-4 border-[#EAF7D0] flex items-center justify-center shrink-0">
+                    <div className="w-11 h-11 rounded-full bg-[#022B22] text-[#D4F63D] border-4 border-[#EAF7D0] flex items-center justify-center shrink-0">
                       <Icon className="w-4.5 h-4.5 stroke-[2.3]" />
                     </div>
                     <span className="text-[10px] font-mono font-bold text-[#00875A] tracking-widest shrink-0">
