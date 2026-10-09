@@ -79,8 +79,8 @@ export default function VendorHero() {
               <TrendingUp className="w-6 h-6 stroke-[2.2]" />
             </div>
             <div>
-              <div className="text-xl sm:text-2xl font-extrabold font-display text-[#022B22]">Rapidly Growing</div>
-              <p className="text-xs text-slate-500 font-medium">Vendor Network Across India</p>
+              <div className="text-xl sm:text-2xl font-extrabold font-display text-[#022B22]">Pan-India Network</div>
+              <p className="text-xs text-slate-500 font-medium">Connecting Laundry Partners Across India</p>
             </div>
           </div>
 
@@ -89,8 +89,8 @@ export default function VendorHero() {
               <Star className="w-6 h-6 stroke-[2.2] fill-amber-500" />
             </div>
             <div>
-              <div className="text-xl sm:text-2xl font-extrabold font-display text-[#022B22]">4.9 / 5.0 Rating</div>
-              <p className="text-xs text-slate-500 font-medium">Average Vendor Satisfaction</p>
+              <div className="text-xl sm:text-2xl font-extrabold font-display text-[#022B22]">Built on Partnership</div>
+              <p className="text-xs text-slate-500 font-medium">A Structured Model for Vendor Collaboration</p>
             </div>
           </div>
 
