@@ -21,31 +21,37 @@ export default function VendorWhyVendorsChoose() {
       title: "Increased Order Volume",
       desc: "Gain access to a growing network of customers actively seeking professional laundry services in your service area.",
       icon: TrendingUp,
+      badge: "Customer Reach",
     },
     {
       title: "Smart Automation",
       desc: "Automated order routing, delivery workflows and customer updates, significantly reducing manual coordination.",
       icon: Cpu,
+      badge: "Less Manual Coordination",
     },
     {
       title: "Location-Based Assignment",
       desc: "Orders are intelligently routed to the most suitable outlet based on proximity and availability.",
       icon: MapPin,
+      badge: "Proximity-Based Routing",
     },
     {
       title: "Scalable Growth",
       desc: "Scale from a single outlet to a multi-location operation with systems designed to support high-volume growth.",
       icon: Layers,
+      badge: "Multi-Outlet Ready",
     },
     {
       title: "Platform Reliability",
       desc: "Built on robust infrastructure with high availability to ensure uninterrupted operations.",
       icon: ShieldCheck,
+      badge: "Reliable Operations",
     },
     {
       title: "Vendor Recognition",
       desc: "High-performing vendors may receive enhanced visibility, performance badges and platform recognition.",
       icon: Award,
+      badge: "Performance Recognition",
     },
   ];
 
@@ -104,9 +110,9 @@ export default function VendorWhyVendorsChoose() {
                   </p>
                 </div>
 
-                <div className="hidden sm:flex mt-6 pt-4 border-t border-slate-100 items-center gap-1.5 text-xs font-bold text-[#00875A]">
-                  <CheckCircle2 className="w-4 h-4" />
-                  <span>Cleclo Verified Advantage</span>
+                <div className="flex mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-slate-100 items-center gap-1.5 text-[11px] sm:text-xs font-bold text-[#00875A]">
+                  <CheckCircle2 className="w-4 h-4 shrink-0" />
+                  <span>{item.badge}</span>
                 </div>
               </div>
             );
@@ -128,7 +134,7 @@ export default function VendorWhyVendorsChoose() {
           </div>
 
           <span className="text-[11px] sm:text-xs font-mono font-extrabold text-[#D4F63D] bg-white/10 px-3.5 py-2 rounded-full border border-white/15 shrink-0">
-            Long-Term Partner Promise ✓
+            Built for Long-Term Partnerships ✓
           </span>
         </div>
 

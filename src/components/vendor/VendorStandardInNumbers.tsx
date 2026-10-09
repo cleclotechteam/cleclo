@@ -11,40 +11,40 @@ export default function VendorStandardInNumbers() {
   // on mobile the centred card in the swipe rail is the highlighted one
   const { ref: railRef, index: railIndex, goTo: railGoTo } = useRail(4, setActiveTile);
 
-  const kpis = [
+  const cards = [
     {
-      label: "Onboarding",
-      metric: "15",
-      unit: "MINS",
-      title: "Quick Vendor Onboarding",
-      desc: "Register your laundry facility and store staff in under 15 minutes with zero setup fees.",
+      step: "01",
+      label: "ONBOARDING",
+      title: "Simple Vendor Onboarding",
+      tag: "QUICK SETUP · CLEAR REQUIREMENTS",
+      desc: "Register your laundry business, submit verification documents and configure your outlets and service capabilities through a streamlined onboarding process.",
       icon: Clock,
       meter: 25,
     },
     {
-      label: "Logistics",
-      metric: "100%",
-      unit: "LIVE",
-      title: "Real-Time GPS Tracking",
-      desc: "Doorstep pickup and delivery logistics tracked automatically from customer to your facility.",
+      step: "02",
+      label: "LOGISTICS",
+      title: "Connected Order Tracking",
+      tag: "ORDER VISIBILITY · DELIVERY COORDINATION",
+      desc: "Track order allocation, pickup and delivery milestones through one connected platform, with clear visibility into order status.",
       icon: Navigation,
       meter: 50,
     },
     {
-      label: "Quality",
-      metric: "48",
-      unit: "POINT",
-      title: "Standardised Quality SOPs",
-      desc: "Digital barcode tagging, Hydrocarbon solvent care, and multi-point inspection on every order.",
+      step: "03",
+      label: "QUALITY",
+      title: "Standardised Quality Workflows",
+      tag: "DIGITAL TAGGING · PROCESS CONSISTENCY",
+      desc: "Follow standardised operating procedures, digital item tagging and quality checks to support consistent garment care and order handling.",
       icon: ShieldCheck,
       meter: 75,
     },
     {
-      label: "Payouts",
-      metric: "7",
-      unit: "DAY",
-      title: "Guaranteed Bank Payouts",
-      desc: "Weekly automated settlements directly into your bank account with zero hidden commissions.",
+      step: "04",
+      label: "PAYOUTS",
+      title: "Transparent Vendor Payouts",
+      tag: "FIXED VENDOR RATES · PAYOUT VISIBILITY",
+      desc: "Review applicable vendor rates, completed order records and payout status with greater transparency and clarity over your earnings.",
       icon: CreditCard,
       meter: 100,
     },
@@ -66,16 +66,16 @@ export default function VendorStandardInNumbers() {
 
         {/* Header: left-aligned title + live status chip */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-10 sm:mb-14">
-          <div className="max-w-2xl">
+          <div className="max-w-3xl">
             <span className="inline-flex items-center gap-2 text-[11px] font-mono font-bold tracking-widest text-[#00875A] uppercase mb-3">
               <Activity className="w-3.5 h-3.5" />
-              Partner Scorecard
+              CLECLO PARTNER ADVANTAGES
             </span>
             <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#022B22] leading-[1.1]">
-              The Cleclo Vendor Standard, <span className="text-[#00875A]">in numbers.</span>
+              The Cleclo Vendor Standard.
             </h2>
-            <p className="text-sm sm:text-lg text-slate-500 leading-relaxed mt-3">
-              What partnering with Cleclo actually means for your laundry business.
+            <p className="text-sm sm:text-lg text-slate-600 leading-relaxed mt-3 font-normal">
+              The tools, processes and transparency to run your laundry operations with confidence.
             </p>
           </div>
 
@@ -85,90 +85,91 @@ export default function VendorStandardInNumbers() {
               <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#D4F63D]" />
             </span>
             <span className="text-[11px] sm:text-xs font-mono font-bold tracking-wider uppercase">
-              Live partner metrics
+              LIVE PARTNER METRICS
             </span>
           </div>
         </div>
 
-        {/* KPI Tiles: 1 col mobile, 2 col tablet, 4 col desktop */}
+        {/* Cards Grid: 1 col mobile, 2 col tablet, 4 col desktop */}
         <div ref={railRef} className={`${RAIL_BASE} sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:gap-5 sm:overflow-visible sm:mx-0 sm:px-0 sm:pb-0`}>
-          {kpis.map((kpi, idx) => {
-            const Icon = kpi.icon;
+          {cards.map((card, idx) => {
+            const Icon = card.icon;
             const isActive = activeTile === idx;
 
             return (
               <div
-                key={kpi.label}
+                key={card.label}
                 onMouseEnter={() => setActiveTile(idx)}
                 onClick={() => setActiveTile(idx)}
-                className={`${RAIL_CARD} sm:w-auto sm:max-w-none relative rounded-2xl border p-5 sm:p-6 flex flex-col transition-all duration-300 cursor-pointer select-none ${
+                className={`${RAIL_CARD} sm:w-auto sm:max-w-none relative rounded-2xl border p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 cursor-pointer select-none min-h-[310px] ${
                   isActive
                     ? "bg-[#022B22] border-[#022B22] text-white shadow-[0_18px_40px_rgba(2,43,34,0.25)]"
                     : "bg-white border-slate-200 text-[#022B22] hover:border-[#00875A]/50"
                 }`}
               >
-                {/* Widget header row */}
-                <div className="flex items-center justify-between mb-5 sm:mb-8">
-                  <div className="flex items-center gap-2.5">
-                    <div
-                      className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${
-                        isActive ? "bg-[#D4F63D] text-[#022B22]" : "bg-emerald-50 text-[#00875A]"
-                      }`}
-                    >
-                      <Icon className="w-4.5 h-4.5 stroke-[2.3]" />
+                <div>
+                  {/* Card top row */}
+                  <div className="flex items-center justify-between mb-4 sm:mb-6">
+                    <div className="flex items-center gap-2.5">
+                      <div
+                        className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${
+                          isActive ? "bg-[#D4F63D] text-[#022B22]" : "bg-emerald-50 text-[#00875A]"
+                        }`}
+                      >
+                        <Icon className="w-4.5 h-4.5 stroke-[2.3]" />
+                      </div>
+                      <span
+                        className={`text-[11px] font-mono font-bold uppercase tracking-widest ${
+                          isActive ? "text-slate-300" : "text-slate-400"
+                        }`}
+                      >
+                        {card.step} · {card.label}
+                      </span>
                     </div>
+                    <ArrowUpRight
+                      className={`w-4 h-4 transition-colors ${isActive ? "text-[#D4F63D]" : "text-slate-300"}`}
+                    />
+                  </div>
+
+                  {/* Title & Tag */}
+                  <h3 className="font-display text-lg sm:text-xl font-extrabold tracking-tight mb-2 leading-snug">
+                    {card.title}
+                  </h3>
+
+                  <div className="mb-4">
                     <span
-                      className={`text-[11px] font-mono font-bold uppercase tracking-widest ${
-                        isActive ? "text-slate-300" : "text-slate-400"
+                      className={`inline-block text-[10px] font-mono font-extrabold tracking-wider uppercase px-2.5 py-1 rounded-md ${
+                        isActive
+                          ? "bg-[#D4F63D]/15 text-[#D4F63D] border border-[#D4F63D]/30"
+                          : "bg-emerald-50 text-[#00875A] border border-emerald-200/70"
                       }`}
                     >
-                      {kpi.label}
+                      {card.tag}
                     </span>
                   </div>
-                  <ArrowUpRight
-                    className={`w-4 h-4 transition-colors ${isActive ? "text-[#D4F63D]" : "text-slate-300"}`}
-                  />
-                </div>
 
-                {/* Metric */}
-                <div className="flex items-baseline gap-2 mb-3">
-                  <span className="font-display text-5xl sm:text-6xl font-black tracking-tight leading-none">
-                    {kpi.metric}
-                  </span>
-                  <span
-                    className={`text-xs font-mono font-bold tracking-widest ${
-                      isActive ? "text-[#D4F63D]" : "text-[#00875A]"
+                  {/* Description */}
+                  <p
+                    className={`text-xs sm:text-sm leading-relaxed font-normal ${
+                      isActive ? "text-slate-300" : "text-slate-600"
                     }`}
                   >
-                    {kpi.unit}
-                  </span>
+                    {card.desc}
+                  </p>
                 </div>
 
-                <h3 className="font-display text-base sm:text-lg font-extrabold tracking-tight mb-1.5">
-                  {kpi.title}
-                </h3>
-                <p
-                  className={`text-xs sm:text-sm leading-relaxed ${
-                    isActive ? "text-slate-300" : "text-slate-500"
-                  }`}
-                >
-                  {kpi.desc}
-                </p>
-
-                {/* Mini progress meter (journey stage) */}
-                <div className="mt-auto pt-5">
+                {/* Bottom progress meter */}
+                <div className="mt-6 pt-4 border-t border-slate-100/10">
                   <div className="flex items-center justify-between text-[10px] font-mono font-bold uppercase tracking-wider mb-1.5">
-                    <span className="text-slate-400">
-                      Stage {idx + 1}/{kpis.length}
-                    </span>
-                    <span className={isActive ? "text-[#D4F63D]" : "text-[#00875A]"}>{kpi.meter}%</span>
+                    <span className="text-slate-400">STAGE {card.step}/04</span>
+                    <span className={isActive ? "text-[#D4F63D]" : "text-[#00875A]"}>{card.meter}%</span>
                   </div>
                   <div className={`h-1.5 rounded-full overflow-hidden ${isActive ? "bg-white/10" : "bg-slate-100"}`}>
                     <div
                       className={`h-full rounded-full transition-all duration-700 ${
                         isActive ? "bg-[#D4F63D]" : "bg-[#00875A]"
                       }`}
-                      style={{ width: `${kpi.meter}%` }}
+                      style={{ width: `${card.meter}%` }}
                     />
                   </div>
                 </div>
@@ -176,7 +177,7 @@ export default function VendorStandardInNumbers() {
             );
           })}
         </div>
-        <RailDots count={kpis.length} index={railIndex} onSelect={railGoTo} className="sm:hidden mt-2" />
+        <RailDots count={cards.length} index={railIndex} onSelect={railGoTo} className="sm:hidden mt-2" />
 
       </div>
     </section>

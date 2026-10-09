@@ -14,30 +14,30 @@ export default function VendorSustainability() {
   const pillars = [
     {
       number: "01",
-      category: "Hydrocarbon Solvent Care",
-      title: "Solvent Recovery & Eco-SOPs",
+      category: "HYDROCARBON TECHNOLOGY",
+      title: "Smarter Solvent Recovery",
       description:
-        "Our closed-loop Hydrocarbon recovery systems help vendor facilities minimize chemical discharge, reduce waste, and extend fabric life.",
+        "Our approach promotes responsible solvent management, efficient recovery processes and reduced waste through appropriate operating procedures.",
       icon: RefreshCw,
-      badge: "Closed-Loop Solvent Care",
+      badge: "Responsible Solvent Management",
     },
     {
       number: "02",
-      category: "Better Packaging",
-      title: "Zero Single-Use Plastic",
+      category: "RESPONSIBLE PACKAGING",
+      title: "Reducing Single-Use Packaging",
       description:
-        "We supply vendor partners with biodegradable garment covers and reusable pickup bags to protect clothes responsibly.",
+        "We encourage reusable pickup bags and more responsible garment packaging to help reduce unnecessary plastic use across laundry operations.",
       icon: Leaf,
-      badge: "Compostable Covers",
+      badge: "Reusable Packaging Practices",
     },
     {
       number: "03",
-      category: "Cleaner Logistics",
-      title: "Zero-Emission EV Logistics",
+      category: "CONSIDERED LOGISTICS",
+      title: "Smarter, Lower-Impact Deliveries",
       description:
-        "Electric delivery vehicles streamline doorstep pickup and return logistics between customers and certified vendor hubs.",
+        "Explore more efficient pickup and delivery planning, with opportunities to integrate electric vehicles where operationally feasible.",
       icon: Zap,
-      badge: "EV Delivery Fleet",
+      badge: "Efficient Delivery Planning",
     },
   ];
 
@@ -53,30 +53,28 @@ export default function VendorSustainability() {
           <div className="lg:col-span-5 lg:sticky lg:top-28">
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-[#022B22] text-[#D4F63D] text-[11px] font-mono font-bold tracking-widest uppercase mb-5">
               <Recycle className="w-3.5 h-3.5" />
-              Eco Vendor Standards
+              CLECLO · RESPONSIBLE OPERATIONS
             </span>
 
             <h2 className="font-display text-3xl sm:text-5xl font-extrabold tracking-tight text-[#022B22] leading-[1.1] mb-5">
-              Better for your facility.{" "}
+              Better Care for Garments.{" "}
               <span
                 className="box-decoration-clone"
                 style={{ backgroundImage: "linear-gradient(transparent 62%, #D4F63D 62%, #D4F63D 92%, transparent 92%)" }}
               >
-                Better for the environment.
+                A More Responsible Way to Operate.
               </span>
             </h2>
 
-            <p className="text-sm sm:text-lg text-slate-600 leading-relaxed mb-8">
-              Cleclo empowers vendor partners with advanced solvent recovery processes, zero single-use plastic
-              compostable packaging, and EV delivery fleets to build a more thoughtful standard for fabric care
-              across India.
+            <p className="text-sm sm:text-lg text-slate-600 leading-relaxed mb-8 font-normal">
+              Cleclo encourages responsible laundry practices through efficient processing, thoughtful packaging and smarter logistics. We aim to help vendor partners build operationally efficient businesses while reducing avoidable waste.
             </p>
 
             <Link
               href={signupUrl}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#022B22] hover:bg-[#00875A] text-white font-extrabold text-xs sm:text-sm px-7 py-4 rounded-xl transition-all duration-300 shadow-md group"
             >
-              <span>See How Cleclo Works</span>
+              <span>Explore How Cleclo Works</span>
               <ArrowRight className="w-4 h-4 text-[#D4F63D] transition-transform group-hover:translate-x-0.5" />
             </Link>
           </div>
@@ -123,9 +121,9 @@ export default function VendorSustainability() {
             </div>
             <RailDots count={pillars.length} index={railIndex} onSelect={railGoTo} className="sm:hidden mt-2" />
 
-            <p className="mt-5 text-xs sm:text-sm text-slate-500 flex items-center gap-2">
+            <p className="mt-5 text-xs sm:text-sm text-slate-600 font-semibold flex items-center gap-2">
               <Leaf className="w-4 h-4 text-[#00875A] shrink-0" />
-              Hydrocarbon recovery, compostable covers &amp; zero single-use plastic, supplied to every partner.
+              Smarter Processes. Responsible Practices. A Better Standard for Garment Care.
             </p>
           </div>
 
