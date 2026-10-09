@@ -46,7 +46,7 @@ export default function VendorHowItWorks() {
   const progressPct = (activeStep / (steps.length - 1)) * 100;
 
   return (
-    <section id="how" className="py-16 sm:py-24 lg:py-28 bg-white border-t border-[#0A261E]/5 overflow-hidden">
+    <section id="how" className="scroll-mt-20 py-16 sm:py-24 lg:py-28 bg-white border-t border-[#0A261E]/5 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header row */}

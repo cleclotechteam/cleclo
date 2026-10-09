@@ -58,7 +58,7 @@ export default function VendorServicesWorkflows() {
   const ActiveIcon = active.icon;
 
   return (
-    <section className="py-16 sm:py-24 bg-white border-t border-slate-100 relative overflow-hidden">
+    <section id="services" className="scroll-mt-20 py-16 sm:py-24 bg-white border-t border-slate-100 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Header */}

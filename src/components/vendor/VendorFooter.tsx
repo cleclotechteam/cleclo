@@ -88,7 +88,7 @@ export default function VendorFooter() {
               Product
             </h4>
             <ul className="space-y-2 text-xs font-semibold text-slate-300">
-              <li><Link href={`${base}#features`} className="hover:text-white transition-colors">Features</Link></li>
+              <li><Link href={`${base}#why-cleclo`} className="hover:text-white transition-colors">Why Cleclo</Link></li>
               <li><Link href={`${base}#how`} className="hover:text-white transition-colors">How It Works</Link></li>
               <li><Link href={`${base}#demo`} className="hover:text-white transition-colors">Demo</Link></li>
             </ul>

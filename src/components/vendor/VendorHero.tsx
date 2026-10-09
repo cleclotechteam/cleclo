@@ -54,24 +54,15 @@ export default function VendorHero() {
             Automate orders, track operations in real time and manage deliveries and payments from one unified platform.
           </p>
 
-          {/* Action CTAs & Social Proof Pill */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 w-full max-w-md mx-auto sm:max-w-none">
+          {/* Primary CTA */}
+          <div className="flex items-center justify-center mb-12 w-full">
             <Link
               href={signupUrl}
-              className="w-full sm:w-auto group inline-flex items-center justify-center gap-3 bg-[#D4F63D] hover:bg-[#c5ea2c] text-[#022B22] font-extrabold text-sm sm:text-base px-8 py-4 rounded-full transition-all duration-300 shadow-[0_8px_25px_rgba(212,246,61,0.45)] hover:shadow-[0_12px_30px_rgba(212,246,61,0.6)] hover:scale-105 active:scale-95"
+              className="w-full max-w-md group inline-flex items-center justify-center gap-3 bg-[#D4F63D] hover:bg-[#c5ea2c] text-[#022B22] font-extrabold text-base sm:text-lg px-10 py-4 sm:py-5 rounded-full transition-all duration-300 shadow-[0_8px_25px_rgba(212,246,61,0.45)] hover:shadow-[0_12px_30px_rgba(212,246,61,0.6)] hover:scale-105 active:scale-95"
             >
               <span>See How Cleclo Works</span>
               <ArrowUpRight className="w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </Link>
-
-            <div className="flex items-center gap-3 px-5 py-3 rounded-full bg-white border border-slate-200/90 shadow-sm text-xs font-semibold text-[#022B22]">
-              <div className="flex items-center text-amber-500">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-amber-400 stroke-amber-500" />
-                ))}
-              </div>
-              <span className="font-extrabold text-slate-800">4.9/5 Average Vendor Rating</span>
-            </div>
           </div>
 
           {/* Social Proof Subtitle */}
