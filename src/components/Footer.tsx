@@ -100,7 +100,7 @@ export default function Footer() {
             
             {/* For Vendors */}
             <div>
-              <h4 className="font-extrabold text-white uppercase tracking-wider mb-4 font-mono text-[11px] text-[#D4F63D]">
+              <h4 className="font-display font-extrabold text-[#D4F63D] uppercase tracking-wider mb-4 text-xs">
                 For Vendors
               </h4>
               <ul className="space-y-2.5 text-slate-300 font-medium">
@@ -124,7 +124,7 @@ export default function Footer() {
 
             {/* For Delivery Partners */}
             <div>
-              <h4 className="font-extrabold text-white uppercase tracking-wider mb-4 font-mono text-[11px] text-[#D4F63D]">
+              <h4 className="font-display font-extrabold text-[#D4F63D] uppercase tracking-wider mb-4 text-xs">
                 For Delivery Partners
               </h4>
               <ul className="space-y-2.5 text-slate-300 font-medium">
@@ -148,7 +148,7 @@ export default function Footer() {
 
             {/* Company */}
             <div>
-              <h4 className="font-extrabold text-white uppercase tracking-wider mb-4 font-mono text-[11px] text-[#D4F63D]">
+              <h4 className="font-display font-extrabold text-[#D4F63D] uppercase tracking-wider mb-4 text-xs">
                 Company
               </h4>
               <ul className="space-y-2.5 text-slate-300 font-medium">
@@ -172,7 +172,7 @@ export default function Footer() {
 
             {/* Support */}
             <div>
-              <h4 className="font-extrabold text-white uppercase tracking-wider mb-4 font-mono text-[11px] text-[#D4F63D]">
+              <h4 className="font-display font-extrabold text-[#D4F63D] uppercase tracking-wider mb-4 text-xs">
                 Support
               </h4>
               <ul className="space-y-2.5 text-slate-300 font-medium">
@@ -191,7 +191,7 @@ export default function Footer() {
 
             {/* Legal */}
             <div>
-              <h4 className="font-extrabold text-white uppercase tracking-wider mb-4 font-mono text-[11px] text-[#D4F63D]">
+              <h4 className="font-display font-extrabold text-[#D4F63D] uppercase tracking-wider mb-4 text-xs">
                 Legal
               </h4>
               <ul className="space-y-2.5 text-slate-300 font-medium">

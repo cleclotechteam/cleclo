@@ -84,7 +84,7 @@ export default function VendorFooter() {
 
           {/* Product Links */}
           <div className="md:col-span-2 space-y-3">
-            <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-[#D4F63D]">
+            <h4 className="font-display text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#D4F63D]">
               Product
             </h4>
             <ul className="space-y-2 text-xs font-semibold text-slate-300">
@@ -96,7 +96,7 @@ export default function VendorFooter() {
 
           {/* Company Links */}
           <div className="md:col-span-2 space-y-3">
-            <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-[#D4F63D]">
+            <h4 className="font-display text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#D4F63D]">
               Company
             </h4>
             <ul className="space-y-2 text-xs font-semibold text-slate-300">
@@ -108,7 +108,7 @@ export default function VendorFooter() {
 
           {/* Support Links */}
           <div className="md:col-span-2 space-y-3">
-            <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-[#D4F63D]">
+            <h4 className="font-display text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#D4F63D]">
               Support
             </h4>
             <ul className="space-y-2 text-xs font-semibold text-slate-300">
@@ -119,7 +119,7 @@ export default function VendorFooter() {
 
           {/* Legal Links */}
           <div className="md:col-span-2 space-y-3">
-            <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-[#D4F63D]">
+            <h4 className="font-display text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#D4F63D]">
               Legal
             </h4>
             <ul className="space-y-2 text-xs font-semibold text-slate-300">
