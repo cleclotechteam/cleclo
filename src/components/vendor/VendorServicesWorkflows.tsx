@@ -10,7 +10,7 @@ export default function VendorServicesWorkflows() {
   const categories = [
     {
       title: "Dry Clean",
-      hint: "Delicates, formal & specialty fabrics",
+      hint: "Delicate fabrics, formalwear & specialist garments",
       icon: Shirt,
       headline: "Enable professional dry-cleaning workflows for delicate garments, formal wear and specialty fabrics.",
       bullets: [
@@ -21,7 +21,7 @@ export default function VendorServicesWorkflows() {
     },
     {
       title: "Washing",
-      hint: "Everyday garments, configurable cycles",
+      hint: "Everyday garments, professionally washed with care",
       icon: WashingMachine,
       headline: "Enable standardized washing workflows for everyday garments with configurable processes across fabric types.",
       bullets: [
@@ -32,24 +32,13 @@ export default function VendorServicesWorkflows() {
     },
     {
       title: "Steam Iron",
-      hint: "Pressing & finishing on a timer",
+      hint: "Crisp pressing & professional garment finishing",
       icon: Wind,
       headline: "Provide professional pressing and finishing services with controlled turnaround times.",
       bullets: [
         "Consistent finishing quality.",
         "Fabric-safe temperature controls.",
         "Priority processing options.",
-      ],
-    },
-    {
-      title: "Premium Care",
-      hint: "Luxury, designer & high-value items",
-      icon: Gem,
-      headline: "Enable premium-care workflows for luxury garments, designer wear and high-value items.",
-      bullets: [
-        "Specialized handling protocols.",
-        "Optional value-protection coverage.",
-        "Controlled handover and packaging.",
       ],
     },
   ];
@@ -72,7 +61,7 @@ export default function VendorServicesWorkflows() {
 
           <h2 className="font-display text-2xl sm:text-5xl font-extrabold tracking-tight text-[#022B22] leading-tight mb-3">
             Services &amp; Standardised <br className="hidden sm:inline" />
-            <span className="text-[#00875A]">Processing Categories</span>
+            <span className="text-[#00875A]">Processing Workflows</span>
           </h2>
           <p className="text-xs sm:text-base text-slate-600 leading-relaxed">
             Pick the services your outlets offer. Each one runs on a standard, configurable workflow.
@@ -116,7 +105,7 @@ export default function VendorServicesWorkflows() {
 
                   <div className="min-w-0 flex-1">
                     <span className="hidden sm:block text-[10px] font-mono font-bold tracking-widest text-slate-400 uppercase">
-                      Category 0{idx + 1}
+                      SERVICE 0{idx + 1}
                     </span>
                     <span className="block font-display text-sm sm:text-lg font-extrabold text-[#022B22] leading-tight">
                       {item.title}
@@ -154,7 +143,7 @@ export default function VendorServicesWorkflows() {
                       <ActiveIcon className="w-6 h-6 sm:w-7 sm:h-7 stroke-[2]" />
                     </div>
                     <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest text-[#00875A] bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full uppercase">
-                      Category 0{activeCard + 1} / 0{categories.length}
+                      SERVICE 0{activeCard + 1} / 0{categories.length}
                     </span>
                   </div>
 

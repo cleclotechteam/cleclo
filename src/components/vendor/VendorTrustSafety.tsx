@@ -84,7 +84,7 @@ export default function VendorTrustSafety() {
 
                 <div className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-slate-200/60 flex items-center gap-2 text-xs font-bold text-[#00875A]">
                   <CheckCircle2 className="w-4 h-4" />
-                  <span>Verified Step {step.num}</span>
+                  <span>Verified at Step {step.num}</span>
                 </div>
               </div>
             );
