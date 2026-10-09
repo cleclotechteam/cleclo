@@ -28,48 +28,63 @@ export default function VendorDesktopVideo() {
 
   const scenes = [
     {
-      stepLabel: "AUTO DISPATCH",
-      title: "1. Automated Customer Order Dispatch",
-      subtitle: "New Pickup Request Received from South Delhi",
-      desc: "Order #ORD-8942 automatically assigned to your vendor dashboard. 3 Suit Jackets & 2 Silk Dresses logged with fixed rate pricing.",
+      stepLabel: "ORDER ALLOCATION",
+      title: "1. Automated Order Allocation",
+      subtitle: "New Pickup Request Received · South Delhi",
+      desc: "A new customer order has been assigned to your vendor dashboard. View garment details, applicable pricing and the order status in one place.",
       icon: Cpu,
-      pill: "Order Auto-Accepted ✓",
-      metric: "42 Orders Today",
-      stat: "+18% Daily Growth",
+      pills: ["Order Assigned", "View Order Details"],
       bgPill: "bg-emerald-100 text-[#00875A] border-emerald-200",
+      isScene1: true,
+      cardMetrics: [
+        { label: "Orders Received", count: "42", sub: "New & assigned orders" },
+        { label: "Orders in Process", count: "18", sub: "Currently being processed" },
+        { label: "Ready for Delivery", count: "12", sub: "Ready for dispatch" },
+      ],
+      footerLeft: "Cleclo Vendor Partner OS",
+      footerRight: "DEMO DATA",
     },
     {
       stepLabel: "DIGITAL TAGGING",
-      title: "2. Barcode Tagging & SOP Care",
-      subtitle: "48-Point Standard Quality Inspection",
-      desc: "Garments scanned into Eco Solvent Hydrocarbon washer. Digital SOP protocol verified with zero fabric mix-ups.",
+      title: "2. Digital Tagging & Standardised Quality Control",
+      subtitle: "Item-Level Tracking. Standardised SOPs.",
+      desc: "Every garment is digitally tagged and tracked through the processing workflow. Standardised operating procedures help maintain item identification, process consistency and quality control.",
       icon: ShieldCheck,
-      pill: "Tag #CL-902 Verified",
-      metric: "16 Items In Wash",
-      stat: "Zero Defect Guarantee",
+      pills: ["DIGITAL TAGGING ENABLED"],
       bgPill: "bg-purple-100 text-purple-800 border-purple-200",
+      isScene1: false,
+      metric: "16 Items Under Processing",
+      stat: "Digitally Tagged & Tracked",
+      footerLeft: "Cleclo Vendor Partner OS",
+      footerRight: "Tracking Enabled ✓",
     },
     {
       stepLabel: "GPS TRACKING",
-      title: "3. Real-Time Doorstep Delivery",
-      subtitle: "EV Van En Route to Customer Location",
-      desc: "Live GPS milestone tracking updated for customer. Pickup to delivery SLA guaranteed within 72 hours.",
+      title: "3. Real-Time Pickup & Delivery Tracking",
+      subtitle: "Track Every Order. Stay Updated at Every Step.",
+      desc: "Monitor order movement and delivery milestones with GPS-enabled tracking, helping keep customers informed from pickup through final delivery.",
       icon: Navigation,
-      pill: "EV Fleet Out 🚚",
-      metric: "8 Shipments Active",
-      stat: "Live GPS Door to Door",
+      pills: ["DELIVERY IN PROGRESS"],
       bgPill: "bg-sky-100 text-sky-800 border-sky-200",
+      isScene1: false,
+      metric: "8 Active Deliveries",
+      stat: "GPS-Enabled Tracking",
+      footerLeft: "Cleclo Vendor Partner OS",
+      footerRight: "Tracking Enabled ✓",
     },
     {
-      stepLabel: "WEEKLY PAYOUT",
-      title: "4. Automated Bank Settlement",
-      subtitle: "Weekly Revenue Auto-Deposited",
-      desc: "₹1,48,250 transferred directly into your bank account. Zero hidden charges, 100% transparent rate card.",
+      stepLabel: "VENDOR PAYOUTS",
+      title: "4. Transparent Vendor Payouts",
+      subtitle: "Clear Payouts. Complete Visibility.",
+      desc: "Track your completed orders, review applicable vendor rates and monitor payout status — all from one place, with a transparent view of your earnings.",
       icon: CreditCard,
-      pill: "Payout Settled ₹",
-      metric: "₹1,48,250 Settled",
-      stat: "Instant Bank Transfer",
+      pills: ["PAYOUT STATUS TRACKING"],
       bgPill: "bg-amber-100 text-amber-900 border-amber-200",
+      isScene1: false,
+      metric: "Vendor Payout Summary",
+      stat: "Transparent Rates & Payouts",
+      footerLeft: "Cleclo Vendor Partner OS",
+      footerRight: "Status Trackable ✓",
     },
   ];
 
@@ -97,7 +112,7 @@ export default function VendorDesktopVideo() {
 
           <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-mono font-bold text-[#00875A] bg-emerald-50 px-2.5 sm:px-3 py-1 rounded-full border border-emerald-200/80 min-w-0">
             <span className="w-2 h-2 rounded-full bg-[#00875A] animate-pulse shrink-0"></span>
-            <span className="truncate">CLECLO VENDOR OS<span className="hidden sm:inline"> DEMO VIDEO</span></span>
+            <span className="truncate">ILLUSTRATIVE DASHBOARD</span>
           </span>
         </div>
 
@@ -172,7 +187,7 @@ export default function VendorDesktopVideo() {
                       <span>SCENE 0{activeStep + 1} OF 04</span>
                     </div>
 
-                    <h3 className="text-xl sm:text-4xl font-extrabold font-display text-[#022B22] tracking-tight leading-tight">
+                    <h3 className="text-xl sm:text-3xl lg:text-4xl font-extrabold font-display text-[#022B22] tracking-tight leading-tight">
                       {scenes[activeStep].title}
                     </h3>
 
@@ -184,40 +199,66 @@ export default function VendorDesktopVideo() {
                       {scenes[activeStep].desc}
                     </p>
 
-                    <div className="pt-3 flex items-center gap-3">
-                      <span className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase font-mono border ${scenes[activeStep].bgPill}`}>
-                        <CheckCircle2 className="w-4 h-4" />
-                        <span>{scenes[activeStep].pill}</span>
-                      </span>
+                    <div className="pt-3 flex flex-wrap items-center gap-2.5">
+                      {scenes[activeStep].pills.map((pillText, idx) => (
+                        <span key={idx} className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase font-mono border ${scenes[activeStep].bgPill}`}>
+                          <CheckCircle2 className="w-4 h-4" />
+                          <span>{pillText}</span>
+                        </span>
+                      ))}
                     </div>
                   </div>
 
                   {/* Right Column: Live Mockup Feature Display Card */}
                   <div className="lg:col-span-5 flex justify-center">
-                    <div className="w-full max-w-md p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-[#022B22] text-white border border-emerald-900 shadow-2xl flex flex-col justify-between h-[190px] sm:h-[230px] relative overflow-hidden">
+                    <div className="w-full max-w-md p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-[#022B22] text-white border border-emerald-900 shadow-2xl flex flex-col justify-between min-h-[220px] sm:min-h-[260px] relative overflow-hidden">
                       <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4F63D]/10 rounded-full blur-2xl pointer-events-none" />
 
-                      <div className="flex items-center justify-between">
-                        <div className="w-12 h-12 rounded-2xl bg-[#D4F63D] text-[#022B22] flex items-center justify-center font-black shadow-lg">
-                          {React.createElement(scenes[activeStep].icon, { className: "w-6 h-6 stroke-[2.5]" })}
+                      {/* Card Header */}
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-10 h-10 rounded-xl bg-[#D4F63D] text-[#022B22] flex items-center justify-center font-black shadow-lg shrink-0">
+                            {React.createElement(scenes[activeStep].icon, { className: "w-5 h-5 stroke-[2.5]" })}
+                          </div>
+                          {scenes[activeStep].isScene1 && (
+                            <div>
+                              <div className="text-xs font-extrabold text-white">Vendor Operations</div>
+                            </div>
+                          )}
                         </div>
-                        <span className="text-[10px] font-mono font-bold text-slate-300 bg-white/10 px-2.5 py-1 rounded-full border border-white/10">
-                          Live OS Video Feed
+                        <span className="text-[10px] font-mono font-bold text-slate-200 bg-white/10 px-2.5 py-1 rounded-full border border-white/15">
+                          Product Demo
                         </span>
                       </div>
 
-                      <div>
-                        <div className="text-2xl sm:text-3xl font-black font-display text-white mb-1">
-                          {scenes[activeStep].metric}
+                      {/* Card Content */}
+                      {scenes[activeStep].isScene1 ? (
+                        <div className="py-1.5 space-y-2 my-auto">
+                          {scenes[activeStep].cardMetrics?.map((m, idx) => (
+                            <div key={idx} className="flex items-center justify-between bg-white/5 px-3 py-1.5 rounded-xl border border-white/10">
+                              <div>
+                                <div className="text-xs font-extrabold text-white">{m.label}</div>
+                                <div className="text-[10px] text-slate-300 font-medium">{m.sub}</div>
+                              </div>
+                              <div className="text-xl font-black font-display text-[#D4F63D]">{m.count}</div>
+                            </div>
+                          ))}
                         </div>
-                        <p className="text-xs font-semibold text-[#D4F63D]">
-                          {scenes[activeStep].stat}
-                        </p>
-                      </div>
+                      ) : (
+                        <div className="py-4 my-auto">
+                          <div className="text-2xl sm:text-3xl font-black font-display text-white mb-1 leading-tight">
+                            {scenes[activeStep].metric}
+                          </div>
+                          <p className="text-xs sm:text-sm font-semibold text-[#D4F63D]">
+                            {scenes[activeStep].stat}
+                          </p>
+                        </div>
+                      )}
 
+                      {/* Card Footer */}
                       <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-300 font-mono">
-                        <span>Cleclo Vendor Partner OS</span>
-                        <span className="text-[#D4F63D]">Verified ✓</span>
+                        <span>{scenes[activeStep].footerLeft}</span>
+                        <span className="text-[#D4F63D] font-bold">{scenes[activeStep].footerRight}</span>
                       </div>
                     </div>
                   </div>

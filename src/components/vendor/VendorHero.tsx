@@ -108,13 +108,16 @@ export default function VendorHero() {
 
         {/* Interactive Vendor Desktop Dashboard Window Frame Mockup */}
         <div className="mb-16">
-          <div className="text-center max-w-xl mx-auto mb-6">
-            <span className="text-[11px] font-mono font-bold tracking-widest text-[#00875A] bg-emerald-100/80 border border-emerald-200 px-3 py-1 rounded-full uppercase">
+          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
+            <span className="text-xs font-mono font-bold tracking-widest text-[#00875A] bg-emerald-100/80 border border-emerald-200 px-3.5 py-1.5 rounded-full uppercase inline-block mb-3">
               Cleclo Vendor Dashboard OS
             </span>
-            <h3 className="text-xl sm:text-2xl font-extrabold font-display text-[#022B22] mt-2">
-              Everything your laundry business needs on desktop &amp; mobile
-            </h3>
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold font-display text-[#022B22] tracking-tight leading-tight mb-4">
+              One Platform. Complete Control Over Your Laundry Operations.
+            </h2>
+            <p className="text-base sm:text-lg lg:text-xl text-slate-600 font-normal leading-relaxed max-w-2xl mx-auto">
+              Manage orders, track pickups and deliveries, monitor order status and view vendor payouts — all from one dashboard.
+            </p>
           </div>
 
           <VendorDesktopVideo />
