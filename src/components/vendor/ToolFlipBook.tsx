@@ -232,7 +232,7 @@ function Paper({ side, num, children }: { side: "left" | "right" | "single"; num
 function CoverPage() {
   return (
     <>
-      <span className="text-[0.66em] font-mono font-bold tracking-[0.25em] text-slate-500 uppercase">Cleclo · Vendor Edition</span>
+      <span className="text-[0.66em] font-mono font-bold tracking-[0.25em] text-slate-500 uppercase">CLECLO · PARTNER TOOLKIT</span>
       <div className="mt-auto mb-auto">
         <p className="font-serif italic text-[1.05em] text-slate-500 mb-[0.4em]">a field guide to</p>
         <h3 className="font-display text-[2.7em] font-extrabold leading-[1.02] tracking-tight">
