@@ -12,34 +12,43 @@ export default function VendorWhereWeOperate() {
 
   const tiers = [
     {
-      id: "tier1",
-      tag: "TIER 1 HUBS",
-      title: "Delhi NCR Metro Network",
-      cities: "South Delhi · Gurugram · Noida · Dwarka · Ghaziabad · Greater Noida",
-      metric: "50+ Active Partner Facilities",
+      id: "core-market",
+      tag: "01 · CORE MARKETS",
+      title: "Delhi NCR Network",
+      cities: "DELHI · GURUGRAM · NOIDA · GHAZIABAD",
+      desc: "Connect with Cleclo's vendor network across Delhi NCR. Explore partnership opportunities for laundry facilities serving local customer demand.",
+      metric: "Active Partner Network",
       image: "/tier1-cleclo-metro-v2.jpg",
-      status: "High Demand Active",
+      status: "Onboarding Partners",
       badgeBg: "bg-emerald-100 text-[#00875A] border-emerald-200",
+      footerLeft: "Vendors Onboarding",
+      cta: "Explore Opportunities",
     },
     {
-      id: "tier2",
-      tag: "TIER 2 HUBS",
-      title: "Expanding Metro Hubs",
-      cities: "Mumbai · Bengaluru · Hyderabad · Pune · Chandigarh · Jaipur",
-      metric: "30+ Vendor Onboarding Hubs",
+      id: "expansion-market",
+      tag: "02 · EXPANSION MARKETS",
+      title: "Metro City Expansion",
+      cities: "MUMBAI · BENGALURU · HYDERABAD · PUNE · JAIPUR · CHANDIGARH",
+      desc: "Help bring standardised laundry services to more customers. Register your facility to express interest in Cleclo's expansion markets.",
+      metric: "Partner Applications Open",
       image: "/tier2-cleclo-facility-v2.jpg",
-      status: "Rapidly Onboarding",
+      status: "Expanding Partner Network",
       badgeBg: "bg-sky-100 text-sky-800 border-sky-200",
+      footerLeft: "Partner Applications",
+      cta: "Register Interest",
     },
     {
-      id: "tier3",
-      tag: "REGIONAL TOWNS",
-      title: "Franchise & Partner Outlets",
-      cities: "Lucknow · Indore · Ahmedabad · Surat · Dehradun · Ludhiana",
-      metric: "Plug-and-Play Franchises",
+      id: "new-market",
+      tag: "03 · NEW MARKETS",
+      title: "Emerging Cities & Local Markets",
+      cities: "INDORE · LUCKNOW · AHMEDABAD · SURAT · DEHRADUN · LUDHIANA",
+      desc: "Are you a laundry operator looking to grow with Cleclo? Share your location and business details to explore potential partnership opportunities.",
+      metric: "Franchise & Vendor Opportunities",
       image: "/tier3-cleclo-towns-v2.jpg",
-      status: "Accepting Applications",
+      status: "Applications Open",
       badgeBg: "bg-purple-100 text-purple-800 border-purple-200",
+      footerLeft: "New Market Applications",
+      cta: "Apply to Partner",
     },
   ];
 
@@ -56,26 +65,28 @@ export default function VendorWhereWeOperate() {
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-16">
-          <div className="max-w-2xl">
+          <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 mb-4">
               <MapPin className="w-3.5 h-3.5 text-[#00875A]" />
               <span className="text-xs font-bold uppercase tracking-wider text-[#00875A]">
-                VENDOR NETWORK COVERAGE
+                VENDOR NETWORK
               </span>
             </div>
 
-            <h2 className="font-display text-2xl sm:text-5xl font-extrabold tracking-tight text-[#022B22] leading-tight">
-              Where Cleclo Operates <br />
-              <span className="text-[#00875A]">Across India.</span>
+            <h2 className="font-display text-2xl sm:text-5xl font-extrabold tracking-tight text-[#022B22] leading-tight mb-3">
+              Find Your Place in the <span className="text-[#00875A]">Cleclo Network.</span>
             </h2>
+            <p className="text-xs sm:text-base text-slate-600 font-normal leading-relaxed">
+              Explore our operational markets, discover current vendor onboarding opportunities and register your laundry facility to join Cleclo&apos;s growing partner network.
+            </p>
           </div>
 
           {/* City Search Bar */}
-          <div className="w-full md:w-80 relative">
+          <div className="w-full md:w-80 relative shrink-0">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Search your city or hub..."
+              placeholder="Search by city, locality or service area"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-white border border-slate-200 rounded-full pl-10 pr-4 py-3 text-xs sm:text-sm text-[#022B22] placeholder:text-slate-400 focus:outline-none focus:border-[#00875A] focus:ring-1 focus:ring-[#00875A] transition-all shadow-sm"
@@ -101,7 +112,7 @@ export default function VendorWhereWeOperate() {
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
                   
                   <div className="absolute top-4 left-4">
                     <span className="text-[10px] font-mono font-black uppercase tracking-widest bg-white/90 text-[#022B22] border border-white px-3 py-1 rounded-full shadow-sm backdrop-blur-md">
@@ -110,8 +121,8 @@ export default function VendorWhereWeOperate() {
                   </div>
 
                   <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white">
-                    <span className="text-xs font-bold font-display">{tier.metric}</span>
-                    <span className={`text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full border ${tier.badgeBg}`}>
+                    <span className="text-xs font-bold font-display truncate mr-2">{tier.metric}</span>
+                    <span className={`text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full border shrink-0 ${tier.badgeBg}`}>
                       {tier.status}
                     </span>
                   </div>
@@ -119,24 +130,26 @@ export default function VendorWhereWeOperate() {
 
                 {/* Card Body */}
                 <div className="p-5 sm:p-7">
-                  <h3 className="text-lg sm:text-2xl font-extrabold text-[#022B22] font-display mb-2 group-hover:text-[#00875A] transition-colors">
+                  <h3 className="text-lg sm:text-2xl font-extrabold text-[#022B22] font-display mb-1.5 group-hover:text-[#00875A] transition-colors">
                     {tier.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                  <p className="text-[10px] font-mono font-bold text-[#00875A] tracking-wider uppercase mb-3">
                     {tier.cities}
+                  </p>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                    {tier.desc}
                   </p>
                 </div>
               </div>
 
               {/* Card Footer Link */}
-              <div className="px-5 sm:px-7 pb-5 sm:pb-7 flex items-center justify-between border-t border-slate-100 pt-4">
-                <span className="text-xs font-semibold text-slate-400">Onboarding Open</span>
+              <div className="px-5 sm:px-7 pb-5 sm:pb-7 flex items-center justify-between border-t border-slate-100 pt-4 mt-auto">
+                <span className="text-xs font-semibold text-slate-400">{tier.footerLeft}</span>
                 <Link
                   href={signupUrl}
                   className="inline-flex items-center gap-1 text-xs font-bold text-[#00875A] group-hover:translate-x-0.5 transition-transform"
                 >
-                  <span>Apply for Hub</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <span>{tier.cta} →</span>
                 </Link>
               </div>
             </div>
@@ -160,14 +173,16 @@ export default function VendorWhereWeOperate() {
         </div>
 
         {/* Bottom Callout */}
-        <div className="text-center p-6 sm:p-8 rounded-3xl bg-[#022B22] text-white">
-          <h3 className="text-lg sm:text-2xl font-extrabold font-display mb-2 text-white">Don&apos;t see your city listed?</h3>
-          <p className="text-xs sm:text-sm text-slate-300 mb-6">We launch new vendor hubs every month. Register your facility to be notified first.</p>
+        <div className="text-center p-6 sm:p-10 rounded-3xl bg-[#022B22] text-white">
+          <h3 className="text-lg sm:text-2xl font-extrabold font-display mb-2 text-white">Your City Isn&apos;t Listed?</h3>
+          <p className="text-xs sm:text-sm text-slate-300 mb-6 max-w-xl mx-auto leading-relaxed font-normal">
+            We&apos;re exploring new markets across India. Register your laundry facility and tell us where you&apos;d like to partner with Cleclo.
+          </p>
           <Link
             href={signupUrl}
-            className="inline-flex items-center gap-2 bg-[#D4F63D] text-[#022B22] font-extrabold text-xs sm:text-sm px-7 py-3.5 rounded-full hover:bg-[#c5ea2c] transition-all shadow-md"
+            className="inline-flex items-center gap-2 bg-[#D4F63D] text-[#022B22] font-extrabold text-xs sm:text-sm px-7 py-3.5 rounded-full hover:bg-[#c5ea2c] transition-all shadow-md hover:scale-105"
           >
-            <span>Register Interest for Your City</span>
+            <span>Register Your Interest</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
