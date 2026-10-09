@@ -17,13 +17,13 @@ export default function VendorFooter() {
           
           {/* Brand Info */}
           <div className="col-span-2 md:col-span-4 space-y-4">
-            <Link href="/" className="inline-block bg-white p-2 rounded-xl shadow-md">
+            <Link href="/" className="inline-block">
               <Image
                 src="/cleclo-logo.png"
                 alt="Cleclo Logo"
                 width={160}
                 height={40}
-                className="h-8 w-auto object-contain"
+                className="h-9 w-auto object-contain brightness-0 invert"
               />
             </Link>
 
