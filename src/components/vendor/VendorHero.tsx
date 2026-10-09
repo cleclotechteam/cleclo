@@ -129,48 +129,50 @@ export default function VendorHero() {
           
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8 relative z-10">
             <div className="max-w-xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[11px] font-mono font-bold text-[#D4F63D] mb-4">
-                <span>CLECLO VENDOR OS</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/15 text-[11px] font-mono font-bold text-[#D4F63D] mb-4 uppercase tracking-wider">
+                <span>CLECLO VENDOR PARTNERSHIP</span>
               </div>
-              <h2 className="text-2xl sm:text-4xl font-extrabold font-display tracking-tight text-white mb-4">
-                Everything your laundry business needs to scale effortlessly.
+              <h2 className="text-2xl sm:text-4xl font-extrabold font-display tracking-tight text-white mb-4 leading-tight">
+                Your Laundry Business. More Opportunities. Smarter Operations.
               </h2>
               <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal mb-6">
-                Connect your existing machines and store staff to Cleclo&apos;s intelligent vendor dashboard. Track customer pickups, order SOP stages, and automated payouts in real time.
+                Partner with Cleclo to manage customer orders through a unified platform, streamline daily operations and gain visibility into order tracking and vendor payouts — using your existing laundry setup.
               </p>
               
-              <div className="grid grid-cols-2 gap-3 text-xs font-semibold text-white">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-semibold text-white">
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#D4F63D]" />
-                  <span>Automated Dispatch</span>
+                  <span className="text-[#D4F63D] font-bold">✓</span>
+                  <span>Customer Order Access</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#D4F63D]" />
-                  <span>Real-time GPS Tracking</span>
+                  <span className="text-[#D4F63D] font-bold">✓</span>
+                  <span>Standardised Workflows</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#D4F63D]" />
-                  <span>Instant Weekly Payouts</span>
+                  <span className="text-[#D4F63D] font-bold">✓</span>
+                  <span>Transparent Vendor Payouts</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#D4F63D]" />
-                  <span>Digital Tagging &amp; SOPs</span>
+                  <span className="text-[#D4F63D] font-bold">✓</span>
+                  <span>Order &amp; Delivery Tracking</span>
                 </div>
               </div>
             </div>
 
-            <div className="w-full lg:w-auto shrink-0 flex flex-col items-center text-center p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md">
+            <div className="w-full lg:w-auto shrink-0 flex flex-col items-center text-center p-6 sm:p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md">
               <div className="w-16 h-16 rounded-2xl bg-[#D4F63D] text-[#022B22] flex items-center justify-center font-black text-2xl mb-3 shadow-lg">
                 🚀
               </div>
-              <span className="text-lg font-bold text-white mb-1">Ready to Partner?</span>
-              <p className="text-xs text-slate-300 mb-4 max-w-[200px]">Join India&apos;s fastest growing laundry partner network.</p>
+              <span className="text-lg font-bold text-white mb-1">Ready to Partner with Cleclo?</span>
+              <p className="text-xs text-slate-300 mb-5 max-w-[220px] leading-relaxed">
+                Bring your existing laundry business into a more connected way of working.
+              </p>
               
               <Link
                 href={signupUrl}
-                className="inline-flex items-center gap-2 bg-[#D4F63D] hover:bg-[#c5ea2c] text-[#022B22] font-extrabold text-xs px-6 py-3 rounded-full transition-all shadow-md"
+                className="inline-flex items-center gap-2 bg-[#D4F63D] hover:bg-[#c5ea2c] text-[#022B22] font-extrabold text-xs sm:text-sm px-6 py-3 rounded-full transition-all shadow-md hover:scale-105"
               >
-                <span>See How Cleclo Works</span>
+                <span>Become a Partner</span>
                 <ArrowUpRight className="w-4 h-4" />
               </Link>
             </div>

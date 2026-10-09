@@ -46,10 +46,10 @@ export default function VendorSmarterWay() {
   ];
 
   const trustBadges = [
-    { label: "Secured Payments", icon: ShieldCheck },
-    { label: "GSTIN Verified", icon: FileCheck2 },
-    { label: "ISO Certified", icon: Award },
-    { label: "24/7 Vendor Support", icon: Headphones },
+    { label: "Verified Partners", icon: ShieldCheck },
+    { label: "Transparent Payouts", icon: FileCheck2 },
+    { label: "Standardised Processes", icon: Award },
+    { label: "Dedicated Partner Support", icon: Headphones },
   ];
 
   return (
