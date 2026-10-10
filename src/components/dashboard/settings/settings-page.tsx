@@ -96,7 +96,7 @@ export function SettingsPage() {
           <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
             <div className="p-4 border-b border-slate-100">
               <div className="flex items-center gap-3">
-                <div className="h-12 w-12 rounded-full bg-[#3E8940]/10 flex items-center justify-center text-[#3E8940] font-bold text-lg">
+                <div className="h-12 w-12 rounded-full bg-[#00B074]/10 flex items-center justify-center text-[#00B074] font-bold text-lg">
                   VL
                 </div>
                 <div>
@@ -113,7 +113,7 @@ export function SettingsPage() {
                   className={cn(
                     "w-full flex items-center gap-3 p-3 rounded-lg text-left transition-all",
                     activeSection === section.id
-                      ? "bg-[#3E8940]/10 text-[#3E8940]"
+                      ? "bg-[#00B074]/10 text-[#00B074]"
                       : "hover:bg-slate-50 text-slate-600"
                   )}
                 >
@@ -150,7 +150,7 @@ export function SettingsPage() {
                 {/* Avatar */}
                 <div className="flex items-center gap-6">
                   <div className="relative">
-                    <div className="h-20 w-20 rounded-full bg-[#3E8940]/10 flex items-center justify-center text-[#3E8940] font-bold text-2xl">
+                    <div className="h-20 w-20 rounded-full bg-[#00B074]/10 flex items-center justify-center text-[#00B074] font-bold text-2xl">
                       VL
                     </div>
                     <button className="absolute bottom-0 right-0 h-8 w-8 rounded-full bg-white border border-slate-200 flex items-center justify-center shadow-sm hover:bg-slate-50">
@@ -199,7 +199,7 @@ export function SettingsPage() {
                 </div>
 
                 <div className="flex justify-end pt-4 border-t border-slate-100">
-                  <Button className="bg-[#3E8940] hover:bg-[#3E8940]/90 gap-2">
+                  <Button className="bg-[#00B074] hover:bg-[#00B074]/90 gap-2">
                     <Save className="h-4 w-4" />
                     Save Changes
                   </Button>
@@ -276,7 +276,7 @@ export function SettingsPage() {
                 </div>
 
                 <div className="flex justify-end pt-4 border-t border-slate-100">
-                  <Button className="bg-[#3E8940] hover:bg-[#3E8940]/90 gap-2">
+                  <Button className="bg-[#00B074] hover:bg-[#00B074]/90 gap-2">
                     <Save className="h-4 w-4" />
                     Save Changes
                   </Button>
@@ -417,7 +417,7 @@ export function SettingsPage() {
                 </div>
 
                 <div className="flex justify-end pt-4 border-t border-slate-100">
-                  <Button className="bg-[#3E8940] hover:bg-[#3E8940]/90 gap-2">
+                  <Button className="bg-[#00B074] hover:bg-[#00B074]/90 gap-2">
                     <Shield className="h-4 w-4" />
                     Update Password
                   </Button>
@@ -435,9 +435,9 @@ export function SettingsPage() {
                 </p>
               </div>
               <div className="p-6 space-y-6">
-                <div className="p-4 bg-[#3E8940]/5 rounded-xl border border-[#3E8940]/10">
+                <div className="p-4 bg-[#00B074]/5 rounded-xl border border-[#00B074]/10">
                   <div className="flex items-center gap-3 mb-3">
-                    <CreditCard className="h-5 w-5 text-[#3E8940]" />
+                    <CreditCard className="h-5 w-5 text-[#00B074]" />
                     <span className="font-semibold text-slate-900">
                       Bank Account Connected
                     </span>
@@ -464,7 +464,7 @@ export function SettingsPage() {
                 </div>
 
                 <div className="flex justify-end pt-4 border-t border-slate-100">
-                  <Button className="bg-[#3E8940] hover:bg-[#3E8940]/90 gap-2">
+                  <Button className="bg-[#00B074] hover:bg-[#00B074]/90 gap-2">
                     <Save className="h-4 w-4" />
                     Save Changes
                   </Button>
@@ -520,7 +520,7 @@ export function SettingsPage() {
                 ))}
               </div>
               <div className="p-4 border-t border-slate-100 flex justify-end">
-                <Button className="bg-[#3E8940] hover:bg-[#3E8940]/90 gap-2">
+                <Button className="bg-[#00B074] hover:bg-[#00B074]/90 gap-2">
                   <Save className="h-4 w-4" />
                   Save Availability
                 </Button>

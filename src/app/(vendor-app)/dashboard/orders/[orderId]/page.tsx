@@ -58,7 +58,7 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ orderId
           {/* Customer Details Card */}
           <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 bg-[#3E8940]  text-white rounded-full">
+                <div className="p-2 bg-[#00B074]  text-white rounded-full">
                     <User className="h-5 w-5" />
                 </div>
                 <h2 className="text-lg font-bold text-slate-900">Customer Details</h2>
@@ -90,21 +90,21 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ orderId
 
                     <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 pt-2">
                         <div className="bg-slate-50 p-3 rounded-xl">
-                            <div className="flex items-center gap-2 text-[#3E8940] mb-1">
+                            <div className="flex items-center gap-2 text-[#00B074] mb-1">
                                 <Clock className="h-3.5 w-3.5" />
                                 <span className="text-[10px] font-bold uppercase tracking-wider">Pickup</span>
                             </div>
                             <p className="text-sm font-bold text-slate-900">Today, 2pm</p>
                         </div>
                         <div className="bg-slate-50 p-3 rounded-xl">
-                            <div className="flex items-center gap-2 text-[#3E8940] mb-1">
+                            <div className="flex items-center gap-2 text-[#00B074] mb-1">
                                 <Calendar className="h-3.5 w-3.5" />
                                 <span className="text-[10px] font-bold uppercase tracking-wider">Deadline</span>
                             </div>
                             <p className="text-sm font-bold text-slate-900">Tomorrow, 10am</p>
                         </div>
                         <div className="bg-slate-50 p-3 rounded-xl">
-                            <div className="flex items-center gap-2 text-[#3E8940] mb-1">
+                            <div className="flex items-center gap-2 text-[#00B074] mb-1">
                                 <Navigation className="h-3.5 w-3.5" />
                                 <span className="text-[10px] font-bold uppercase tracking-wider">Distance</span>
                             </div>
@@ -119,7 +119,7 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ orderId
                        <MapPin className="h-32 w-32 text-[#1a1f1c]" strokeWidth={1.5} />
                    </div>
                    <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-20">
-                       <Button size="sm" className="bg-white hover:bg-white/90 text-[#3E8940] text-xs font-bold shadow-sm h-8 mt-2 px-6 rounded-full">
+                       <Button size="sm" className="bg-white hover:bg-white/90 text-[#00B074] text-xs font-bold shadow-sm h-8 mt-2 px-6 rounded-full">
                            Open in Maps
                        </Button>
                    </div>
@@ -130,7 +130,7 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ orderId
           {/* Order Items Card */}
           <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-6">
              <div className="flex items-center gap-3">
-                <div className="p-2 bg-[#3E8940]/10 text-[#3E8940] rounded-lg">
+                <div className="p-2 bg-[#00B074]/10 text-[#00B074] rounded-lg">
                     <Package className="h-5 w-5" />
                 </div>
                 <h2 className="text-lg font-bold text-slate-900">Order Items</h2>
@@ -177,7 +177,7 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ orderId
             {/* Order Summary */}
             <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-6">
                 <div className="flex items-center gap-3">
-                    <div className="p-2 bg-[#3E8940]/10 text-[#3E8940] rounded-lg">
+                    <div className="p-2 bg-[#00B074]/10 text-[#00B074] rounded-lg">
                         <Info className="h-5 w-5" />
                     </div>
                     <h2 className="text-lg font-bold text-slate-900">Order Summary</h2>
@@ -194,7 +194,7 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ orderId
                     </div>
                     <div className="pt-4 border-t flex justify-between items-center">
                         <span className="text-slate-500 font-bold">Vendor Earnings</span>
-                        <span className="text-2xl font-bold text-[#3E8940]">₹40.50</span>
+                        <span className="text-2xl font-bold text-[#00B074]">₹40.50</span>
                     </div>
                     <p className="text-right text-xs text-slate-400 font-medium">Estimated Payout: Oct 25</p>
                 </div>
@@ -208,7 +208,7 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ orderId
                  <div className="relative flex justify-between items-center px-2">
                      {/* Line */}
                      <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-slate-100 -z-10" />
-                     <div className="absolute top-1/2 left-0 right-[25%] h-0.5 bg-[#3E8940] -z-10" /> {/* Progress bar mockup */}
+                     <div className="absolute top-1/2 left-0 right-[25%] h-0.5 bg-[#00B074] -z-10" /> {/* Progress bar mockup */}
 
                      {/* Steps */}
                      {[
@@ -219,22 +219,22 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ orderId
                      ].map((step, i) => (
                         <div key={i} className="flex flex-col items-center gap-2 bg-white px-1"> 
                             <div className={`h-8 w-8 rounded-full flex items-center justify-center border-2 ${
-                                step.done ? "bg-[#3E8940] border-[#3E8940] text-white" : 
-                                step.active ? "bg-white border-[#3E8940] text-[#3E8940]" :
+                                step.done ? "bg-[#00B074] border-[#00B074] text-white" : 
+                                step.active ? "bg-white border-[#00B074] text-[#00B074]" :
                                 "bg-white border-slate-200 text-slate-300"
                             }`}>
                                 {step.done ? <CheckCircle2 className="h-4 w-4" /> : 
                                  i === 2 ? <Droplets className="h-4 w-4" /> : // Washing icon
                                  <div className="h-2 w-2 rounded-full bg-current" />}
                             </div>
-                            <span className={`text-[10px] uppercase font-bold tracking-wider ${step.done || step.active ? "text-[#3E8940]" : "text-slate-300"}`}>
+                            <span className={`text-[10px] uppercase font-bold tracking-wider ${step.done || step.active ? "text-[#00B074]" : "text-slate-300"}`}>
                                 {step.label}
                             </span>
                         </div>
                      ))}
                  </div>
 
-                 <Button className="w-full bg-[#3E8940] hover:bg-[#3E8940]/90 text-white font-bold h-12 text-base shadow-md shadow-emerald-900/10">
+                 <Button className="w-full bg-[#00B074] hover:bg-[#00B074]/90 text-white font-bold h-12 text-base shadow-md shadow-emerald-900/10">
                     <Droplets className="mr-2 h-5 w-5" />
                     Mark as Washing
                  </Button>

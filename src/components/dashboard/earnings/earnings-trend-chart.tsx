@@ -60,7 +60,7 @@ export function EarningsTrendChart() {
             />
             <Tooltip
               cursor={{
-                stroke: "#3E8940",
+                stroke: "#00B074",
                 strokeWidth: 1,
                 strokeDasharray: "4 4",
               }}
@@ -69,7 +69,7 @@ export function EarningsTrendChart() {
                   return (
                     <div className="rounded-lg bg-slate-900 px-3 py-2 shadow-xl text-white font-bold text-sm border border-slate-800">
                       <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-[#3E8940]"></span>
+                        <span className="w-2 h-2 rounded-full bg-[#00B074]"></span>
                         <span>Trend: ₹{payload[0].value}</span>
                       </div>
                     </div>
@@ -81,12 +81,12 @@ export function EarningsTrendChart() {
             <Line
               type="monotone"
               dataKey="trend"
-              stroke="#3E8940"
+              stroke="#00B074"
               strokeWidth={4}
-              dot={{ r: 4, fill: "#fff", stroke: "#3E8940", strokeWidth: 2 }}
+              dot={{ r: 4, fill: "#fff", stroke: "#00B074", strokeWidth: 2 }}
               activeDot={{
                 r: 7,
-                fill: "#3E8940",
+                fill: "#00B074",
                 stroke: "#fff",
                 strokeWidth: 3,
               }}

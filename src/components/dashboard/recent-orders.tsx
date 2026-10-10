@@ -149,7 +149,7 @@ export function RecentOrders({
                   {order.status === "Assigned" ? (
                     <Button
                       size="sm"
-                      className="bg-[#3E8940] hover:bg-[#3E8940]/90 h-8 px-3 font-bold text-xs"
+                      className="bg-[#00B074] hover:bg-[#00B074]/90 h-8 px-3 font-bold text-xs"
                       onClick={(e) => {
                         e.stopPropagation();
                         onOrderClick?.(order.id);
@@ -161,7 +161,7 @@ export function RecentOrders({
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-8 w-8 text-[#3E8940] hover:text-[#3E8940] hover:bg-[#3E8940]/10"
+                      className="h-8 w-8 text-[#00B074] hover:text-[#00B074] hover:bg-[#00B074]/10"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <MoreVertical className="h-4 w-4" />
@@ -183,22 +183,22 @@ export function RecentOrders({
         <Table>
           <TableHeader>
             <TableRow className="hover:bg-[#fbfbfb] border-none bg-[#fbfbfb]">
-              <TableHead className="w-[100px] text-xs font-bold uppercase text-[#4FA851] py-3 pl-4">
+              <TableHead className="w-[100px] text-xs font-bold uppercase text-[#009463] py-3 pl-4">
                 Order ID
               </TableHead>
-              <TableHead className="text-xs font-bold uppercase text-[#4FA851] py-3">
+              <TableHead className="text-xs font-bold uppercase text-[#009463] py-3">
                 Customer
               </TableHead>
-              <TableHead className="text-xs font-bold uppercase text-[#4FA851] py-3">
+              <TableHead className="text-xs font-bold uppercase text-[#009463] py-3">
                 Items
               </TableHead>
-              <TableHead className="text-xs font-bold uppercase text-[#4FA851] py-3">
+              <TableHead className="text-xs font-bold uppercase text-[#009463] py-3">
                 Status
               </TableHead>
-              <TableHead className="text-xs font-bold uppercase text-[#4FA851] py-3">
+              <TableHead className="text-xs font-bold uppercase text-[#009463] py-3">
                 Due Date
               </TableHead>
-              <TableHead className="text-xs font-bold uppercase text-[#4FA851] py-3">
+              <TableHead className="text-xs font-bold uppercase text-[#009463] py-3">
                 <div className="flex items-center gap-1">
                   Notification
                   <Tooltip>
@@ -211,7 +211,7 @@ export function RecentOrders({
                   </Tooltip>
                 </div>
               </TableHead>
-              <TableHead className="text-right text-xs font-bold uppercase text-[#4FA851] py-3 pr-4">
+              <TableHead className="text-right text-xs font-bold uppercase text-[#009463] py-3 pr-4">
                 Actions
               </TableHead>
             </TableRow>
@@ -268,7 +268,7 @@ export function RecentOrders({
                           <span className="text-sm font-bold text-black">
                             {order.customer}
                           </span>
-                          <span className="text-xs text-[#3E8940] font-medium">
+                          <span className="text-xs text-[#00B074] font-medium">
                             {order.type}
                           </span>
                         </div>
@@ -311,7 +311,7 @@ export function RecentOrders({
                       {order.status === "Assigned" ? (
                         <Button
                           size="sm"
-                          className="bg-[#3E8940] hover:bg-[#3E8940]/90 h-8 px-4 font-bold"
+                          className="bg-[#00B074] hover:bg-[#00B074]/90 h-8 px-4 font-bold"
                           onClick={(e) => {
                             e.stopPropagation();
                             onOrderClick?.(order.id);
@@ -323,7 +323,7 @@ export function RecentOrders({
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-8 w-8 text-[#3E8940] hover:text-[#3E8940] hover:bg-[#3E8940]/10"
+                          className="h-8 w-8 text-[#00B074] hover:text-[#00B074] hover:bg-[#00B074]/10"
                           onClick={(e) => e.stopPropagation()}
                         >
                           <MoreVertical className="h-5 w-5" />
@@ -346,14 +346,14 @@ export function RecentOrders({
           </TableBody>
         </Table>
         <div className="flex items-center justify-between mt-4 pt-3 border-t">
-          <p className="text-sm text-[#3E8940]">
+          <p className="text-sm text-[#00B074]">
             Showing {filteredOrders.length} of {orders.length} orders
           </p>
           <div className="flex gap-2">
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 text-[#3E8940] hover:bg-[#3E8940]/10"
+              className="h-8 w-8 text-[#00B074] hover:bg-[#00B074]/10"
             >
               <span className="sr-only">Previous page</span>
               <span className="text-lg">‹</span>
@@ -361,7 +361,7 @@ export function RecentOrders({
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 text-[#3E8940] hover:bg-[#3E8940]/10"
+              className="h-8 w-8 text-[#00B074] hover:bg-[#00B074]/10"
             >
               <span className="sr-only">Next page</span>
               <span className="text-lg">›</span>
@@ -372,14 +372,14 @@ export function RecentOrders({
 
       {/* Mobile pagination */}
       <div className="flex items-center justify-between mt-3 pt-3 border-t md:hidden">
-        <p className="text-xs text-[#3E8940]">
+        <p className="text-xs text-[#00B074]">
           {filteredOrders.length} of {orders.length} orders
         </p>
         <div className="flex gap-1">
           <Button
             variant="ghost"
             size="icon"
-            className="h-7 w-7 text-[#3E8940] hover:bg-[#3E8940]/10"
+            className="h-7 w-7 text-[#00B074] hover:bg-[#00B074]/10"
           >
             <span className="sr-only">Previous page</span>
             <span className="text-base">‹</span>
@@ -387,7 +387,7 @@ export function RecentOrders({
           <Button
             variant="ghost"
             size="icon"
-            className="h-7 w-7 text-[#3E8940] hover:bg-[#3E8940]/10"
+            className="h-7 w-7 text-[#00B074] hover:bg-[#00B074]/10"
           >
             <span className="sr-only">Next page</span>
             <span className="text-base">›</span>

@@ -450,7 +450,7 @@ export function NewOrderModal({ open, onOpenChange }: NewOrderModalProps) {
                                         className={cn(
                                           "group relative h-16 w-16 rounded-xl overflow-hidden bg-slate-100 border border-slate-200 shadow-sm cursor-pointer transition-all",
                                           isSelected &&
-                                            "ring-2 ring-[#3E8940] ring-offset-2",
+                                            "ring-2 ring-[#00B074] ring-offset-2",
                                         )}
                                       >
                                         <img
@@ -468,7 +468,7 @@ export function NewOrderModal({ open, onOpenChange }: NewOrderModalProps) {
                                           )}
                                         >
                                           {isSelected && (
-                                            <div className="bg-[#3E8940] rounded-full p-1 shadow-sm">
+                                            <div className="bg-[#00B074] rounded-full p-1 shadow-sm">
                                               <Check
                                                 className="h-4 w-4 text-white"
                                                 strokeWidth={3}
@@ -497,7 +497,7 @@ export function NewOrderModal({ open, onOpenChange }: NewOrderModalProps) {
                         Close
                       </Button>
                       <Button
-                        className="flex-1 bg-[#3E8940] text-white font-bold h-12 rounded-xl text-base hover:bg-[#3E8940]/90 shadow-lg shadow-emerald-500/20"
+                        className="flex-1 bg-[#00B074] text-white font-bold h-12 rounded-xl text-base hover:bg-[#00B074]/90 shadow-lg shadow-emerald-500/20"
                         onClick={() => {
                           setShowDetails(false);
                           onOpenChange(false);
@@ -532,15 +532,15 @@ export function NewOrderModal({ open, onOpenChange }: NewOrderModalProps) {
               </div>
 
               {/* Earning */}
-              <div className="bg-[#3E8940]/5 rounded-xl border border-[#3E8940]/10 p-3 flex items-center justify-center gap-3">
-                <div className="h-9 w-9 rounded-full bg-[#3E8940]/10 flex items-center justify-center text-[#3E8940]">
+              <div className="bg-[#00B074]/5 rounded-xl border border-[#00B074]/10 p-3 flex items-center justify-center gap-3">
+                <div className="h-9 w-9 rounded-full bg-[#00B074]/10 flex items-center justify-center text-[#00B074]">
                   <Banknote className="h-5 w-5" />
                 </div>
                 <div className="flex flex-col">
                   <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                     Your Earning
                   </span>
-                  <span className="text-xl font-black text-[#3E8940] tracking-tight">
+                  <span className="text-xl font-black text-[#00B074] tracking-tight">
                     ₹245.00
                   </span>
                 </div>
@@ -569,7 +569,7 @@ export function NewOrderModal({ open, onOpenChange }: NewOrderModalProps) {
                   Decline Order
                 </Button>
                 <Button
-                  className="h-12 bg-[#3E8940] hover:bg-[#3E8940]/90 text-white font-bold text-base shadow-lg shadow-emerald-500/20 rounded-xl"
+                  className="h-12 bg-[#00B074] hover:bg-[#00B074]/90 text-white font-bold text-base shadow-lg shadow-emerald-500/20 rounded-xl"
                   onClick={handleAcceptOrder}
                 >
                   Accept Order <ArrowRight className="ml-2 h-5 w-5" />

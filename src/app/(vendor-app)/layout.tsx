@@ -64,7 +64,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body
-        className={`${poppins.variable} ${quicksand.variable} ${spaceGrotesk.variable} ${plexMono.variable} ${inter.variable} ${plusJakartaSans.variable} ${outfit.variable} font-poppins font-sans antialiased`}
+        className={`${poppins.variable} ${quicksand.variable} ${spaceGrotesk.variable} ${plexMono.variable} ${inter.variable} ${plusJakartaSans.variable} ${outfit.variable} vendor-app font-poppins font-sans antialiased`}
         suppressHydrationWarning
       >
         {children}

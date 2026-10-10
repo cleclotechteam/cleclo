@@ -621,7 +621,7 @@ export default function ScheduleDetailPage() {
                   {/* Verify Selected Button - only show if items are selected */}
                   {selectedCount > 0 && (
                     <Button
-                      className="w-full bg-[#3E8940] hover:bg-[#3E8940]/90 h-12 text-base font-bold shadow-lg shadow-emerald-900/10"
+                      className="w-full bg-[#00B074] hover:bg-[#00B074]/90 h-12 text-base font-bold shadow-lg shadow-emerald-900/10"
                       onClick={handleVerifySelectedItems}
                     >
                       <CheckCircle2 className="h-5 w-5 mr-2" />
@@ -635,7 +635,7 @@ export default function ScheduleDetailPage() {
                       "w-full h-12 text-base font-semibold",
                       selectedCount > 0
                         ? "bg-slate-200 hover:bg-slate-300 text-slate-700"
-                        : "bg-[#3E8940] hover:bg-[#3E8940]/90",
+                        : "bg-[#00B074] hover:bg-[#00B074]/90",
                     )}
                     onClick={handleVerifyAllVendorItems}
                   >
@@ -1244,7 +1244,7 @@ export default function ScheduleDetailPage() {
               Back to Inspection
             </Button>
             <Button
-              className="bg-[#3E8940] hover:bg-[#3E8940]/90"
+              className="bg-[#00B074] hover:bg-[#00B074]/90"
               onClick={executeVerification}
             >
               Confirm & Verify

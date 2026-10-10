@@ -85,7 +85,7 @@ function SidebarContent({ onLinkClick }: { onLinkClick?: () => void }) {
               <div className="flex flex-col gap-1 items-center w-full">
                 <div className="h-12 flex items-center justify-center w-full">
                   <Image
-                    src="/logo.png"
+                    src="/cleclo-logo.png"
                     alt="Cleclo Logo"
                     width={140}
                     height={50}

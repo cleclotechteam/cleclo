@@ -90,7 +90,7 @@ export function DashboardHeader() {
           <Button
             variant="ghost"
             size="icon"
-            className="relative text-black font-bold hover:text-black hover:bg-[#3E8940]/10"
+            className="relative text-black font-bold hover:text-black hover:bg-[#00B074]/10"
             onClick={() => setShowNotifications(!showNotifications)}
           >
             <Bell className="h-5 w-5" />
@@ -137,7 +137,7 @@ export function DashboardHeader() {
                       key={notif.id}
                       className={cn(
                         "p-4 border-b border-slate-100 hover:bg-slate-50 transition-colors cursor-pointer",
-                        notif.unread && "bg-[#3E8940]/5"
+                        notif.unread && "bg-[#00B074]/5"
                       )}
                     >
                       <div className="flex items-start gap-3">
@@ -178,13 +178,13 @@ export function DashboardHeader() {
                             <span className="text-xs text-slate-600">
                               {notif.items}
                             </span>
-                            <span className="text-sm font-bold text-[#3E8940]">
+                            <span className="text-sm font-bold text-[#00B074]">
                               {notif.earning}
                             </span>
                           </div>
                         </div>
                         {notif.unread && (
-                          <div className="h-2 w-2 rounded-full bg-[#3E8940] shrink-0 mt-2" />
+                          <div className="h-2 w-2 rounded-full bg-[#00B074] shrink-0 mt-2" />
                         )}
                       </div>
                     </div>
@@ -195,7 +195,7 @@ export function DashboardHeader() {
                 <div className="p-3 border-t border-slate-100 bg-slate-50">
                   <Link
                     href="/dashboard/orders"
-                    className="flex items-center justify-center gap-1 text-sm font-semibold text-[#3E8940] hover:text-[#3E8940]/80"
+                    className="flex items-center justify-center gap-1 text-sm font-semibold text-[#00B074] hover:text-[#00B074]/80"
                     onClick={() => setShowNotifications(false)}
                   >
                     View All Orders

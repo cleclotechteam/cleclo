@@ -325,7 +325,7 @@ const getStatusColor = (status: OrderStatus) => {
 const getSpeedColor = (speed: ServiceSpeed) => {
   switch (speed) {
     case "economy":
-      return "text-[#3E8940] border-[#3E8940]/30 bg-[#3E8940]/5";
+      return "text-[#00B074] border-[#00B074]/30 bg-[#00B074]/5";
     case "fast":
       return "text-blue-600 border-blue-300 bg-blue-50";
     case "express":
@@ -342,7 +342,7 @@ const getLeftBorderColor = (status: OrderStatus) => {
     case "Under Processing":
       return "bg-purple-500";
     case "Ready for Dispatch":
-      return "bg-[#3E8940]";
+      return "bg-[#00B074]";
     case "Completed Orders":
       return "bg-slate-400";
   }
@@ -429,7 +429,7 @@ export default function OrdersPage() {
           <div
             className={cn(
               "h-2.5 w-2.5 rounded-full transition-colors",
-              liveUpdates ? "bg-[#3E8940] animate-pulse" : "bg-slate-300",
+              liveUpdates ? "bg-[#00B074] animate-pulse" : "bg-slate-300",
             )}
           />
           <span className="text-sm font-medium text-slate-700">
@@ -450,7 +450,7 @@ export default function OrdersPage() {
               className={cn(
                 "flex items-center gap-2 pb-3 px-1 border-b-2 transition-all whitespace-nowrap",
                 isActive
-                  ? "border-[#3E8940] text-[#3E8940] font-bold"
+                  ? "border-[#00B074] text-[#00B074] font-bold"
                   : "border-transparent text-slate-500 font-medium hover:text-slate-700 hover:border-slate-300",
               )}
             >
@@ -460,7 +460,7 @@ export default function OrdersPage() {
                   className={cn(
                     "px-2 py-0.5 text-xs rounded-full",
                     isActive
-                      ? "bg-[#3E8940] text-white"
+                      ? "bg-[#00B074] text-white"
                       : "bg-slate-200 text-slate-600",
                   )}
                 >
@@ -562,7 +562,7 @@ export default function OrdersPage() {
               className={cn(
                 "px-4 py-1.5 text-sm font-medium rounded-lg transition-colors capitalize",
                 serviceFilter === speed
-                  ? "bg-[#3E8940]/10 text-[#3E8940] font-bold shadow-sm"
+                  ? "bg-[#00B074]/10 text-[#00B074] font-bold shadow-sm"
                   : "text-slate-600 hover:bg-slate-200",
               )}
             >
@@ -607,7 +607,7 @@ export default function OrdersPage() {
                     <h3 className="text-lg font-bold text-slate-900 tracking-tight">
                       Order #{order.id.replace("ORD-", "")}
                     </h3>
-                    <p className="text-sm font-semibold text-[#3E8940]">
+                    <p className="text-sm font-semibold text-[#00B074]">
                       {order.status.split(" ")[0]} |{" "}
                       {order.serviceSpeed === "economy"
                         ? "Standard"
@@ -662,7 +662,7 @@ export default function OrdersPage() {
                       <p className="text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">
                         Estimated Earnings
                       </p>
-                      <p className="text-2xl font-black text-[#3E8940]">
+                      <p className="text-2xl font-black text-[#00B074]">
                         {order.earning}
                       </p>
                     </div>
@@ -671,7 +671,7 @@ export default function OrdersPage() {
                       {order.status === "New Orders" && (
                         <Button
                           size="sm"
-                          className="bg-[#3E8940] hover:bg-[#3E8940]/90 h-8 text-xs font-bold px-4"
+                          className="bg-[#00B074] hover:bg-[#00B074]/90 h-8 text-xs font-bold px-4"
                         >
                           Accept Order
                         </Button>
@@ -708,7 +708,7 @@ export default function OrdersPage() {
                       )}
                       <Link
                         href={`/dashboard/orders/${order.id}`}
-                        className="flex items-center text-[#3E8940] text-xs font-bold cursor-pointer hover:underline"
+                        className="flex items-center text-[#00B074] text-xs font-bold cursor-pointer hover:underline"
                       >
                         View Details{" "}
                         <ChevronRight className="w-3.5 h-3.5 ml-1" />
@@ -729,7 +729,7 @@ export default function OrdersPage() {
             Showing <strong>{filteredOrders.length}</strong> {activeTab} orders
             {serviceFilter !== "all" && ` • ${serviceFilter} service`}
           </span>
-          <span className="font-semibold text-[#3E8940]">
+          <span className="font-semibold text-[#00B074]">
             Total Earnings: ₹
             {filteredOrders.reduce(
               (sum, o) => sum + parseInt(o.earning.replace(/[₹,]/g, "")),

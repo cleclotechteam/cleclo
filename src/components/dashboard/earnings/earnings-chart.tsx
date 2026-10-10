@@ -32,7 +32,7 @@ export function EarningsChart() {
           </p>
         </div>
         <div className="flex bg-slate-100 p-1 rounded-lg">
-          <button className="px-3 py-1.5 bg-[#3E8940] text-white text-xs font-semibold rounded-md shadow-sm">
+          <button className="px-3 py-1.5 bg-[#00B074] text-white text-xs font-semibold rounded-md shadow-sm">
             Chart
           </button>
           <button className="px-3 py-1.5 text-slate-600 text-xs font-semibold rounded-md hover:bg-slate-200 transition-colors">
@@ -70,7 +70,7 @@ export function EarningsChart() {
               content={({ active, payload }) => {
                 if (active && payload && payload.length) {
                   return (
-                    <div className="rounded-lg bg-[#3E8940] px-3 py-2 shadow-xl text-white font-bold text-sm">
+                    <div className="rounded-lg bg-[#00B074] px-3 py-2 shadow-xl text-white font-bold text-sm">
                       ₹{payload[0].value}
                     </div>
                   );
@@ -82,7 +82,7 @@ export function EarningsChart() {
               {data.map((entry, index) => (
                 <Cell
                   key={`cell-${index}`}
-                  fill={entry.active ? "#3E8940" : "#E2E8F0"}
+                  fill={entry.active ? "#00B074" : "#E2E8F0"}
                 />
               ))}
             </Bar>

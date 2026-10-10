@@ -142,7 +142,7 @@ export function ReportProblemModal({
                   className={cn(
                     "w-full p-3 rounded-xl border transition-all flex items-center gap-3 text-left",
                     selectedIssue === issue.id
-                      ? "border-[#3E8940] bg-[#3E8940]/5"
+                      ? "border-[#00B074] bg-[#00B074]/5"
                       : "border-slate-200 hover:border-slate-300 bg-white"
                   )}
                 >
@@ -150,7 +150,7 @@ export function ReportProblemModal({
                     className={cn(
                       "p-2 rounded-lg",
                       selectedIssue === issue.id
-                        ? "bg-[#3E8940]/10"
+                        ? "bg-[#00B074]/10"
                         : "bg-slate-100"
                     )}
                   >
@@ -158,7 +158,7 @@ export function ReportProblemModal({
                       className={cn(
                         "h-5 w-5",
                         selectedIssue === issue.id
-                          ? "text-[#3E8940]"
+                          ? "text-[#00B074]"
                           : "text-slate-500"
                       )}
                     />
@@ -168,7 +168,7 @@ export function ReportProblemModal({
                       className={cn(
                         "font-medium",
                         selectedIssue === issue.id
-                          ? "text-[#3E8940]"
+                          ? "text-[#00B074]"
                           : "text-slate-900"
                       )}
                     >
@@ -179,7 +179,7 @@ export function ReportProblemModal({
                     </p>
                   </div>
                   {selectedIssue === issue.id && (
-                    <div className="h-5 w-5 rounded-full bg-[#3E8940] flex items-center justify-center">
+                    <div className="h-5 w-5 rounded-full bg-[#00B074] flex items-center justify-center">
                       <CheckCircle className="h-3 w-3 text-white" />
                     </div>
                   )}

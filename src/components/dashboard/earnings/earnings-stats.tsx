@@ -6,7 +6,7 @@ export function EarningsStats() {
   return (
     <div className="grid gap-4 md:grid-cols-3">
       {/* Available Balance Card */}
-      <div className="relative overflow-hidden rounded-xl bg-[#3E8940] p-6 text-white shadow-lg shadow-emerald-900/10 transition-all hover:shadow-xl hover:shadow-emerald-900/20">
+      <div className="relative overflow-hidden rounded-xl bg-[#00B074] p-6 text-white shadow-lg shadow-emerald-900/10 transition-all hover:shadow-xl hover:shadow-emerald-900/20">
         <div className="absolute top-0 right-0 h-32 w-32 translate-x-8 -translate-y-8 rounded-full bg-white/10 blur-2xl" />
         <div className="relative z-10 flex flex-col justify-between h-full space-y-4">
           <div className="flex items-center gap-2 text-emerald-100 mb-1">

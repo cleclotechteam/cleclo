@@ -215,7 +215,7 @@ export function EarningsOverview() {
               />
               <div className="p-3 border-t">
                 <Button
-                  className="w-full bg-[#3E8940] hover:bg-[#3E8940]/90"
+                  className="w-full bg-[#00B074] hover:bg-[#00B074]/90"
                   onClick={handleExport}
                   disabled={!date?.from || isExporting}
                 >

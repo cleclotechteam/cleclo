@@ -245,11 +245,11 @@ export default function DashboardPage() {
         <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-top-4 duration-500 fade-in-0">
           <div className="bg-white rounded-2xl shadow-2xl shadow-slate-200/50 border border-slate-100 p-5 w-[400px] flex items-start gap-4 ring-1 ring-slate-200/50 relative overflow-hidden">
             {/* Progress Bar */}
-            <div className="absolute bottom-0 left-0 h-1 bg-[#3E8940]/10 w-full">
-              <div className="h-full bg-[#3E8940] animate-[shrink_120s_linear_forwards] origin-left" />
+            <div className="absolute bottom-0 left-0 h-1 bg-[#00B074]/10 w-full">
+              <div className="h-full bg-[#00B074] animate-[shrink_120s_linear_forwards] origin-left" />
             </div>
             <div className="h-12 w-12 rounded-full bg-[#f0fdf4] border border-[#dcfce7] flex items-center justify-center shrink-0 shadow-sm">
-              <Bell className="h-6 w-6 text-[#16a34a]" />
+              <Bell className="h-6 w-6 text-[#00B074]" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-start justify-between mb-1">
@@ -280,7 +280,7 @@ export default function DashboardPage() {
                   {STATIC_NOTIFICATION.customer}
                 </span>
               </p>
-              <div className="flex items-center justify-between bg-slate-50/80 border border-slate-100 p-2.5 rounded-lg mb-4 group hover:border-[#3E8940]/20 transition-colors">
+              <div className="flex items-center justify-between bg-slate-50/80 border border-slate-100 p-2.5 rounded-lg mb-4 group hover:border-[#00B074]/20 transition-colors">
                 <div className="flex items-center gap-2.5">
                   <div className="p-1.5 bg-white rounded-md shadow-sm border border-slate-100">
                     <Package className="h-3.5 w-3.5 text-slate-500" />
@@ -289,14 +289,14 @@ export default function DashboardPage() {
                     {STATIC_NOTIFICATION.items}
                   </span>
                 </div>
-                <span className="text-sm font-bold text-[#16a34a] bg-[#f0fdf4] px-2 py-0.5 rounded-md border border-[#dcfce7]">
+                <span className="text-sm font-bold text-[#00B074] bg-[#f0fdf4] px-2 py-0.5 rounded-md border border-[#dcfce7]">
                   {STATIC_NOTIFICATION.earning}
                 </span>
               </div>
 
               <div className="flex gap-3">
                 <Button
-                  className="flex-1 bg-[#16a34a] hover:bg-[#15803d] text-white shadow-md shadow-green-200 h-9 font-semibold text-sm transition-all active:scale-[0.98]"
+                  className="flex-1 bg-[#00B074] hover:bg-[#15803d] text-white shadow-md shadow-green-200 h-9 font-semibold text-sm transition-all active:scale-[0.98]"
                   onClick={() => {
                     setShowNewOrder(true);
                     setShowNotification(false);
@@ -367,7 +367,7 @@ export default function DashboardPage() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="justify-start text-xs font-medium text-slate-600 hover:text-[#3E8940] hover:bg-[#3E8940]/5"
+                    className="justify-start text-xs font-medium text-slate-600 hover:text-[#00B074] hover:bg-[#00B074]/5"
                     onClick={() =>
                       setDate({
                         from: subDays(new Date(), 7),
@@ -380,7 +380,7 @@ export default function DashboardPage() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="justify-start text-xs font-medium text-slate-600 hover:text-[#3E8940] hover:bg-[#3E8940]/5"
+                    className="justify-start text-xs font-medium text-slate-600 hover:text-[#00B074] hover:bg-[#00B074]/5"
                     onClick={() =>
                       setDate({
                         from: startOfWeek(new Date()),
@@ -393,7 +393,7 @@ export default function DashboardPage() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="justify-start text-xs font-medium text-slate-600 hover:text-[#3E8940] hover:bg-[#3E8940]/5"
+                    className="justify-start text-xs font-medium text-slate-600 hover:text-[#00B074] hover:bg-[#00B074]/5"
                     onClick={() =>
                       setDate({
                         from: startOfMonth(new Date()),
@@ -406,7 +406,7 @@ export default function DashboardPage() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="justify-start text-xs font-medium text-slate-600 hover:text-[#3E8940] hover:bg-[#3E8940]/5"
+                    className="justify-start text-xs font-medium text-slate-600 hover:text-[#00B074] hover:bg-[#00B074]/5"
                     onClick={() =>
                       setDate({
                         from: startOfMonth(subMonths(new Date(), 1)),
@@ -444,7 +444,7 @@ export default function DashboardPage() {
                       </Button>
                       <Button
                         size="sm"
-                        className="bg-[#3E8940] hover:bg-[#3E8940]/90 text-xs h-8 px-4"
+                        className="bg-[#00B074] hover:bg-[#00B074]/90 text-xs h-8 px-4"
                         onClick={() => document.body.click()}
                       >
                         Apply

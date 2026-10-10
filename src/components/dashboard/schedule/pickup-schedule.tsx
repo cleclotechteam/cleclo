@@ -487,7 +487,7 @@ export function PickupSchedule() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="justify-start text-xs font-medium text-slate-600 hover:text-[#3E8940] hover:bg-[#3E8940]/5"
+                  className="justify-start text-xs font-medium text-slate-600 hover:text-[#00B074] hover:bg-[#00B074]/5"
                   onClick={() =>
                     setDate({
                       from: subDays(new Date(), 7),
@@ -500,7 +500,7 @@ export function PickupSchedule() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="justify-start text-xs font-medium text-slate-600 hover:text-[#3E8940] hover:bg-[#3E8940]/5"
+                  className="justify-start text-xs font-medium text-slate-600 hover:text-[#00B074] hover:bg-[#00B074]/5"
                   onClick={() =>
                     setDate({
                       from: startOfWeek(new Date()),
@@ -513,7 +513,7 @@ export function PickupSchedule() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="justify-start text-xs font-medium text-slate-600 hover:text-[#3E8940] hover:bg-[#3E8940]/5"
+                  className="justify-start text-xs font-medium text-slate-600 hover:text-[#00B074] hover:bg-[#00B074]/5"
                   onClick={() =>
                     setDate({
                       from: startOfMonth(new Date()),
@@ -526,7 +526,7 @@ export function PickupSchedule() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="justify-start text-xs font-medium text-slate-600 hover:text-[#3E8940] hover:bg-[#3E8940]/5"
+                  className="justify-start text-xs font-medium text-slate-600 hover:text-[#00B074] hover:bg-[#00B074]/5"
                   onClick={() =>
                     setDate({
                       from: startOfMonth(subMonths(new Date(), 1)),
@@ -879,7 +879,7 @@ export function PickupSchedule() {
                     <div className="col-span-2 flex items-center justify-end gap-2">
                       <Button
                         size="sm"
-                        className="h-8 px-4 bg-[#3E8940] hover:bg-[#3E8940]/90 text-xs font-semibold"
+                        className="h-8 px-4 bg-[#00B074] hover:bg-[#00B074]/90 text-xs font-semibold"
                         onClick={(e) => {
                           e.stopPropagation();
                           router.push(`/dashboard/schedule/${schedule.id}`);
@@ -986,7 +986,7 @@ export function PickupSchedule() {
                     <div className="flex gap-2 pt-2">
                       <Button
                         size="sm"
-                        className="h-8 px-4 bg-[#3E8940] hover:bg-[#3E8940]/90 gap-1.5"
+                        className="h-8 px-4 bg-[#00B074] hover:bg-[#00B074]/90 gap-1.5"
                         onClick={(e) => {
                           e.stopPropagation();
                           router.push(`/dashboard/schedule/${schedule.id}`);
@@ -1058,7 +1058,7 @@ export function PickupSchedule() {
           </div>
           <DialogFooter>
             <Button
-              className="w-full bg-[#3E8940] hover:bg-[#3E8940]/90"
+              className="w-full bg-[#00B074] hover:bg-[#00B074]/90"
               onClick={handleConfirmVerification}
             >
               Verify &{" "}

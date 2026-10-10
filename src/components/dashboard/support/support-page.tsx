@@ -146,14 +146,14 @@ export function SupportPage() {
       {/* Contact Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow flex items-center gap-4">
-          <div className="h-10 w-10 rounded-lg bg-[#3E8940]/10 flex items-center justify-center shrink-0">
-            <Phone className="h-5 w-5 text-[#3E8940]" />
+          <div className="h-10 w-10 rounded-lg bg-[#00B074]/10 flex items-center justify-center shrink-0">
+            <Phone className="h-5 w-5 text-[#00B074]" />
           </div>
           <div className="min-w-0">
             <h3 className="font-semibold text-slate-900 text-sm">
               Phone Support
             </h3>
-            <p className="text-sm font-semibold text-[#3E8940]">
+            <p className="text-sm font-semibold text-[#00B074]">
               +1 (800) 123-4567
             </p>
             <p className="text-[10px] text-slate-400">
@@ -250,8 +250,8 @@ export function SupportPage() {
         {/* Contact Form */}
         <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
           <div className="p-4 border-b border-slate-100 flex items-center gap-3">
-            <div className="h-10 w-10 rounded-lg bg-[#3E8940]/10 flex items-center justify-center">
-              <Headphones className="h-5 w-5 text-[#3E8940]" />
+            <div className="h-10 w-10 rounded-lg bg-[#00B074]/10 flex items-center justify-center">
+              <Headphones className="h-5 w-5 text-[#00B074]" />
             </div>
             <div>
               <h2 className="font-semibold text-slate-900">
@@ -300,7 +300,7 @@ export function SupportPage() {
                 className="min-h-[100px] resize-none"
               />
             </div>
-            <Button className="w-full h-10 bg-[#3E8940] hover:bg-[#3E8940]/90">
+            <Button className="w-full h-10 bg-[#00B074] hover:bg-[#00B074]/90">
               <Send className="h-4 w-4 mr-2" />
               Submit Request
             </Button>
