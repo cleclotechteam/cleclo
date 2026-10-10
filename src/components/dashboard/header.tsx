@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { isDemoMode } from "@/lib/vendor-data";
+import { useVendorData } from "@/lib/vendor-data/use-vendor-data";
 import {
   Bell,
   PanelLeftClose,
@@ -17,43 +19,10 @@ import { useSidebar } from "@/components/dashboard/sidebar-provider";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-// Static notification data
-const NOTIFICATIONS = [
-  {
-    id: "ORD-8292",
-    type: "new_order",
-    title: "New Order Assigned",
-    customer: "Mark Wilson",
-    items: "2 Suits Dry Clean",
-    earning: "₹280",
-    time: "Just now",
-    unread: true,
-  },
-  {
-    id: "ORD-8291",
-    type: "processing",
-    title: "Order Ready for Pickup",
-    customer: "Alice Freeman",
-    items: "5kg Wash & Fold",
-    earning: "₹140",
-    time: "5 min ago",
-    unread: true,
-  },
-  {
-    id: "ORD-8288",
-    type: "completed",
-    title: "Order Completed",
-    customer: "Sarah Jenkins",
-    items: "10kg Mixed Load",
-    earning: "₹350",
-    time: "1 hour ago",
-    unread: false,
-  },
-];
-
 export function DashboardHeader() {
   const { isCollapsed, toggleSidebar, toggleMobileSidebar } = useSidebar();
   const [showNotifications, setShowNotifications] = useState(false);
+  const { data: NOTIFICATIONS = [] } = useVendorData("notifications");
   const unreadCount = NOTIFICATIONS.filter((n) => n.unread).length;
 
   return (
@@ -85,6 +54,15 @@ export function DashboardHeader() {
       </div>
 
       <div className="flex items-center gap-3 md:gap-4 ml-auto">
+        {/* Shown until NEXT_PUBLIC_VENDOR_API_URL points at a real backend */}
+        {isDemoMode && (
+          <span
+            className="rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-amber-700"
+            title="No backend is connected yet, so the dashboard is showing sample data."
+          >
+            Demo data
+          </span>
+        )}
         {/* Notification Bell with Dropdown */}
         <div className="relative">
           <Button

@@ -38,11 +38,15 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { VendorDataGate } from "@/components/dashboard/vendor-data-gate";
+import type { ScheduleEntry } from "@/lib/vendor-data";
 import {
   format,
   isSameDay,
   subDays,
   isWithinInterval,
+  startOfDay,
+  endOfDay,
   differenceInDays,
   startOfWeek,
   endOfWeek,
@@ -57,203 +61,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-
-// ... existing code ...
-
-const SCHEDULE_DATA = [
-  {
-    id: "PU-001",
-    orderId: "#284-9321",
-    customer: "Sarah Johnson",
-    phone: "+1 (555) 123-4567",
-    address: "452 Maple Ave, Apt 4B",
-    city: "San Francisco, CA 94110",
-    date: "Feb 07, 2026",
-    isoDate: "2026-02-07T10:00:00",
-    items: 5,
-    status: "pickup_scheduled",
-    type: "pickup",
-    rating: 4.8,
-    note: "Coffee stain on front",
-    deliveryType: "Standard",
-    driver: "John Doe",
-    orderItems: [
-      {
-        name: "White Shirt",
-        quantity: 2,
-        image:
-          "https://images.unsplash.com/photo-1620799140408-ed5341cd2431?w=800&auto=format&fit=crop&q=60",
-      },
-      {
-        name: "Black Trousers",
-        quantity: 3,
-        image:
-          "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800&auto=format&fit=crop&q=60",
-      },
-    ],
-  },
-  {
-    id: "PU-002",
-    orderId: "#284-9318",
-    customer: "Michael Chen",
-    phone: "+1 (555) 234-5678",
-    address: "789 Oak Street, Suite 12",
-    city: "San Francisco, CA 94102",
-    date: "Feb 07, 2026",
-    isoDate: "2026-02-07T14:30:00",
-    items: 3,
-    status: "in_workshop",
-    type: "pickup",
-    rating: 4.9,
-    note: "Oil stain on white shirt collar",
-    deliveryType: "Express 24h",
-    driver: "Mike Smith",
-    orderItems: [
-      {
-        name: "White Shirt",
-        quantity: 3,
-        image:
-          "https://images.unsplash.com/photo-1620799140408-ed5341cd2431?w=800&auto=format&fit=crop&q=60",
-      },
-    ],
-  },
-  {
-    id: "DL-001",
-    orderId: "#284-9310",
-    customer: "Emily Davis",
-    phone: "+1 (555) 345-6789",
-    address: "156 Pine Road",
-    city: "San Francisco, CA 94108",
-    date: "Feb 06, 2026",
-    isoDate: "2026-02-06T09:00:00",
-    items: 8,
-    status: "ready_for_delivery",
-    type: "delivery",
-    rating: 4.7,
-    deliveryType: "Standard",
-  },
-  {
-    id: "PU-003",
-    orderId: "#284-9325",
-    customer: "James Wilson",
-    phone: "+1 (555) 456-7890",
-    address: "321 Cedar Lane, Unit 5",
-    city: "San Francisco, CA 94114",
-    date: "Feb 08, 2026",
-    isoDate: "2026-02-08T11:00:00",
-    items: 4,
-    status: "picked_up",
-    type: "pickup",
-    rating: 5.0,
-    note: "Delicate silk items",
-    deliveryType: "Express 48h",
-    driver: "Sarah Wilson",
-    orderItems: [
-      {
-        name: "Silk Blouse",
-        quantity: 2,
-        image:
-          "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&auto=format&fit=crop&q=60",
-      },
-      {
-        name: "Silk Scarf",
-        quantity: 2,
-        image:
-          "https://images.unsplash.com/photo-1584030373081-f37b7bb4fa8e?w=800&auto=format&fit=crop&q=60",
-      },
-    ],
-  },
-  {
-    id: "DL-002",
-    orderId: "#284-9305",
-    customer: "Lisa Anderson",
-    phone: "+1 (555) 567-8901",
-    address: "888 Birch Boulevard",
-    city: "San Francisco, CA 94117",
-    date: "Feb 07, 2026",
-    isoDate: "2026-02-07T16:00:00",
-    items: 6,
-    status: "ready_for_delivery",
-    type: "delivery",
-    rating: 4.6,
-    deliveryType: "Express 24h",
-  },
-  {
-    id: "DL-003",
-    orderId: "#284-9308",
-    customer: "Robert Taylor",
-    phone: "+1 (555) 678-9012",
-    address: "456 Pine St",
-    city: "San Francisco, CA 94109",
-    date: "Feb 06, 2026",
-    isoDate: "2026-02-06T15:00:00",
-    items: 3,
-    status: "completed",
-    type: "delivery",
-    rating: 4.8,
-    deliveryType: "Express 48h",
-  },
-  {
-    id: "PU-005",
-    orderId: "#284-9330",
-    customer: "Michael Brown",
-    rating: 4.7,
-    phone: "+1 (555) 456-7890",
-    address: "220 Elm St, Apt 5C",
-    city: "San Francisco, CA 94103",
-    date: "Feb 07, 2026",
-    isoDate: "2026-02-07T09:30:00",
-    items: 2,
-    status: "not_scheduled",
-    type: "pickup",
-    note: "Color bleed risk on red dress",
-    deliveryType: "Standard",
-    orderItems: [
-      {
-        name: "Red Dress",
-        quantity: 1,
-        image:
-          "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&auto=format&fit=crop&q=60",
-      },
-      {
-        name: "Cotton T-Shirt",
-        quantity: 1,
-        image:
-          "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&auto=format&fit=crop&q=60",
-      },
-    ],
-  },
-  {
-    id: "PU-006",
-    orderId: "#284-9335",
-    customer: "David Lee",
-    rating: 4.5,
-    phone: "+1 (555) 987-6543",
-    address: "789 Pine St",
-    city: "San Francisco, CA 94108",
-    date: "Feb 08, 2026",
-    isoDate: "2026-02-08T13:00:00",
-    items: 7,
-    status: "not_scheduled",
-    type: "pickup",
-    note: "Grass stains on knees",
-    deliveryType: "Express 24h",
-    orderItems: [
-      {
-        name: "Blue Jeans",
-        quantity: 4,
-        image:
-          "https://images.unsplash.com/photo-1604176354204-9268737828fa?w=800&auto=format&fit=crop&q=60",
-      },
-      {
-        name: "Kids T-Shirt",
-        quantity: 3,
-        image:
-          "https://images.unsplash.com/photo-1519241047957-be31d7379a5d?w=800&auto=format&fit=crop&q=60",
-      },
-    ],
-  },
-];
 
 const getStatusConfig = (status: string, type: string) => {
   switch (status) {
@@ -334,6 +141,14 @@ const getDeliveryBadgeColor = (type?: string) => {
 };
 
 export function PickupSchedule() {
+  return (
+    <VendorDataGate resource="schedule">
+      {(schedule) => <PickupScheduleView schedule={schedule} />}
+    </VendorDataGate>
+  );
+}
+
+function PickupScheduleView({ schedule: SCHEDULE_DATA }: { schedule: ScheduleEntry[] }) {
   const router = useRouter();
   const [activeFilter, setActiveFilter] = useState<
     "all" | "pickups" | "completed" | "express" | "deliveries"
@@ -353,8 +168,8 @@ export function PickupSchedule() {
     if (s.isoDate && date?.from) {
       const orderDate = new Date(s.isoDate);
       return isWithinInterval(orderDate, {
-        start: date.from,
-        end: date.to || date.from,
+        start: startOfDay(date.from),
+        end: endOfDay(date.to || date.from),
       });
     }
     return false;

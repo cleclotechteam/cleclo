@@ -19,6 +19,8 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { VendorDataGate } from "@/components/dashboard/vendor-data-gate";
+import type { ScheduleDetail } from "@/lib/vendor-data";
 import { useState } from "react";
 import {
   Dialog,
@@ -28,143 +30,6 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
-
-// Mock data - in real app this would come from API
-const SCHEDULE_DATA = [
-  {
-    id: "PU-001",
-    orderId: "#284-9321",
-    customer: "Sarah Johnson",
-    phone: "+1 (555) 123-4567",
-    address: "452 Maple Ave, Apt 4B",
-    city: "San Francisco, CA 94110",
-    date: "Jan 21, 2026",
-    items: 5,
-    status: "scheduled",
-    type: "pickup",
-    rating: 4.8,
-    note: "Coffee stain on front",
-    deliveryType: "Standard",
-    driver: "John Doe",
-    orderItems: [
-      {
-        name: "White Shirt",
-        quantity: 2,
-        image: "https://picsum.photos/seed/shirt1/200/200",
-      },
-      {
-        name: "Black Trousers",
-        quantity: 3,
-        image: "https://picsum.photos/seed/trouser1/200/200",
-      },
-    ],
-  },
-  {
-    id: "PU-002",
-    orderId: "#284-9318",
-    customer: "Michael Chen",
-    phone: "+1 (555) 234-5678",
-    address: "789 Oak Street, Suite 12",
-    city: "San Francisco, CA 94102",
-    date: "Jan 21, 2026",
-    items: 3,
-    status: "in_progress",
-    type: "pickup",
-    rating: 4.9,
-    note: "Oil stain on white shirt collar",
-    deliveryType: "Express 24h",
-    driver: "Mike Smith",
-    orderItems: [
-      {
-        name: "White Shirt",
-        quantity: 3,
-        image: "https://picsum.photos/seed/shirt2/200/200",
-      },
-    ],
-  },
-  {
-    id: "PU-003",
-    orderId: "#284-9325",
-    customer: "James Wilson",
-    phone: "+1 (555) 456-7890",
-    address: "321 Cedar Lane, Unit 5",
-    city: "San Francisco, CA 94114",
-    date: "Jan 21, 2026",
-    items: 4,
-    status: "scheduled",
-    type: "pickup",
-    rating: 5.0,
-    note: "Delicate silk items",
-    deliveryType: "Express 48h",
-    driver: "Sarah Wilson",
-    orderItems: [
-      {
-        name: "Silk Blouse",
-        quantity: 2,
-        image: "https://picsum.photos/seed/blouse1/200/200",
-      },
-      {
-        name: "Silk Scarf",
-        quantity: 2,
-        image: "https://picsum.photos/seed/scarf1/200/200",
-      },
-    ],
-  },
-  {
-    id: "PU-005",
-    orderId: "#284-9330",
-    customer: "Michael Brown",
-    rating: 4.7,
-    phone: "+1 (555) 456-7890",
-    address: "220 Elm St, Apt 5C",
-    city: "San Francisco, CA 94103",
-    date: "Jan 21, 2026",
-    items: 2,
-    status: "not_scheduled",
-    type: "pickup",
-    note: "Color bleed risk on red dress",
-    deliveryType: "Standard",
-    orderItems: [
-      {
-        name: "Red Dress",
-        quantity: 1,
-        image: "https://picsum.photos/seed/dress1/200/200",
-      },
-      {
-        name: "Cotton T-Shirt",
-        quantity: 1,
-        image: "https://picsum.photos/seed/tshirt1/200/200",
-      },
-    ],
-  },
-  {
-    id: "PU-006",
-    orderId: "#284-9335",
-    customer: "David Lee",
-    rating: 4.5,
-    phone: "+1 (555) 987-6543",
-    address: "789 Pine St",
-    city: "San Francisco, CA 94108",
-    date: "Jan 21, 2026",
-    items: 7,
-    status: "not_scheduled",
-    type: "pickup",
-    note: "Grass stains on knees",
-    deliveryType: "Express 24h",
-    orderItems: [
-      {
-        name: "Blue Jeans",
-        quantity: 4,
-        image: "https://picsum.photos/seed/jeans1/200/200",
-      },
-      {
-        name: "Kids T-Shirt",
-        quantity: 3,
-        image: "https://picsum.photos/seed/kidstshirt1/200/200",
-      },
-    ],
-  },
-];
 
 const getStatusConfig = (status: string, type: string) => {
   switch (status) {
@@ -213,6 +78,14 @@ const getDeliveryBadgeColor = (type?: string) => {
 };
 
 export default function ScheduleDetailPage() {
+  return (
+    <VendorDataGate resource="scheduleDetails">
+      {(schedules) => <ScheduleDetailView schedules={schedules} />}
+    </VendorDataGate>
+  );
+}
+
+function ScheduleDetailView({ schedules: SCHEDULE_DATA }: { schedules: ScheduleDetail[] }) {
   const params = useParams();
   const router = useRouter();
 

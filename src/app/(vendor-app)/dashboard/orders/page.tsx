@@ -25,6 +25,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import { VendorDataGate } from "@/components/dashboard/vendor-data-gate";
+import type { Order, OrderStatus, ServiceSpeed } from "@/lib/vendor-data";
 import {
   format,
   isWithinInterval,
@@ -42,262 +44,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-type OrderStatus =
-  | "New Orders"
-  | "Accepted Orders"
-  | "Under Processing"
-  | "Ready for Dispatch"
-  | "Completed Orders";
-type ServiceSpeed = "economy" | "fast" | "express";
-
-interface Order {
-  id: string;
-  status: OrderStatus;
-  serviceSpeed: ServiceSpeed;
-  items: string;
-  service: string;
-  detergent: string;
-  pickupTime: string;
-  deliveryTime: string;
-  address: string;
-  locality: string;
-  distance: string;
-  earning: string;
-  customerName: string;
-  isoDate: string;
-}
-
-const ORDERS: Order[] = [
-  // New Orders
-  {
-    id: "ORD-4920",
-    status: "New Orders",
-    serviceSpeed: "economy",
-    items: "3 Shirts • 2 Jeans • 1 Silk Scarf",
-    service: "Dry Cleaning",
-    detergent: "Standard detergent",
-    pickupTime: "Today at 2:00 PM",
-    deliveryTime: "Tomorrow at 10:00 AM",
-    address: "123 Maple St, Downtown",
-    locality: "Punjabi Bagh",
-    distance: "1.2 km",
-    earning: "₹140",
-    customerName: "John Smith",
-    isoDate: "2026-02-07T14:00:00",
-  },
-  {
-    id: "ORD-4921",
-    status: "New Orders",
-    serviceSpeed: "fast",
-    items: "1 Bedsheet • 4 Pillow Cases",
-    service: "Dry Cleaning",
-    detergent: "Delicate items",
-    pickupTime: "Today at 4:30 PM",
-    deliveryTime: "Tomorrow at 12:00 PM",
-    address: "456 Oak Ave, Uptown",
-    locality: "Uptown",
-    distance: "3.5 km",
-    earning: "₹220",
-    customerName: "Sarah Johnson",
-    isoDate: "2026-02-07T16:30:00",
-  },
-  {
-    id: "ORD-4925",
-    status: "New Orders",
-    serviceSpeed: "express",
-    items: "4 Curtains • 2 Sofa Covers",
-    service: "Wash & Fold",
-    detergent: "Heavy duty",
-    pickupTime: "Today at 5:00 PM",
-    deliveryTime: "Today at 9:00 PM",
-    address: "789 Pine Ln, Suburbs",
-    locality: "South Delhi",
-    distance: "5.0 km",
-    earning: "₹500",
-    customerName: "Mike Chen",
-    isoDate: "2026-02-07T17:00:00",
-  },
-  // Accepted Orders
-  {
-    id: "ORD-4918",
-    status: "Accepted Orders",
-    serviceSpeed: "economy",
-    items: "1 Suit • 2 Ties",
-    service: "Dry Clean",
-    detergent: "Premium care",
-    pickupTime: "Today at 11:00 AM",
-    deliveryTime: "Wed at 2:00 PM",
-    address: "321 Cedar Rd",
-    locality: "Janakpuri",
-    distance: "2.1 km",
-    earning: "₹350",
-    customerName: "David Wilson",
-    isoDate: "2026-02-07T11:00:00",
-  },
-  {
-    id: "ORD-4916",
-    status: "Accepted Orders",
-    serviceSpeed: "fast",
-    items: "2 Dresses • 3 Blouses",
-    service: "Wash & Iron",
-    detergent: "Gentle care",
-    pickupTime: "Today at 1:00 PM",
-    deliveryTime: "Tomorrow at 3:00 PM",
-    address: "555 Elm Street",
-    locality: "Rajouri Garden",
-    distance: "1.8 km",
-    earning: "₹280",
-    customerName: "Emily Brown",
-    isoDate: "2026-02-07T13:00:00",
-  },
-  // Processing Orders
-  {
-    id: "ORD-4912",
-    status: "Under Processing",
-    serviceSpeed: "economy",
-    items: "5 Jeans • 8 T-Shirts",
-    service: "Wash & Fold",
-    detergent: "Standard",
-    pickupTime: "Yesterday at 3:00 PM",
-    deliveryTime: "Tomorrow at 11:00 AM",
-    address: "888 Birch Ave",
-    locality: "Pitampura",
-    distance: "4.2 km",
-    earning: "₹420",
-    customerName: "Alex Turner",
-    isoDate: "2026-02-06T15:00:00",
-  },
-  {
-    id: "ORD-4910",
-    status: "Under Processing",
-    serviceSpeed: "express",
-    items: "1 Wedding Dress",
-    service: "Premium Dry Clean",
-    detergent: "Delicate fabrics",
-    pickupTime: "Today at 9:00 AM",
-    deliveryTime: "Today at 6:00 PM",
-    address: "999 Willow Lane",
-    locality: "Gurgaon",
-    distance: "2.5 km",
-    earning: "₹800",
-    customerName: "Lisa Anderson",
-    isoDate: "2026-02-07T09:00:00",
-  },
-  {
-    id: "ORD-4908",
-    status: "Under Processing",
-    serviceSpeed: "fast",
-    items: "10 Uniforms",
-    service: "Wash & Iron",
-    detergent: "Commercial grade",
-    pickupTime: "Yesterday at 5:00 PM",
-    deliveryTime: "Tomorrow at 9:00 AM",
-    address: "444 Oak Street",
-    locality: "Dwarka",
-    distance: "3.0 km",
-    earning: "₹600",
-    customerName: "Corporate Client",
-    isoDate: "2026-02-06T17:00:00",
-  },
-  {
-    id: "ORD-4905",
-    status: "Under Processing",
-    serviceSpeed: "economy",
-    items: "2 Blankets • 1 Comforter",
-    service: "Heavy Wash",
-    detergent: "Deep clean",
-    pickupTime: "2 days ago",
-    deliveryTime: "Tomorrow at 4:00 PM",
-    address: "222 Pine Road",
-    locality: "Rohini",
-    distance: "5.5 km",
-    earning: "₹380",
-    customerName: "Robert Kim",
-    isoDate: "2026-02-05T14:00:00", // approx 2 PM
-  },
-  {
-    id: "ORD-4902",
-    status: "Under Processing",
-    serviceSpeed: "economy",
-    items: "6 Shirts • 4 Pants",
-    service: "Wash & Iron",
-    detergent: "Standard",
-    pickupTime: "Yesterday at 2:00 PM",
-    deliveryTime: "Tomorrow at 2:00 PM",
-    address: "111 Maple Drive",
-    locality: "Paschim Vihar",
-    distance: "1.9 km",
-    earning: "₹320",
-    customerName: "James Lee",
-    isoDate: "2026-02-06T14:00:00",
-  },
-  // Ready Orders
-  {
-    id: "ORD-4900",
-    status: "Ready for Dispatch",
-    serviceSpeed: "fast",
-    items: "2 Jackets • 2 Pants",
-    service: "Dry Clean",
-    detergent: "Premium",
-    pickupTime: "2 days ago",
-    deliveryTime: "Today at 12:00 PM",
-    address: "777 Cherry St",
-    locality: "Vikaspuri",
-    distance: "2.8 km",
-    earning: "₹450",
-    customerName: "Tom Harris",
-    isoDate: "2026-02-05T10:00:00",
-  },
-  {
-    id: "ORD-4898",
-    status: "Ready for Dispatch",
-    serviceSpeed: "economy",
-    items: "6 Curtains",
-    service: "Steam Clean",
-    detergent: "Fabric refresh",
-    pickupTime: "3 days ago",
-    deliveryTime: "Today at 3:00 PM",
-    address: "333 Walnut Ave",
-    locality: "Moti Nagar",
-    distance: "4.0 km",
-    earning: "₹520",
-    customerName: "Nancy White",
-    isoDate: "2026-02-04T10:00:00",
-  },
-  // Completed Orders
-  {
-    id: "ORD-4895",
-    status: "Completed Orders",
-    serviceSpeed: "express",
-    items: "1 Party Dress • Accessories",
-    service: "Express Clean",
-    detergent: "Delicate",
-    pickupTime: "Yesterday",
-    deliveryTime: "Yesterday at 8:00 PM",
-    address: "666 Spruce Lane",
-    locality: "Kirti Nagar",
-    distance: "3.2 km",
-    earning: "₹650",
-    customerName: "Jennifer Davis",
-    isoDate: "2026-02-06T10:00:00",
-  },
-  {
-    id: "ORD-4890",
-    status: "Completed Orders",
-    serviceSpeed: "economy",
-    items: "4 Bedsheets • 8 Towels",
-    service: "Wash & Fold",
-    detergent: "Fresh scent",
-    pickupTime: "2 days ago",
-    deliveryTime: "Yesterday at 10:00 AM",
-    address: "123 Ash Road",
-    locality: "Tilak Nagar",
-    distance: "2.0 km",
-    earning: "₹300",
-    customerName: "Chris Martin",
-    isoDate: "2026-02-05T09:00:00",
-  },
-];
 
 const TABS: { label: string; value: OrderStatus }[] = [
   { label: "New Orders", value: "New Orders" },
@@ -349,6 +95,14 @@ const getLeftBorderColor = (status: OrderStatus) => {
 };
 
 export default function OrdersPage() {
+  return (
+    <VendorDataGate resource="orders">
+      {(orders) => <OrdersView orders={orders} />}
+    </VendorDataGate>
+  );
+}
+
+function OrdersView({ orders: ORDERS }: { orders: Order[] }) {
   const [activeTab, setActiveTab] = useState<OrderStatus>("New Orders");
   const [serviceFilter, setServiceFilter] = useState<ServiceSpeed | "all">(
     "all",

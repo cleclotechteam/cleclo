@@ -13,6 +13,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { VendorDataGate } from "@/components/dashboard/vendor-data-gate";
+import type { Transaction } from "@/lib/vendor-data";
 
 import {
   startOfWeek,
@@ -22,6 +24,8 @@ import {
   subWeeks,
   subMonths,
   isWithinInterval,
+  startOfDay,
+  endOfDay,
   parseISO,
   format,
   subDays,
@@ -36,65 +40,15 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const TRANSACTIONS_DATA = [
-  {
-    id: "ORD-8291",
-    customer: "Alice Freeman",
-    service: "Wash & Fold",
-    date: "Oct 24, 2024",
-    isoDate: "2024-10-24", // Use recent dates for testing if needed, but keeping consistent with UI
-    amount: "₹1,240.50",
-    status: "Completed",
-    type: "Order Payment",
-  },
-  {
-    id: "PAY-8831",
-    customer: "Platform Payout",
-    service: "Weekly Settlement",
-    date: "Oct 23, 2024",
-    isoDate: "2024-10-23",
-    amount: "₹2,450.00",
-    status: "Processed",
-    type: "Payout",
-  },
-  {
-    id: "ORD-8290",
-    customer: "Mark Wilson",
-    service: "Dry Clean",
-    date: "Oct 22, 2024",
-    isoDate: "2024-10-22",
-    amount: "₹890.00",
-    status: "Completed",
-    type: "Order Payment",
-  },
-  {
-    id: "ORD-8288",
-    customer: "Sarah Jenkins",
-    service: "Ironing",
-    date: "Oct 21, 2024",
-    isoDate: "2024-10-21",
-    amount: "₹450.00",
-    status: "Completed",
-    type: "Order Payment",
-  },
-  {
-    id: "ORD-8285",
-    customer: "James Doe",
-    service: "Premium Wash",
-    date: "Oct 20, 2024",
-    isoDate: "2024-10-20",
-    amount: "₹1,100.00",
-    status: "Pending",
-    type: "Order Payment",
-  },
-  // Adding some dummy data for "This Week" (assuming "today" is Feb 2026 for the user context, but let's use dynamic dates or just let the user know)
-  // actually the user's "current time" is Feb 2026. The mock data above is Oct 2024.
-  // The filtering logic will hide everything if I use "This Week" relative to Feb 2026.
-  // I should probably update the mock data to be relative to "now" or just hardcode some recent dates.
-  // Let's rely on the user selection.
-];
-
 export function EarningsOverview() {
+  return (
+    <VendorDataGate resource="transactions">
+      {(transactions) => <EarningsOverviewView transactions={transactions} />}
+    </VendorDataGate>
+  );
+}
+
+function EarningsOverviewView({ transactions: TRANSACTIONS_DATA }: { transactions: Transaction[] }) {
   const [date, setDate] = useState<DateRange | undefined>({
     from: subDays(new Date(), 7),
     to: new Date(),
@@ -112,8 +66,8 @@ export function EarningsOverview() {
         if (!t.isoDate) return false;
         const transactionDate = new Date(t.isoDate);
         return isWithinInterval(transactionDate, {
-          start: date.from!,
-          end: date.to || date.from!,
+          start: startOfDay(date.from!),
+          end: endOfDay(date.to || date.from!),
         });
       })
     : TRANSACTIONS_DATA;

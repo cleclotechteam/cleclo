@@ -15,6 +15,9 @@ import { StatsCards } from "@/components/dashboard/stats-cards";
 import { RecentOrders } from "@/components/dashboard/recent-orders";
 import { NewOrderModal } from "@/components/dashboard/new-order-modal";
 import { cn } from "@/lib/utils";
+import { VendorDataGate } from "@/components/dashboard/vendor-data-gate";
+import type { DashboardOrder } from "@/lib/vendor-data";
+import { useVendorData } from "@/lib/vendor-data/use-vendor-data";
 import {
   format,
   isSameDay,
@@ -40,137 +43,17 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-// Static notification data
-const STATIC_NOTIFICATION = {
-  id: "ORD-8292",
-  customer: "Mark Wilson",
-  items: "2 Suits Dry Clean",
-  earning: "₹280",
-  time: "Just now",
-};
-
-// Mock data moved from recent-orders.tsx
-// Helper to generate dynamic dates
-const now = new Date();
-const getDeliveryDate = (pickup: Date, type: "Standard" | "Express 48h" | "Express 24h") => {
-  const hours = type === "Standard" ? 72 : type === "Express 48h" ? 48 : 24;
-  return addHours(pickup, hours);
-};
-
-// Mock data moved from recent-orders.tsx
-const orders = [
-  {
-    id: "#ORD-8291",
-    customer: "Alice Freeman",
-    type: "Regular",
-    serviceType: "Standard",
-    avatar: "/avatars/alice.png",
-    items: "5kg Wash & Fold",
-    status: "Under Processing",
-    pickupDate: subHours(now, 70), // Standard (72h), picked up 70h ago. Due in 2h. T-2 is NOW. (Borderline)
-    dueDate: format(addHours(subHours(now, 70), 72), "MMM dd, h:mm a"),
-    isoDate: addHours(subHours(now, 70), 72).toISOString(),
-  },
-  {
-    id: "#ORD-8292",
-    customer: "Mark Wilson",
-    type: "New Customer",
-    serviceType: "Express 24h",
-    avatar: "/avatars/mark.png",
-    items: "2 Suits Dry Clean",
-    status: "Assigned",
-    pickupDate: subHours(now, 2), // Picked up 2h ago. Due in 22h.
-    dueDate: format(addHours(subHours(now, 2), 24), "MMM dd, h:mm a"),
-    isoDate: addHours(subHours(now, 2), 24).toISOString(),
-  },
-  {
-    id: "#ORD-8288",
-    customer: "Sarah Jenkins",
-    type: "VIP",
-    serviceType: "Standard",
-    avatar: "/avatars/sarah.png",
-    items: "10kg Mixed Load",
-    status: "Ready",
-    pickupDate: subDays(now, 4),
-    dueDate: format(addHours(subDays(now, 4), 72), "MMM dd, h:mm a"),
-    isoDate: addHours(subDays(now, 4), 72).toISOString(),
-  },
-  {
-    id: "#ORD-8293",
-    customer: "James Doe",
-    type: "Regular",
-    serviceType: "Express 48h",
-    avatar: "/avatars/james.png",
-    items: "Wedding Dress Clean",
-    status: "Pending Pickup",
-    pickupDate: addHours(now, 2), // Future pickup
-    dueDate: format(addHours(addHours(now, 2), 48), "MMM dd, h:mm a"),
-    isoDate: addHours(addHours(now, 2), 48).toISOString(),
-  },
-  {
-    id: "#ORD-8294",
-    customer: "Emily Chen",
-    type: "Regular",
-    serviceType: "Standard",
-    avatar: "/avatars/emily.png",
-    items: "3 Curtains",
-    status: "Assigned",
-    pickupDate: subHours(now, 5),
-    dueDate: format(addHours(subHours(now, 5), 72), "MMM dd, h:mm a"),
-    isoDate: addHours(subHours(now, 5), 72).toISOString(),
-  },
-  {
-    id: "#ORD-8295",
-    customer: "Michael Brown",
-    type: "VIP",
-    serviceType: "Express 24h",
-    avatar: "/avatars/michael.png",
-    items: "Premium Suit Clean",
-    status: "Assigned",
-    pickupDate: subHours(now, 1),
-    dueDate: format(addHours(subHours(now, 1), 24), "MMM dd, h:mm a"),
-    isoDate: addHours(subHours(now, 1), 24).toISOString(),
-
-  },
-  {
-    id: "#ORD-8296",
-    customer: "Lisa Wang",
-    type: "New Customer",
-    serviceType: "Standard",
-    avatar: "/avatars/lisa.png",
-    items: "10kg Wash & Fold",
-    status: "Under Processing",
-    pickupDate: subHours(now, 71), // Standard (72h), picked up 71h ago. Due in 1h. Overdue (Now > Due-2h).
-    dueDate: format(addHours(subHours(now, 71), 72), "MMM dd, h:mm a"),
-    isoDate: addHours(subHours(now, 71), 72).toISOString(),
-  },
-  {
-    id: "#ORD-8297",
-    customer: "David Miller",
-    type: "Regular",
-    serviceType: "Standard",
-    avatar: "/avatars/david.png",
-    items: "2 Winter Coats",
-    status: "Under Processing",
-    pickupDate: subHours(now, 20),
-    dueDate: format(addHours(subHours(now, 20), 72), "MMM dd, h:mm a"),
-    isoDate: addHours(subHours(now, 20), 72).toISOString(),
-  },
-  {
-    id: "#ORD-8298",
-    customer: "Sophie Turner",
-    type: "VIP",
-    serviceType: "Express 48h",
-    avatar: "/avatars/sophie.png",
-    items: "Wedding Saree",
-    status: "Ready",
-    pickupDate: subHours(now, 50),
-    dueDate: format(addHours(subHours(now, 50), 48), "MMM dd, h:mm a"),
-    isoDate: addHours(subHours(now, 50), 48).toISOString(),
-  },
-];
 
 export default function DashboardPage() {
+  return (
+    <VendorDataGate resource="dashboardOrders">
+      {(orders) => <DashboardView orders={orders} />}
+    </VendorDataGate>
+  );
+}
+
+function DashboardView({ orders }: { orders: DashboardOrder[] }) {
+  const { data: newOrderAlert } = useVendorData("newOrderAlert");
   const [showNewOrder, setShowNewOrder] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const [filterStatus, setFilterStatus] = useState<string | null>(null);
@@ -201,7 +84,8 @@ export default function DashboardPage() {
 
   const filteredOrders = date?.from
     ? orders.filter((order) => {
-      const orderDate = new Date(order.isoDate);
+      // Filter on when the order came in (not its due date) so in-progress orders stay visible.
+      const orderDate = new Date(Math.min(order.pickupDate.getTime(), Date.now()));
       return isWithinInterval(orderDate, {
         start: startOfDay(date.from!),
         end: endOfDay(date.to || date.from!),
@@ -241,9 +125,9 @@ export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-8 relative">
       {/* Notification */}
-      {showNotification && (
+      {showNotification && newOrderAlert && (
         <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-top-4 duration-500 fade-in-0">
-          <div className="bg-white rounded-2xl shadow-2xl shadow-slate-200/50 border border-slate-100 p-5 w-[400px] flex items-start gap-4 ring-1 ring-slate-200/50 relative overflow-hidden">
+          <div className="bg-white rounded-2xl shadow-2xl shadow-slate-200/50 border border-slate-100 p-5 w-[400px] max-w-[calc(100vw-2rem)] flex items-start gap-4 ring-1 ring-slate-200/50 relative overflow-hidden">
             {/* Progress Bar */}
             <div className="absolute bottom-0 left-0 h-1 bg-[#00B074]/10 w-full">
               <div className="h-full bg-[#00B074] animate-[shrink_120s_linear_forwards] origin-left" />
@@ -258,7 +142,7 @@ export default function DashboardPage() {
                     New Order Received!
                   </h4>
                   <p className="text-xs text-slate-500 font-medium mt-0.5">
-                    {STATIC_NOTIFICATION.time}
+                    {newOrderAlert.time}
                   </p>
                 </div>
                 <Button
@@ -273,11 +157,11 @@ export default function DashboardPage() {
               <p className="text-sm text-slate-600 mb-3 leading-relaxed">
                 Order{" "}
                 <span className="font-semibold text-slate-900">
-                  {STATIC_NOTIFICATION.id}
+                  {newOrderAlert.id}
                 </span>{" "}
                 from{" "}
                 <span className="font-semibold text-slate-900">
-                  {STATIC_NOTIFICATION.customer}
+                  {newOrderAlert.customer}
                 </span>
               </p>
               <div className="flex items-center justify-between bg-slate-50/80 border border-slate-100 p-2.5 rounded-lg mb-4 group hover:border-[#00B074]/20 transition-colors">
@@ -286,11 +170,11 @@ export default function DashboardPage() {
                     <Package className="h-3.5 w-3.5 text-slate-500" />
                   </div>
                   <span className="text-sm font-semibold text-slate-700">
-                    {STATIC_NOTIFICATION.items}
+                    {newOrderAlert.items}
                   </span>
                 </div>
                 <span className="text-sm font-bold text-[#00B074] bg-[#f0fdf4] px-2 py-0.5 rounded-md border border-[#dcfce7]">
-                  {STATIC_NOTIFICATION.earning}
+                  {newOrderAlert.earning}
                 </span>
               </div>
 

@@ -14,73 +14,15 @@ import { Download } from "lucide-react";
 
 import { useState } from "react";
 import { format } from "date-fns";
-
-interface Transaction {
-  id: string;
-  customer: string;
-  service: string;
-  date: string;
-  isoDate?: string;
-  amount: string;
-  status: string;
-  type: string;
-}
+import type { Transaction } from "@/lib/vendor-data";
 
 interface RecentTransactionsProps {
   transactions?: Transaction[];
   dateRange?: string;
 }
 
-const DEFAULT_TRANSACTIONS: Transaction[] = [
-  {
-    id: "ORD-8291",
-    customer: "Alice Freeman",
-    service: "Wash & Fold",
-    date: "Oct 24, 2024",
-    amount: "₹1,240.50",
-    status: "Completed",
-    type: "Order Payment",
-  },
-  {
-    id: "PAY-8831",
-    customer: "Platform Payout",
-    service: "Weekly Settlement",
-    date: "Oct 23, 2024",
-    amount: "₹2,450.00",
-    status: "Processed",
-    type: "Payout",
-  },
-  {
-    id: "ORD-8290",
-    customer: "Mark Wilson",
-    service: "Dry Clean",
-    date: "Oct 22, 2024",
-    amount: "₹890.00",
-    status: "Completed",
-    type: "Order Payment",
-  },
-  {
-    id: "ORD-8288",
-    customer: "Sarah Jenkins",
-    service: "Ironing",
-    date: "Oct 21, 2024",
-    amount: "₹450.00",
-    status: "Completed",
-    type: "Order Payment",
-  },
-  {
-    id: "ORD-8285",
-    customer: "James Doe",
-    service: "Premium Wash",
-    date: "Oct 20, 2024",
-    amount: "₹1,100.00",
-    status: "Pending",
-    type: "Order Payment",
-  },
-];
-
 export function RecentTransactions({
-  transactions = DEFAULT_TRANSACTIONS,
+  transactions = [],
   dateRange = "All Time",
 }: RecentTransactionsProps) {
   const [isExporting, setIsExporting] = useState(false);
@@ -159,6 +101,13 @@ export function RecentTransactions({
             </TableRow>
           </TableHeader>
           <TableBody>
+            {transactions.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={6} className="py-10 text-center text-sm text-slate-500">
+                  No transactions in this period.
+                </TableCell>
+              </TableRow>
+            )}
             {transactions.map((txn) => (
               <TableRow key={txn.id} className="hover:bg-slate-50">
                 <TableCell className="font-medium text-slate-900">

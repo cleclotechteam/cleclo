@@ -10,18 +10,10 @@ import {
   Cell,
   CartesianGrid,
 } from "recharts";
-
-const data = [
-  { day: "Mon", amount: 3800 },
-  { day: "Tue", amount: 5200 },
-  { day: "Wed", amount: 2900 },
-  { day: "Thu", amount: 5800 },
-  { day: "Fri", amount: 7400 },
-  { day: "Sat", amount: 4600, active: true },
-  { day: "Sun", amount: 1800 },
-];
+import { useVendorData } from "@/lib/vendor-data/use-vendor-data";
 
 export function EarningsChart() {
+  const { data = [] } = useVendorData("weeklyEarnings");
   return (
     <div className="rounded-xl bg-white p-6 shadow-sm border border-slate-100 transition-all hover:shadow-md h-[400px]">
       <div className="flex items-center justify-between mb-8">

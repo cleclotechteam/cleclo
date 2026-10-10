@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { VendorDataGate } from "@/components/dashboard/vendor-data-gate";
+import type { AssignedService } from "@/lib/vendor-data";
 import { Package, AlertCircle, CheckCircle, Clock, Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -15,46 +17,6 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-
-// Services assigned by admin - vendors can ONLY toggle availability
-const assignedServices = [
-  {
-    id: 1,
-    name: "Dry Cleaning",
-    description:
-      "Professional solvent-based care for delicate and structured garments.",
-    basePrice: "₹150/piece",
-    category: "Dry Clean",
-    available: true,
-  },
-  {
-    id: 2,
-    name: "Washing",
-    description:
-      "Professional machine washing with fabric-appropriate detergents and controlled drying for everyday garments.",
-    basePrice: "₹80/kg",
-    category: "Wash",
-    available: true,
-  },
-  {
-    id: 3,
-    name: "Steam Iron",
-    description:
-      "Precision steam finishing for wrinkle-free, crisp presentation of garments.",
-    basePrice: "₹20/piece",
-    category: "Iron",
-    available: true,
-  },
-  {
-    id: 4,
-    name: "Repair & Alterations",
-    description:
-      "Skilled repair, stitching and fabric restoration for damaged or worn garments.",
-    basePrice: "₹100/item",
-    category: "Repair",
-    available: true,
-  },
-];
 
 const getCategoryColor = (category: string) => {
   switch (category) {
@@ -74,6 +36,14 @@ const getCategoryColor = (category: string) => {
 };
 
 export default function ServicesPage() {
+  return (
+    <VendorDataGate resource="services">
+      {(services) => <ServicesView assignedServices={services} />}
+    </VendorDataGate>
+  );
+}
+
+function ServicesView({ assignedServices }: { assignedServices: AssignedService[] }) {
   const [services, setServices] = useState(assignedServices);
   const [disableDialogOpen, setDisableDialogOpen] = useState(false);
   const [serviceToDisable, setServiceToDisable] = useState<number | null>(null);

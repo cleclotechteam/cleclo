@@ -9,18 +9,10 @@ import {
   Tooltip,
   CartesianGrid,
 } from "recharts";
-
-const data = [
-  { day: "Mon", amount: 3800, trend: 3600 },
-  { day: "Tue", amount: 5200, trend: 4800 },
-  { day: "Wed", amount: 2900, trend: 3200 },
-  { day: "Thu", amount: 5800, trend: 5400 },
-  { day: "Fri", amount: 7400, trend: 6900 },
-  { day: "Sat", amount: 4600, active: true, trend: 4900 },
-  { day: "Sun", amount: 1800, trend: 2100 },
-];
+import { useVendorData } from "@/lib/vendor-data/use-vendor-data";
 
 export function EarningsTrendChart() {
+  const { data = [] } = useVendorData("weeklyEarnings");
   return (
     <div className="rounded-xl bg-white p-6 shadow-sm border border-slate-100 transition-all hover:shadow-md h-[400px]">
       <div className="flex items-center justify-between mb-8">
