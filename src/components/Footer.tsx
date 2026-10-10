@@ -110,7 +110,7 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/vendor#login" className="hover:text-white transition-colors">
+                  <Link href="/login" className="hover:text-white transition-colors">
                     Vendor Login
                   </Link>
                 </li>

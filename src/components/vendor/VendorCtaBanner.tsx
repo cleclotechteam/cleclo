@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowUpRight, CheckCircle2, PhoneCall } from "lucide-react";
 
 export default function VendorCtaBanner() {
-  const signupUrl = "#signup";
+  const signupUrl = "/signup";
   const contactUrl = "#contact";
 
   const benefits = [

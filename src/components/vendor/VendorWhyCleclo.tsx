@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 export default function VendorWhyCleclo() {
-  const signupUrl = "#signup";
+  const signupUrl = "/signup";
   const sectionRef = useRef<HTMLElement>(null);
 
   const [showAutoImages, setShowAutoImages] = useState<boolean>(false);

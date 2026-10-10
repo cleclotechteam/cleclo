@@ -8,7 +8,7 @@ import { ArrowUpRight, Star, TrendingUp, ShieldCheck, Zap, Layers, BarChart3 } f
 import VendorDesktopVideo from "./VendorDesktopVideo";
 
 export default function VendorHero() {
-  const signupUrl = "#signup";
+  const signupUrl = "/signup";
 
   return (
     <section className="relative pt-12 sm:pt-16 pb-20 lg:pb-28 bg-white overflow-hidden">

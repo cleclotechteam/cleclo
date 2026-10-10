@@ -8,7 +8,7 @@ import { useRail, RailDots, RAIL_BASE, RAIL_CARD } from "./MobileRail";
 // Vendor sustainability uses a light split layout with stacked pillar rows,
 // distinct from the customer site's dark scroll-illuminated version.
 export default function VendorSustainability() {
-  const signupUrl = "#signup";
+  const signupUrl = "/signup";
   const { ref: railRef, index: railIndex, goTo: railGoTo } = useRail(3);
 
   const pillars = [

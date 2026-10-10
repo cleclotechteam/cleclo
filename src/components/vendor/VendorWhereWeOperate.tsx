@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Search, MapPin, ArrowRight } from "lucide-react";
 
 export default function VendorWhereWeOperate() {
-  const signupUrl = "#signup";
+  const signupUrl = "/signup";
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCard, setActiveCard] = useState<number>(0);
 

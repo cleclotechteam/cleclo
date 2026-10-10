@@ -9,14 +9,14 @@ export default function VendorHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const homeUrl = "/vendor";
-  const loginUrl = "#login";
-  const signupUrl = "#signup";
+  const loginUrl = "/login";
+  const signupUrl = "/signup";
 
   const navLinks = [
     { label: "Home", href: homeUrl },
-    { label: "Why Cleclo", href: "#why-cleclo" },
-    { label: "Services & Workflows", href: "#services" },
-    { label: "How It Works", href: "#how" },
+    { label: "Why Cleclo", href: `${homeUrl}#why-cleclo` },
+    { label: "Services & Workflows", href: `${homeUrl}#services` },
+    { label: "How It Works", href: `${homeUrl}#how` },
   ];
 
   return (

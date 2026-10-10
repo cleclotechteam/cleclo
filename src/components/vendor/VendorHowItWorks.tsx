@@ -8,7 +8,7 @@ import { useRail, RailDots, RAIL_BASE, RAIL_CARD } from "./MobileRail";
 // Vendor onboarding shown as a connected timeline:
 // vertical stepper on mobile, horizontal track on desktop.
 export default function VendorHowItWorks() {
-  const signupUrl = "#signup";
+  const signupUrl = "/signup";
   const [activeStep, setActiveStep] = useState<number>(0);
   const { ref: railRef, index: railIndex, goTo: railGoTo } = useRail<HTMLOListElement>(4);
 

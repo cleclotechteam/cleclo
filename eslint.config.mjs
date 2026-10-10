@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Old standalone vendor dashboard project, kept for reference only.
+    "cleclo-vendor-dash/**",
   ]),
 ]);
 

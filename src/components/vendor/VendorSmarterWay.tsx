@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 export default function VendorSmarterWay() {
-  const signupUrl = "#signup";
+  const signupUrl = "/signup";
   const [activeCardIndex, setActiveCardIndex] = useState<number>(1);
 
   const pillars = [
