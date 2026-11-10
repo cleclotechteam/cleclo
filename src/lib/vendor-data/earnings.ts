@@ -16,6 +16,7 @@
 //    adjustments by the date they were posted. Weekly earnings and weekly payouts can therefore differ.
 import { addDays, addHours, format, isFriday, setHours, setMinutes, startOfDay, subDays } from "date-fns";
 import type { CleanService } from "./new-order";
+import { sheetItemName, sheetRate, type SheetItem } from "./sheet-rates";
 
 const ISO_LOCAL = "yyyy-MM-dd'T'HH:mm:ss";
 const iso = (d: Date) => format(d, ISO_LOCAL);
@@ -96,15 +97,22 @@ const PAYMENT_METHOD = "Bank Transfer";
 const CLEARANCE_HOURS = 48;
 const SETTLEMENT_HOUR = 11; // weekly batch, Fridays 11:00 AM
 
+/** Item lines used to build the demo ledger; vendor rates come from the Cleclo rate sheet. */
+const catalogLine = (item: SheetItem, service: CleanService): Omit<PayoutLine, "quantity"> => ({
+  garment: sheetItemName(item),
+  service,
+  vendorRate: sheetRate(item, service),
+});
+
 const CATALOG: Omit<PayoutLine, "quantity">[] = [
-  { garment: "Men's Cotton Shirt", service: "Washing", vendorRate: 35 },
-  { garment: "Men's Pyjama", service: "Washing", vendorRate: 30 },
-  { garment: "Bedsheet (Double)", service: "Washing", vendorRate: 60 },
-  { garment: "Men's Suit", service: "Dry Cleaning", vendorRate: 150 },
-  { garment: "Trousers", service: "Dry Cleaning", vendorRate: 90 },
-  { garment: "Silk Saree", service: "Dry Cleaning", vendorRate: 180 },
-  { garment: "Women's Kurta", service: "Steam Ironing", vendorRate: 25 },
-  { garment: "Formal Shirt", service: "Steam Ironing", vendorRate: 20 },
+  catalogLine({ section: "MEN", item: "Shirt" }, "Washing"),
+  catalogLine({ section: "MEN", item: "Pyjama" }, "Washing"),
+  catalogLine({ section: "HOUSEHOLD", item: "Bedsheet Double" }, "Washing"),
+  catalogLine({ section: "MEN", item: "Suit Set (2 Pcs)" }, "Dry Cleaning"),
+  catalogLine({ section: "MEN", item: "Trousers" }, "Dry Cleaning"),
+  catalogLine({ section: "WOMEN", item: "Saree (Silk)" }, "Dry Cleaning"),
+  catalogLine({ section: "WOMEN", item: "Kurta" }, "Steam Ironing"),
+  catalogLine({ section: "MEN", item: "Shirt" }, "Steam Ironing"),
 ];
 
 /** Small deterministic PRNG so every load (ledger + payouts) produces the same demo history. */

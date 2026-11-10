@@ -174,12 +174,12 @@ function DashboardView({ initialOrders }: { initialOrders: DashboardOrder[] }) {
     return () => clearTimeout(notifTimer);
   }, []);
 
-  // Auto-hide notification after 2 minutes
+  // Auto-hide the new-order alert when its 1-hour acceptance window ends
   useEffect(() => {
     if (showNotification) {
       const timer = setTimeout(() => {
         setShowNotification(false);
-      }, 120000); // 2 minutes
+      }, 60 * 60 * 1000); // 1 hour
       return () => clearTimeout(timer);
     }
   }, [showNotification]);

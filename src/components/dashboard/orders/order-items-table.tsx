@@ -10,6 +10,7 @@ import {
   payoutMatches,
   type Order,
 } from "@/lib/vendor-data";
+import { garmentImage } from "@/lib/vendor-data/garment-images";
 
 /**
  * Item-wise vendor payout breakdown: Vendor Payout = Item Quantity x Fixed Vendor Rate.
@@ -47,8 +48,18 @@ export function OrderItemsTable({
                 className={cn(highlightItemIds.includes(item.id) && "bg-amber-50/60")}
               >
                 <td className="py-3 pr-4">
-                  <p className="font-semibold text-slate-900">{item.garment}</p>
-                  <p className="text-xs text-slate-500">{item.service}</p>
+                  <div className="flex items-center gap-3">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={garmentImage(item.garment)}
+                      alt={item.garment}
+                      className="h-10 w-10 shrink-0 rounded-lg border border-slate-100 object-cover"
+                    />
+                    <div>
+                      <p className="font-semibold text-slate-900">{item.garment}</p>
+                      <p className="text-xs text-slate-500">{item.service}</p>
+                    </div>
+                  </div>
                 </td>
                 <td className="py-3 px-4 text-center font-medium text-slate-800">{item.qty}</td>
                 <td className="py-3 px-4 text-right text-slate-700">

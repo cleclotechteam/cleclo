@@ -10,6 +10,7 @@
 //   matched or has a discrepancy recorded. Matched items move into the vendor's processing
 //   inventory; items with discrepancies stay flagged for review.
 import { addMinutes, format, parseISO } from "date-fns";
+import { garmentImage } from "./garment-images";
 import {
   demoSchedule,
   type OrderPriority,
@@ -122,16 +123,7 @@ export interface ScheduleDetail {
   handover?: ScheduleRow["handover"];
 }
 
-const GARMENT_PHOTOS: Record<string, string> = {
-  "White Shirt":
-    "https://images.unsplash.com/photo-1620799140408-ed5341cd2431?w=600&auto=format&fit=crop&q=60",
-  "Black Trousers":
-    "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&auto=format&fit=crop&q=60",
-};
-
-const photoFor = (name: string) =>
-  GARMENT_PHOTOS[name] ??
-  `https://picsum.photos/seed/${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}/400/400`;
+const photoFor = (name: string) => garmentImage(name);
 
 /** Detail rows derived from the Pickup & Delivery list so IDs and order numbers always match. */
 export function demoScheduleDetails(): ScheduleDetail[] {

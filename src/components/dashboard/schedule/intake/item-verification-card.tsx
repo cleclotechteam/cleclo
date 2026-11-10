@@ -59,7 +59,13 @@ export function ItemVerificationCard({
     >
       {/* Identity */}
       <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={item.pickupPhoto}
+          alt={item.name}
+          className="h-16 w-16 shrink-0 rounded-xl border border-slate-100 object-cover"
+        />
+        <div className="min-w-0 flex-1">
           <h3 className="font-bold text-slate-900">{item.name}</h3>
           <dl className="mt-1 space-y-0.5 text-xs text-slate-500">
             <div>

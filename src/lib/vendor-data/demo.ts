@@ -2,6 +2,9 @@
 // Every date is generated relative to "now" so the default date filters always have rows to show.
 // The shapes here are the contract the API responses are expected to follow.
 import { demoNewOrderDetails, orderPayout, orderPieces } from "./new-order";
+import { sheetRate } from "./sheet-rates";
+
+const MENS_SHIRT = { section: "MEN", item: "Shirt" } as const;
 
 /* ------------------------------ Dashboard overview ------------------------------ */
 
@@ -15,7 +18,7 @@ export const demoNewOrderAlert = () => {
   const pieces = orderPieces(details.lines);
   return {
     id: details.orderId,
-    customer: "Mark Wilson",
+    customer: details.customer,
     items: `${pieces} Items`,
     earning: `₹${orderPayout(details.lines)}`,
     time: "Just now",
@@ -49,7 +52,6 @@ const assignedServices = [
     name: "Drycleaning",
     description:
       "Professional solvent-based care for delicate and structured garments.",
-    basePrice: "₹150/piece",
     category: "Dry Clean",
     available: true,
   },
@@ -58,7 +60,6 @@ const assignedServices = [
     name: "Washing",
     description:
       "Professional machine washing with fabric-appropriate detergents and controlled drying for everyday garments.",
-    basePrice: "₹80/kg",
     category: "Wash",
     available: true,
   },
@@ -67,7 +68,6 @@ const assignedServices = [
     name: "Steam Ironing",
     description:
       "Precision steam finishing for wrinkle-free, crisp presentation of garments.",
-    basePrice: "₹20/piece",
     category: "Iron",
     available: true,
   },
@@ -89,8 +89,8 @@ const NOTIFICATIONS = [
     type: "new_order",
     title: "New Order Assigned",
     customer: "Mark Wilson",
-    items: "13 Items",
-    earning: "₹745",
+    items: `${orderPieces(demoNewOrderDetails().lines)} Items`,
+    earning: `₹${orderPayout(demoNewOrderDetails().lines)}`,
     time: "Just now",
     unread: true,
   },
@@ -100,7 +100,8 @@ const NOTIFICATIONS = [
     title: "Order Ready for Dispatch",
     customer: "Alice Freeman",
     items: "5 Units • Washing",
-    earning: "₹140",
+    // 5 x Men's Shirt (Washing), vendor rate from the Cleclo rate sheet
+    earning: `₹${5 * sheetRate(MENS_SHIRT, "Washing")}`,
     time: "5 min ago",
     unread: true,
   },
@@ -110,7 +111,8 @@ const NOTIFICATIONS = [
     title: "Order Completed",
     customer: "Sarah Jenkins",
     items: "10 Units • Washing, Steam Ironing",
-    earning: "₹350",
+    // 6 x Men's Shirt (Washing) + 4 x Men's Shirt (Steam Ironing), rates from the Cleclo rate sheet
+    earning: `₹${6 * sheetRate(MENS_SHIRT, "Washing") + 4 * sheetRate(MENS_SHIRT, "Steam Ironing")}`,
     time: "1 hour ago",
     unread: false,
   },

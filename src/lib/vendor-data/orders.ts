@@ -30,6 +30,10 @@
 //   affected items proceed.
 // - Processing status (`stage`) and logistics status (`logisticsStatus`) must remain separate.
 import { addDays, addMinutes, format, setHours, setMinutes, startOfDay, subDays, subHours, subMinutes } from "date-fns";
+import { sheetItemName, sheetRate, type SheetItem } from "./sheet-rates";
+
+/** Vendors have 1 hour from assignment to accept an order before it is reassigned. */
+export const ACCEPTANCE_WINDOW_MIN = 60;
 
 /* --------------------------------- Types --------------------------------- */
 
@@ -226,33 +230,52 @@ export interface Order {
 
 /* ---------------------------- Fixed rate card ---------------------------- */
 
-/** Cleclo's fixed vendor payout catalog (₹ per unit). Vendors cannot edit these rates. */
-export const VENDOR_RATE_CARD: Record<string, { plural: string; rates: Partial<Record<ServiceType, number>> }> = {
-  Shirt: { plural: "Shirts", rates: { "Dry Cleaning": 25, Washing: 15, "Steam Ironing": 10 } },
-  Jeans: { plural: "Jeans", rates: { "Dry Cleaning": 30, Washing: 20, "Steam Ironing": 12 } },
-  "Silk Scarf": { plural: "Silk Scarves", rates: { "Dry Cleaning": 35 } },
-  "Men's Jeans": { plural: "Men's Jeans", rates: { Washing: 35, "Dry Cleaning": 45 } },
-  "Men's Denim": { plural: "Men's Denim", rates: { Washing: 30, "Dry Cleaning": 40 } },
-  Bedsheet: { plural: "Bedsheets", rates: { Washing: 40, "Steam Ironing": 20 } },
-  "Pillow Cover": { plural: "Pillow Covers", rates: { Washing: 10, "Steam Ironing": 5 } },
-  Curtain: { plural: "Curtains", rates: { "Dry Cleaning": 90, Washing: 60 } },
-  Suit: { plural: "Suits", rates: { "Dry Cleaning": 180 } },
-  Tie: { plural: "Ties", rates: { "Dry Cleaning": 30 } },
-  Saree: { plural: "Sarees", rates: { "Dry Cleaning": 120, "Steam Ironing": 25 } },
-  Kurta: { plural: "Kurtas", rates: { Washing: 25, "Steam Ironing": 12 } },
-  "T-Shirt": { plural: "T-Shirts", rates: { Washing: 15, "Steam Ironing": 8 } },
-  Trouser: { plural: "Trousers", rates: { "Dry Cleaning": 40, Washing: 20, "Steam Ironing": 10 } },
-  Towel: { plural: "Towels", rates: { Washing: 12 } },
-  Blazer: { plural: "Blazers", rates: { "Dry Cleaning": 150 } },
+/** Demo garments and the Cleclo rate-sheet item each one is priced from. */
+const DEMO_GARMENTS: Record<string, { sheet: SheetItem; plural: string }> = {
+  Shirt: { sheet: { section: "MEN", item: "Shirt" }, plural: "Men's Shirts" },
+  Jeans: { sheet: { section: "MEN", item: "Jeans" }, plural: "Men's Jeans" },
+  Scarf: { sheet: { section: "MEN", item: "Scarves and Stole" }, plural: "Men's Scarves and Stoles" },
+  Pants: { sheet: { section: "MEN", item: "Pants" }, plural: "Men's Pants" },
+  Bedsheet: { sheet: { section: "HOUSEHOLD", item: "Bedsheet Double" }, plural: "Bedsheets Double" },
+  "Pillow Cover": { sheet: { section: "HOUSEHOLD", item: "Pillow Cover" }, plural: "Pillow Covers" },
+  Curtain: { sheet: { section: "HOUSEHOLD", item: "Curtain Without Lining (Per Panel)" }, plural: "Curtains Without Lining (Per Panel)" },
+  Suit: { sheet: { section: "MEN", item: "Suit Set (2 Pcs)" }, plural: "Men's Suit Sets (2 Pcs)" },
+  Tie: { sheet: { section: "MEN", item: "Tie" }, plural: "Men's Ties" },
+  Saree: { sheet: { section: "WOMEN", item: "Saree (Silk)" }, plural: "Women's Sarees (Silk)" },
+  Kurta: { sheet: { section: "WOMEN", item: "Kurta" }, plural: "Women's Kurtas" },
+  "T-Shirt": { sheet: { section: "MEN", item: "T-Shirt" }, plural: "Men's T-Shirts" },
+  Trousers: { sheet: { section: "MEN", item: "Trousers" }, plural: "Men's Trousers" },
+  Towel: { sheet: { section: "HOUSEHOLD", item: "Bath Towel" }, plural: "Bath Towels" },
+  Blazer: { sheet: { section: "MEN", item: "Blazer" }, plural: "Men's Blazers" },
 };
+
+/**
+ * Cleclo's fixed vendor payout catalog (₹ per unit), built only from the Cleclo vendor rate
+ * sheet (./vendor-rate-card). A service is listed only where the sheet offers it.
+ * Vendors cannot edit these rates.
+ */
+export const VENDOR_RATE_CARD: Record<string, { name: string; plural: string; rates: Partial<Record<ServiceType, number>> }> =
+  Object.fromEntries(
+    Object.entries(DEMO_GARMENTS).map(([key, { sheet, plural }]) => {
+      const rates: Partial<Record<ServiceType, number>> = {};
+      for (const service of SERVICE_TYPES) {
+        try {
+          rates[service] = sheetRate(sheet, service);
+        } catch {
+          // not offered for this item in the sheet
+        }
+      }
+      return [key, { name: sheetItemName(sheet), plural, rates }];
+    }),
+  );
 
 let itemSeq = 0;
 function item(garment: string, service: ServiceType, qty: number): OrderItem {
   const entry = VENDOR_RATE_CARD[garment];
   const rate = entry?.rates[service];
-  if (!entry || rate === undefined) throw new Error(`No fixed rate for ${garment} / ${service}`);
+  if (!entry || rate === undefined) throw new Error(`The vendor rate sheet has no ${service} rate for ${garment}`);
   itemSeq += 1;
-  return { id: `IT-${itemSeq}`, garment, garmentPlural: entry.plural, service, qty, rate };
+  return { id: `IT-${itemSeq}`, garment: entry.name, garmentPlural: entry.plural, service, qty, rate };
 }
 
 /* -------------------------------- Helpers -------------------------------- */
@@ -313,11 +336,11 @@ export function demoOrders(): Order[] {
       customerName: "John Smith",
       address: "House 14, Road 41, West Punjabi Bagh, New Delhi 110026",
       locality: "Punjabi Bagh",
-      items: [item("Shirt", "Dry Cleaning", 3), item("Jeans", "Dry Cleaning", 2), item("Silk Scarf", "Dry Cleaning", 1)],
+      items: [item("Shirt", "Dry Cleaning", 3), item("Jeans", "Washing", 2), item("Scarf", "Dry Cleaning", 1)],
       isoDate: iso(subMinutes(now, 2)),
       pickupAt: at(0, 14),
       deliveryDueAt: at(2, 10),
-      acceptanceDeadline: iso(addMinutes(now, 3)),
+      acceptanceDeadline: iso(addMinutes(now, ACCEPTANCE_WINDOW_MIN - 2)),
       payoutStatus: "Estimated",
       statusLog: [assignedLog(iso(subMinutes(now, 2)))],
     }),
@@ -333,7 +356,7 @@ export function demoOrders(): Order[] {
       isoDate: iso(subMinutes(now, 6)),
       pickupAt: at(0, 16, 30),
       deliveryDueAt: at(3, 12),
-      acceptanceDeadline: iso(addMinutes(now, 9)),
+      acceptanceDeadline: iso(addMinutes(now, ACCEPTANCE_WINDOW_MIN - 6)),
       payoutStatus: "Estimated",
       statusLog: [assignedLog(iso(subMinutes(now, 6)))],
     }),
@@ -349,7 +372,7 @@ export function demoOrders(): Order[] {
       isoDate: iso(subMinutes(now, 1)),
       pickupAt: at(0, 17),
       deliveryDueAt: at(1, 17),
-      acceptanceDeadline: iso(addMinutes(now, 14)),
+      acceptanceDeadline: iso(addMinutes(now, ACCEPTANCE_WINDOW_MIN - 1)),
       payoutStatus: "Estimated",
       statusLog: [assignedLog(iso(subMinutes(now, 1)))],
     }),
@@ -378,7 +401,7 @@ export function demoOrders(): Order[] {
       customerName: "Arjun Mehta",
       address: "45, Model Town III, New Delhi 110009",
       locality: "Model Town",
-      items: [item("Men's Jeans", "Washing", 1), item("Men's Denim", "Washing", 4)],
+      items: [item("Jeans", "Washing", 1), item("Pants", "Washing", 4)],
       isoDate: iso(subHours(now, 7)),
       pickupAt: iso(subHours(now, 3)),
       deliveryDueAt: at(1, 10),
@@ -420,7 +443,7 @@ export function demoOrders(): Order[] {
       customerName: "Robert Wilson",
       address: "88, Paschim Vihar, New Delhi 110063",
       locality: "Paschim Vihar",
-      items: [item("Blazer", "Dry Cleaning", 1), item("Trouser", "Dry Cleaning", 2), item("Shirt", "Steam Ironing", 3)],
+      items: [item("Blazer", "Dry Cleaning", 1), item("Trousers", "Dry Cleaning", 2), item("Shirt", "Steam Ironing", 3)],
       isoDate: iso(subDays(now, 1)),
       pickupAt: at(-1, 12),
       deliveryDueAt: iso(subHours(now, 1)),
@@ -462,7 +485,7 @@ export function demoOrders(): Order[] {
       customerName: "Neha Kapoor",
       address: "5, Vikaspuri, New Delhi 110018",
       locality: "Vikaspuri",
-      items: [item("Shirt", "Washing", 5), item("Trouser", "Steam Ironing", 3)],
+      items: [item("Shirt", "Washing", 5), item("Trousers", "Steam Ironing", 3)],
       isoDate: iso(subDays(now, 1)),
       pickupAt: at(-1, 11),
       deliveryDueAt: at(1, 11),
@@ -555,7 +578,7 @@ export function demoOrders(): Order[] {
       customerName: "David Brown",
       address: "62, Rohini Sector 7, New Delhi 110085",
       locality: "Rohini",
-      items: [item("Shirt", "Washing", 4), item("Trouser", "Washing", 2)],
+      items: [item("Shirt", "Washing", 4), item("Pants", "Washing", 2)],
       isoDate: iso(subDays(now, 5)),
       pickupAt: at(-5, 12),
       deliveryDueAt: at(-2, 12),
