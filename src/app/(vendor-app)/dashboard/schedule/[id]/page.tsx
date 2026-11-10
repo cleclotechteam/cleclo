@@ -1,80 +1,82 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import {
+  AlertCircle,
+  AlertTriangle,
+  Ban,
+  ArrowLeft,
+  Box,
+  Calendar,
+  CheckCircle2,
+  ClipboardCheck,
+  Clock,
+  ImageOff,
+  Maximize2,
+  Package,
+  PackagePlus,
+  PackageCheck,
+  Timer,
+  Truck,
+  User,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-  ArrowLeft,
-  MapPin,
-  Phone,
-  Package,
-  Star,
-  Clock,
-  Truck,
-  CheckCircle2,
-  Timer,
-  Navigation,
-  Calendar,
-  User,
-  AlertCircle,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
-import { VendorDataGate } from "@/components/dashboard/vendor-data-gate";
-import type { ScheduleDetail } from "@/lib/vendor-data";
-import { useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
+import { VendorDataGate } from "@/components/dashboard/vendor-data-gate";
+import {
+  INTAKE_COPY,
+  buildIntakeOrder,
+  journeyTimestamps,
+  type IntakeItem,
+  type ScheduleDetail,
+} from "@/lib/vendor-data";
+import type { PickupStatus } from "@/lib/vendor-data/schedule";
+import { ItemVerificationCard } from "@/components/dashboard/schedule/intake/item-verification-card";
+import { EvidenceLightbox } from "@/components/dashboard/schedule/intake/evidence-lightbox";
+import {
+  DiscrepancyDialog,
+  type DiscrepancyTarget,
+} from "@/components/dashboard/schedule/intake/discrepancy-dialog";
+import { VerificationStepper } from "@/components/dashboard/schedule/intake/verification-stepper";
+import { OrderJourney } from "@/components/dashboard/schedule/intake/order-journey";
+import {
+  formatStamp,
+  type DiscrepancyCase,
+  type EvidenceFocus,
+  type ItemResult,
+} from "@/components/dashboard/schedule/intake/types";
 
-const getStatusConfig = (status: string, type: string) => {
-  switch (status) {
-    case "scheduled":
-      return {
-        label: type === "pickup" ? "Pickup Scheduled" : "Delivery Scheduled",
-        className: "bg-blue-100 text-blue-700 border-blue-200",
-        icon: Timer,
-      };
-    case "in_progress":
-      return {
-        label: "In Progress",
-        className: "bg-orange-100 text-orange-700 border-orange-200",
-        icon: Truck,
-      };
-    case "completed":
-      return {
-        label: "Completed",
-        className: "bg-green-100 text-green-700 border-green-200",
-        icon: CheckCircle2,
-      };
-    case "not_scheduled":
-      return {
-        label: "Not Scheduled",
-        className: "bg-gray-100 text-gray-700 border-gray-200",
-        icon: Clock,
-      };
-    default:
-      return {
-        label: "Unknown",
-        className: "bg-gray-100 text-gray-700 border-gray-200",
-        icon: Clock,
-      };
-  }
-};
+const VENDOR_NAME = "Clean Press Laundry";
 
-const getDeliveryBadgeColor = (type?: string) => {
-  switch (type) {
-    case "Express 24h":
-      return "bg-red-100 text-red-700 border-red-200";
-    case "Express 48h":
-      return "bg-orange-100 text-orange-700 border-orange-200";
-    default:
-      return "bg-blue-50 text-blue-700 border-blue-200";
-  }
+/** Logistics status labels, matching the Pickup & Delivery list. */
+const STATUS_CONFIG: Record<PickupStatus, { label: string; className: string; icon: typeof Clock }> = {
+  not_scheduled: { label: "Not Scheduled", className: "bg-gray-100 text-gray-700 border-gray-200", icon: Clock },
+  scheduled: { label: "Scheduled", className: "bg-blue-100 text-blue-700 border-blue-200", icon: Timer },
+  rider_assigned: {
+    label: "Rider Assigned",
+    className: "bg-violet-100 text-violet-700 border-violet-200",
+    icon: User,
+  },
+  en_route: { label: "En Route", className: "bg-amber-100 text-amber-700 border-amber-200", icon: Truck },
+  picked_up: { label: "Picked Up", className: "bg-indigo-100 text-indigo-700 border-indigo-200", icon: Truck },
+  received_at_outlet: {
+    label: "Received at Outlet",
+    className: "bg-green-100 text-green-700 border-green-200",
+    icon: PackageCheck,
+  },
+  delayed: { label: "Delayed", className: "bg-red-100 text-red-700 border-red-200", icon: AlertTriangle },
+  cancelled: { label: "Cancelled", className: "bg-slate-100 text-slate-500 border-slate-200", icon: Ban },
 };
 
 export default function ScheduleDetailPage() {
@@ -85,1042 +87,638 @@ export default function ScheduleDetailPage() {
   );
 }
 
-function ScheduleDetailView({ schedules: SCHEDULE_DATA }: { schedules: ScheduleDetail[] }) {
+function ScheduleDetailView({ schedules }: { schedules: ScheduleDetail[] }) {
   const params = useParams();
   const router = useRouter();
-
-  const schedule = SCHEDULE_DATA.find((s) => s.id === params.id);
-
-  // Create flattened items first so we can use it for initial state
-  const flattenedItems =
-    schedule?.orderItems?.flatMap((item) =>
-      Array.from({ length: item.quantity }).map((_, i) => ({
-        ...item,
-        uniqueId: `${item.name}-${i}`,
-      })),
-    ) || [];
-
-  // Delivery partner items are only pre-verified if pickup has happened (in_progress or completed)
-  const isPickupDone =
-    schedule?.status === "in_progress" || schedule?.status === "completed";
-  const deliveryVerifiedItems: { [key: string]: boolean } = {};
-  if (isPickupDone) {
-    flattenedItems.forEach((item) => {
-      deliveryVerifiedItems[item.uniqueId] = true;
-    });
-  }
-
-  const [vendorVerifiedItems, setVendorVerifiedItems] = useState<{
-    [key: string]: boolean;
-  }>({});
-
-  const [selectedItems, setSelectedItems] = useState<{
-    [key: string]: boolean;
-  }>({});
-
-  const [disputedItems, setDisputedItems] = useState<{
-    [key: string]: boolean;
-  }>({});
-
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [verificationData, setVerificationData] = useState<{
-    verifiedAt: string;
-    verifiedBy: string;
-  } | null>(null);
+  const schedule = schedules.find((s) => s.id === params.id);
 
   if (!schedule) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[400px]">
+      <div className="flex min-h-100 flex-col items-center justify-center">
         <p className="text-slate-500">Order not found</p>
-        <Button
-          variant="outline"
-          className="mt-4"
-          onClick={() => router.back()}
-        >
-          <ArrowLeft className="h-4 w-4 mr-2" />
+        <Button variant="outline" className="mt-4" onClick={() => router.back()}>
+          <ArrowLeft className="mr-2 h-4 w-4" />
           Go Back
         </Button>
       </div>
     );
   }
 
-  const statusConfig = getStatusConfig(schedule.status, schedule.type);
+  return <IntakeVerification key={schedule.id} schedule={schedule} onBack={() => router.back()} />;
+}
+
+function IntakeVerification({
+  schedule,
+  onBack,
+}: {
+  schedule: ScheduleDetail;
+  onBack: () => void;
+}) {
+  const intake = useMemo(() => buildIntakeOrder(schedule, VENDOR_NAME), [schedule]);
+  const items = intake.items;
+  const totalItems = items.length;
+  const isPickupDone = intake.pickupDone;
+
+  const [bagReceivedAt, setBagReceivedAt] = useState<string | null>(intake.initial.bagReceivedAt);
+  const [bagChecked, setBagChecked] = useState(false);
+  const [results, setResults] = useState<Record<string, ItemResult>>(intake.initial.results);
+  const [receiptPhotos, setReceiptPhotos] = useState<Record<string, string>>({});
+  const [cases, setCases] = useState<DiscrepancyCase[]>(intake.initial.cases);
+  const [discrepancyTarget, setDiscrepancyTarget] = useState<DiscrepancyTarget | null>(null);
+  const [lightbox, setLightbox] = useState<{ item: IntakeItem; focus: EvidenceFocus } | null>(null);
+  const [bulkOpen, setBulkOpen] = useState(false);
+  const [bulkConfirmed, setBulkConfirmed] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [completion, setCompletion] = useState<{ at: string; by: string } | null>(
+    intake.initial.completion,
+  );
+
+  const bagReceived = isPickupDone && bagReceivedAt !== null;
+  const editable = bagReceived && !completion && !intake.cancelled;
+
+  const logisticsVerifiedCount = isPickupDone ? totalItems : 0;
+  const matchedCount = items.filter((i) => results[i.id] === "matched").length;
+  const resolvedCount = items.filter((i) => results[i.id]).length;
+  const allResolved = totalItems > 0 && resolvedCount === totalItems;
+  const flaggedItemCount = items.filter((i) => results[i.id] === "discrepancy").length;
+  const remaining = totalItems - resolvedCount;
+
+  // Items the bulk action may mark as matched: still pending and not waiting on a required photo.
+  const bulkEligible = items.filter(
+    (i) => !results[i.id] && (!i.receiptPhotoRequired || receiptPhotos[i.id]),
+  );
+  const bulkExcluded = remaining - bulkEligible.length;
+
+  const caseByItem = Object.fromEntries(cases.map((c) => [c.itemId, c]));
+  const nextCaseId = `RC-${intake.orderRef}-${String(cases.length + 1).padStart(2, "0")}`;
+  const additionalCount = cases.filter((c) => !items.some((i) => i.id === c.itemId)).length;
+
+  const statusConfig = STATUS_CONFIG[schedule.logisticsStatus];
   const StatusIcon = statusConfig.icon;
 
-  // Toggle selection of an item (for items not yet verified)
-  const handleSelectItem = (itemId: string) => {
-    if (vendorVerifiedItems[itemId]) return; // Already verified, can't select
-    setSelectedItems((prev) => ({
-      ...prev,
-      [itemId]: !prev[itemId],
-    }));
-  };
+  /* ------------------------------ actions ------------------------------ */
 
-  const handleToggleDispute = (e: React.MouseEvent, itemId: string) => {
-    e.stopPropagation();
-    if (vendorVerifiedItems[itemId]) return;
-    setDisputedItems((prev) => ({
-      ...prev,
-      [itemId]: !prev[itemId],
-    }));
-  };
-
-  // Final verification after model confirmation
-  const executeVerification = () => {
-    setVendorVerifiedItems((prev) => ({
-      ...prev,
-      ...selectedItems,
-    }));
-    setVerificationData({
-      verifiedAt:
-        new Date().toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: true,
-        }) +
-        " | " +
-        new Date().toLocaleDateString("en-GB", {
-          day: "2-digit",
-          month: "short",
-          year: "numeric",
-        }),
-      verifiedBy: "Luxe Laundry Hub", // Mock vendor name
+  const setResult = (id: string, r: ItemResult | null) =>
+    setResults((prev) => {
+      const next = { ...prev };
+      if (r) next[id] = r;
+      else delete next[id];
+      return next;
     });
-    setSelectedItems({}); // Clear selection after verification
-    setShowConfirmModal(false);
+
+  const submitDiscrepancy = (c: DiscrepancyCase) => {
+    setCases((prev) => [...prev, c]);
+    if (items.some((i) => i.id === c.itemId)) setResult(c.itemId, "discrepancy");
+    setDiscrepancyTarget(null);
   };
 
-  const handleVerifySelectedItems = () => {
-    setShowConfirmModal(true);
-  };
-
-  // Verify all remaining items at once
-  const handleVerifyAllVendorItems = () => {
-    const allVerified: { [key: string]: boolean } = {};
-    flattenedItems.forEach((item) => {
-      allVerified[item.uniqueId] = true;
+  const runBulkVerify = () => {
+    setResults((prev) => {
+      const next = { ...prev };
+      bulkEligible.forEach((i) => (next[i.id] = "matched"));
+      return next;
     });
-    setVendorVerifiedItems(allVerified);
-    setSelectedItems({});
+    setBulkOpen(false);
+    setBulkConfirmed(false);
   };
 
-  const deliveryVerifiedCount = Object.values(deliveryVerifiedItems).filter(
-    Boolean,
-  ).length;
-  const vendorVerifiedCount =
-    Object.values(vendorVerifiedItems).filter(Boolean).length;
-  const selectedCount = Object.values(selectedItems).filter(Boolean).length;
-  const totalItems = flattenedItems.length;
+  const completeVerification = () => {
+    setCompletion({ at: formatStamp(new Date()), by: VENDOR_NAME });
+    setConfirmOpen(false);
+  };
+
+  /* ------------------------------ journey ------------------------------ */
+
+  const base = intake.baseStage;
+  const completedThrough = Math.max(base, completion ? 8 : bagReceived ? 7 : 0);
+  const timestamps = journeyTimestamps(schedule, base);
+  if (base < 8) {
+    if (bagReceivedAt) {
+      timestamps[6] ??= bagReceivedAt;
+      timestamps[7] = bagReceivedAt;
+    }
+    if (completion) timestamps[8] = completion.at;
+  }
+  const journeyNotes: Record<number, string> = {};
+  if (isPickupDone && schedule.direction === "pickup") journeyNotes[5] = `${totalItems} items recorded by ${schedule.driver ?? "the logistics partner"}`;
+  if (completion && cases.length > 0)
+    journeyNotes[8] = `${cases.length} discrepanc${cases.length === 1 ? "y" : "ies"} flagged for review`;
+
+  const stepsDone = [
+    isPickupDone,
+    bagReceived,
+    allResolved,
+    allResolved, // every exception documented (or none found)
+    !!completion,
+  ];
+
+  const kpis = [
+    { label: "Total Items", value: `${totalItems}`, icon: Box, tone: "bg-blue-50 text-blue-600" },
+    {
+      label: "Logistics Verified",
+      value: `${logisticsVerifiedCount}/${totalItems}`,
+      icon: Truck,
+      tone: "bg-purple-50 text-purple-600",
+    },
+    {
+      label: "Vendor Verified",
+      value: `${matchedCount}/${totalItems}`,
+      icon: ClipboardCheck,
+      tone: "bg-emerald-50 text-emerald-600",
+    },
+    {
+      label: INTAKE_COPY.discrepanciesKpi,
+      value: `${cases.length}`,
+      icon: AlertTriangle,
+      tone: cases.length > 0 ? "bg-red-50 text-red-600" : "bg-amber-50 text-amber-600",
+    },
+  ];
+
+  const handlingItems = items.filter((i) => i.specialHandling);
 
   return (
     <div className="flex flex-col gap-6 pb-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Button
-            variant="outline"
-            size="icon"
-            className="h-10 w-10 rounded-full"
-            onClick={() => router.back()}
-          >
-            <ArrowLeft className="h-4 w-4" />
-          </Button>
-          <div>
+      <div className="flex items-center gap-4">
+        <Button variant="outline" size="icon" className="h-10 w-10 rounded-full" onClick={onBack}>
+          <ArrowLeft className="h-4 w-4" />
+        </Button>
+        <div>
+          <div className="flex flex-wrap items-center gap-3">
+            <h1 className="text-2xl font-bold text-slate-900">Order {schedule.orderId}</h1>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-semibold text-slate-500">Status:</span>
+              <Badge className={cn("gap-1 border px-2.5 py-1 text-xs font-semibold", statusConfig.className)}>
+                <StatusIcon className="h-3 w-3" />
+                {statusConfig.label}
+              </Badge>
+            </div>
+          </div>
+          <div className="mt-1 flex flex-wrap items-center gap-4 text-sm text-slate-500">
+            <span className="flex items-center gap-1">
+              <Calendar className="h-3.5 w-3.5" />
+              {schedule.date}
+            </span>
+            <span className="flex items-center gap-1">
+              <Package className="h-3.5 w-3.5" />
+              {totalItems} Items • Placed on {schedule.date}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {intake.cancelled && (
+        <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm font-medium text-slate-600">
+          <Ban className="h-4 w-4 shrink-0" />
+          This pickup was cancelled. No intake verification is required.
+          {schedule.note && <span className="text-slate-500">({schedule.note})</span>}
+        </div>
+      )}
+      {schedule.direction === "delivery" && (
+        <div className="flex items-center gap-2 rounded-xl border border-emerald-100 bg-emerald-50 p-3 text-sm font-medium text-emerald-800">
+          <CheckCircle2 className="h-4 w-4 shrink-0" />
+          Return delivery order. Intake verification was completed when the order was received at the outlet.
+        </div>
+      )}
+
+      {/* KPI cards */}
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+        {kpis.map((k) => (
+          <div key={k.label} className="rounded-xl border border-slate-100 bg-white p-4 shadow-sm">
+            <div className="flex items-start justify-between">
+              <span className={cn("flex h-10 w-10 items-center justify-center rounded-xl", k.tone)}>
+                <k.icon className="h-5 w-5" />
+              </span>
+              <p className="text-2xl font-bold text-slate-900">{k.value}</p>
+            </div>
+            <p className="mt-2 text-xs font-medium text-slate-500">{k.label}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Recommended Final Workflow */}
+      <VerificationStepper done={stepsDone} />
+
+      {/* Logistics Pickup Verification */}
+      <section className="overflow-hidden rounded-xl border border-slate-100 bg-white shadow-sm">
+        <div className={cn("border-b border-slate-100 p-4", isPickupDone ? "bg-blue-50" : "bg-slate-50")}>
+          <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-bold text-slate-900">
-                Order {schedule.orderId}
-              </h1>
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-semibold text-slate-500">
-                  Status:
-                </span>
-                <Badge
-                  className={cn(
-                    "gap-1 px-2.5 py-1 text-xs font-semibold border",
-                    statusConfig.className,
-                  )}
-                >
-                  <StatusIcon className="h-3 w-3" />
-                  {schedule.status === "not_scheduled"
-                    ? "Pickup Not Scheduled"
-                    : statusConfig.label}
-                </Badge>
+              <div
+                className={cn(
+                  "flex h-10 w-10 shrink-0 items-center justify-center rounded-full",
+                  isPickupDone ? "bg-blue-500" : "bg-slate-400",
+                )}
+              >
+                <Truck className="h-5 w-5 text-white" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-slate-900">{INTAKE_COPY.logisticsHeading}</h2>
+                <p className="text-xs text-slate-500">{INTAKE_COPY.logisticsDescription}</p>
               </div>
             </div>
-            <div className="flex flex-col mt-1 space-y-1">
-              <div className="flex items-center gap-4 text-sm text-slate-500">
-                <span className="flex items-center gap-1">
-                  <Calendar className="h-3.5 w-3.5" />
-                  {schedule.date}
-                </span>
-                <span className="flex items-center gap-1">
-                  <Package className="h-3.5 w-3.5" />
-                  {totalItems} Items • Placed on {schedule.date}
-                </span>
-              </div>
-            </div>
+            <span className={cn("text-sm font-semibold", isPickupDone ? "text-blue-600" : "text-slate-400")}>
+              {logisticsVerifiedCount}/{totalItems}
+            </span>
           </div>
         </div>
-      </div>
-
-      {/* Quick Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white rounded-xl border border-slate-100 shadow-sm p-4 text-center">
-          <p className="text-2xl font-bold text-slate-900">{totalItems}</p>
-          <p className="text-xs text-slate-500 font-medium mt-1">
-            Total Items in Order
-          </p>
-        </div>
-        <div className="bg-white rounded-xl border border-slate-100 shadow-sm p-4 text-center">
-          <p className="text-2xl font-bold text-slate-900">
-            {deliveryVerifiedCount}/{totalItems}
-          </p>
-          <p className="text-xs text-slate-500 font-medium mt-1">
-            Pickup Verification
-          </p>
-        </div>
-        <div className="bg-white rounded-xl border border-slate-100 shadow-sm p-4 text-center">
-          <p className="text-2xl font-bold text-slate-900">
-            {vendorVerifiedCount}/{totalItems}
-          </p>
-          <p className="text-xs text-slate-500 font-medium mt-1">
-            Vendor Intake Verification
-          </p>
-        </div>
-        <div className="bg-white rounded-xl border border-slate-100 shadow-sm p-4 text-center">
-          <p className="text-2xl font-bold text-slate-900">{schedule.rating}</p>
-          <p className="text-xs text-slate-500 font-medium mt-1">
-            Customer Rating
-          </p>
-        </div>
-      </div>
-
-      <div className="grid lg:grid-cols-2 gap-6">
-        {/* Delivery Partner Verification */}
-        <div className="space-y-4">
-          <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
-            <div
-              className={cn(
-                "p-4 border-b border-slate-100",
-                isPickupDone ? "bg-blue-50" : "bg-slate-50",
-              )}
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div
-                    className={cn(
-                      "h-10 w-10 rounded-full flex items-center justify-center",
-                      isPickupDone ? "bg-blue-500" : "bg-slate-400",
-                    )}
-                  >
-                    <Truck className="h-5 w-5 text-white" />
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-bold text-slate-900">
-                      Delivery Partner Verification
-                    </h2>
-                    <p className="text-xs text-slate-500">
-                      Items will be verified by the delivery partner at the time
-                      of pickup.
-                    </p>
-                  </div>
-                </div>
-                <span
-                  className={cn(
-                    "text-sm font-semibold",
-                    isPickupDone ? "text-blue-600" : "text-slate-400",
-                  )}
-                >
-                  {deliveryVerifiedCount}/{totalItems}
-                </span>
-              </div>
+        <div className="p-4">
+          {!isPickupDone && (
+            <div className="mb-4 rounded-xl border border-amber-100 bg-amber-50 p-3">
+              <p className="flex items-center gap-2 text-xs font-medium text-amber-700">
+                <Clock className="h-4 w-4" />
+                Verification will begin once the pickup is completed.
+              </p>
             </div>
-            <div className="p-4">
-              {!isPickupDone && (
-                <div className="mb-4 p-3 bg-amber-50 rounded-xl border border-amber-100">
-                  <p className="text-xs text-amber-700 flex items-center gap-2 font-medium">
-                    <Clock className="h-4 w-4" />
-                    Verification will begin once the pickup is completed.
-                  </p>
-                </div>
-              )}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {flattenedItems.map((item, index) => (
-                  <div
-                    key={index}
-                    className={cn(
-                      "relative flex flex-col items-center border-2 rounded-xl p-3",
-                      isPickupDone
-                        ? "border-blue-500 bg-blue-50 shadow-sm"
-                        : "border-slate-200 bg-slate-50",
-                    )}
-                  >
-                    {item.image && (
-                      <div
-                        className={cn(
-                          "h-16 w-16 rounded-lg overflow-hidden mb-2 shadow-sm",
-                          !isPickupDone && "opacity-60",
-                        )}
-                      >
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="h-full w-full object-cover"
-                        />
-                      </div>
-                    )}
-                    <p
+          )}
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            {items.map((item) => (
+              <div
+                key={item.id}
+                className={cn(
+                  "flex gap-3 rounded-xl border p-3",
+                  isPickupDone ? "border-blue-200 bg-blue-50/40" : "border-slate-200 bg-slate-50",
+                )}
+              >
+                <button
+                  type="button"
+                  title={`Enlarge ${INTAKE_COPY.pickupEvidence}`}
+                  onClick={() => setLightbox({ item, focus: "pickup" })}
+                  className="group relative flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-white"
+                >
+                  {isPickupDone ? (
+                    <>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={item.pickupPhoto} alt={item.name} className="h-full w-full object-cover" />
+                      <Maximize2 className="absolute right-1 top-1 h-3 w-3 text-white opacity-0 drop-shadow group-hover:opacity-100" />
+                    </>
+                  ) : (
+                    <ImageOff className="h-5 w-5 text-slate-300" />
+                  )}
+                </button>
+                <div className="min-w-0 flex-1 text-xs">
+                  <div className="flex items-start justify-between gap-2">
+                    <p className="text-sm font-semibold text-slate-900">{item.name}</p>
+                    <span
                       className={cn(
-                        "font-medium text-xs text-center",
-                        isPickupDone ? "text-slate-900" : "text-slate-500",
+                        "shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold",
+                        isPickupDone ? "bg-green-100 text-green-700" : "bg-slate-100 text-slate-500",
                       )}
                     >
-                      {item.name}
-                    </p>
-                    {isPickupDone && (
-                      <div className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-blue-500 flex items-center justify-center shadow-md">
-                        <CheckCircle2 className="h-3 w-3 text-white" />
-                      </div>
-                    )}
+                      {isPickupDone ? "Recorded" : "Awaiting Pickup"}
+                    </span>
                   </div>
-                ))}
+                  <p className="font-mono text-slate-600">{item.id}</p>
+                  <p className="text-slate-500">
+                    {item.service} · {item.quantity} pc
+                  </p>
+                  {isPickupDone && <p className="truncate text-slate-500">Condition: {item.pickupCondition}</p>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Vendor Receipt Verification */}
+      <section className="overflow-hidden rounded-xl border border-slate-100 bg-white shadow-sm">
+        <div className="border-b border-slate-100 bg-green-50 p-4">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#00B074]">
+                <Package className="h-5 w-5 text-white" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-slate-900">{INTAKE_COPY.vendorHeading}</h2>
+                <p className="text-xs text-slate-500">{INTAKE_COPY.vendorDescription}</p>
               </div>
             </div>
+            <span className="text-sm font-semibold text-green-600">
+              {matchedCount}/{totalItems}
+            </span>
           </div>
         </div>
 
-        {/* Vendor Verification */}
-        <div className="space-y-4">
-          <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
-            <div className="p-4 border-b border-slate-100 bg-green-50">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-green-500 flex items-center justify-center">
-                    <Package className="h-5 w-5 text-white" />
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-bold text-slate-900">
-                      Vendor Intake Verification
-                    </h2>
-                    <p className="text-xs text-slate-500">
-                      Select each item after physically inspecting it at the
-                      store.
-                    </p>
-                  </div>
-                </div>
-                <span className="text-sm font-semibold text-green-600">
-                  {vendorVerifiedCount}/{totalItems}
-                </span>
-              </div>
-            </div>
-            <div className="p-4">
-              <div className="mb-4 p-3 bg-emerald-50 rounded-xl border border-emerald-100">
-                <p className="text-xs text-emerald-700 flex items-center gap-2 font-medium">
-                  <AlertCircle className="h-4 w-4" />
-                  Confirm item condition, quantity and visible damage before
-                  proceeding.
+        <div className="space-y-4 p-4">
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50 p-3">
+            <p className="flex items-center gap-2 text-xs font-medium text-emerald-700">
+              <AlertCircle className="h-4 w-4" />
+              Confirm item condition, quantity and visible damage before proceeding.
+            </p>
+          </div>
+
+          {/* Step 2: bag receipt */}
+          <div
+            className={cn(
+              "flex flex-col gap-3 rounded-xl border p-4 sm:flex-row sm:items-center sm:justify-between",
+              bagReceived ? "border-green-200 bg-green-50/60" : "border-slate-200 bg-slate-50",
+            )}
+          >
+            <div className="flex items-center gap-3">
+              <PackageCheck className={cn("h-6 w-6", bagReceived ? "text-green-600" : "text-slate-400")} />
+              <div>
+                <p className="text-sm font-semibold text-slate-900">
+                  Bag ID: <span className="font-mono">{intake.bagId}</span>
+                </p>
+                <p className="text-xs text-slate-500">
+                  {bagReceived
+                    ? `Bag received and seal checked · ${bagReceivedAt}`
+                    : isPickupDone
+                      ? "Check the bag identifier and seal before opening the bag."
+                      : "Bag receipt can be confirmed once the logistics partner delivers the order."}
                 </p>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {flattenedItems.map((item, index) => (
-                  <div
-                    key={index}
-                    className={cn(
-                      "relative flex flex-col items-center border-2 rounded-xl p-3 transition-all",
-                      vendorVerifiedItems[item.uniqueId]
-                        ? "border-green-500 bg-green-50 shadow-sm"
-                        : selectedItems[item.uniqueId]
-                          ? "border-blue-500 bg-blue-50 shadow-sm cursor-pointer"
-                          : "border-slate-200 bg-white cursor-pointer hover:border-slate-300 hover:shadow-md",
-                    )}
-                    onClick={() => handleSelectItem(item.uniqueId)}
-                  >
-                    {item.image && (
-                      <div
-                        className={cn(
-                          "h-16 w-16 rounded-lg overflow-hidden mb-2 shadow-sm",
-                          vendorVerifiedItems[item.uniqueId] &&
-                            "ring-2 ring-green-500",
-                          selectedItems[item.uniqueId] &&
-                            !vendorVerifiedItems[item.uniqueId] &&
-                            "ring-2 ring-blue-500",
-                        )}
-                      >
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="h-full w-full object-cover"
-                        />
-                      </div>
-                    )}
-                    <p className="font-medium text-[11px] text-slate-900 text-center leading-tight">
-                      {item.name}
-                    </p>
-
-                    {/* Dispute Option */}
-                    {!vendorVerifiedItems[item.uniqueId] && (
-                      <button
-                        onClick={(e) => handleToggleDispute(e, item.uniqueId)}
-                        className={cn(
-                          "mt-2 text-[10px] font-bold px-2 py-0.5 rounded-full transition-colors",
-                          disputedItems[item.uniqueId]
-                            ? "bg-red-500 text-white"
-                            : "bg-slate-100 text-slate-500 hover:bg-red-100 hover:text-red-600",
-                        )}
-                      >
-                        {disputedItems[item.uniqueId]
-                          ? "Disputed"
-                          : "Dispute Image"}
-                      </button>
-                    )}
-                    {vendorVerifiedItems[item.uniqueId] && (
-                      <div className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-green-500 flex items-center justify-center shadow-md">
-                        <CheckCircle2 className="h-3 w-3 text-white" />
-                      </div>
-                    )}
-                    {selectedItems[item.uniqueId] &&
-                      !vendorVerifiedItems[item.uniqueId] && (
-                        <div className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-blue-500 flex items-center justify-center shadow-md">
-                          <CheckCircle2 className="h-3 w-3 text-white" />
-                        </div>
-                      )}
-                  </div>
-                ))}
-              </div>
-
-              {/* Buttons Section */}
-              {vendorVerifiedCount < totalItems && (
-                <div className="mt-4 pt-4 border-t border-slate-100 space-y-3">
-                  {/* Verify Selected Button - only show if items are selected */}
-                  {selectedCount > 0 && (
-                    <Button
-                      className="w-full bg-[#00B074] hover:bg-[#00B074]/90 h-12 text-base font-bold shadow-lg shadow-emerald-900/10"
-                      onClick={handleVerifySelectedItems}
-                    >
-                      <CheckCircle2 className="h-5 w-5 mr-2" />
-                      Confirm & Verify Selected Items
-                    </Button>
+            </div>
+            {!bagReceived && (
+              <div className="flex flex-col gap-2 sm:items-end">
+                <label
+                  className={cn(
+                    "flex items-center gap-2 text-xs font-medium",
+                    isPickupDone ? "text-slate-700" : "text-slate-400",
                   )}
-
-                  {/* Verify All Button */}
-                  <Button
-                    className={cn(
-                      "w-full h-12 text-base font-semibold",
-                      selectedCount > 0
-                        ? "bg-slate-200 hover:bg-slate-300 text-slate-700"
-                        : "bg-[#00B074] hover:bg-[#00B074]/90",
-                    )}
-                    onClick={handleVerifyAllVendorItems}
-                  >
-                    <CheckCircle2 className="h-5 w-5 mr-2" />
-                    Verify All Items ({totalItems - vendorVerifiedCount}{" "}
-                    remaining)
-                  </Button>
-                </div>
-              )}
-
-              {vendorVerifiedCount === totalItems && verificationData && (
-                <div className="mt-4 pt-4 border-t border-slate-100 space-y-4">
-                  <div className="flex items-center justify-center gap-2 p-3 bg-green-50 rounded-xl border border-green-200">
-                    <CheckCircle2 className="h-5 w-5 text-green-600" />
-                    <span className="text-sm font-semibold text-green-700">
-                      All items verified successfully!
-                    </span>
-                  </div>
-                  <div className="text-center space-y-1">
-                    <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">
-                      Verified By:{" "}
-                      <span className="text-slate-900 font-bold">
-                        {verificationData.verifiedBy}
-                      </span>
-                    </p>
-                    <p className="text-xs text-slate-400 font-medium">
-                      Verified at: {verificationData.verifiedAt}
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
+                >
+                  <Checkbox
+                    checked={bagChecked}
+                    disabled={!isPickupDone}
+                    onCheckedChange={(v) => setBagChecked(v === true)}
+                  />
+                  Bag identifier matches and seal is intact
+                </label>
+                <Button
+                  size="sm"
+                  disabled={!isPickupDone || !bagChecked}
+                  className="bg-[#00B074] hover:bg-[#00B074]/90"
+                  onClick={() => setBagReceivedAt(formatStamp(new Date()))}
+                >
+                  Confirm Bag Received
+                </Button>
+              </div>
+            )}
           </div>
-        </div>
-      </div>
 
-      {/* Info Cards Row */}
-      <div className="grid md:grid-cols-2 gap-4">
-        {/* Special Handling Note Card */}
-        {schedule.note && (
-          <div className="relative overflow-hidden bg-linear-to-br from-amber-50 to-orange-50 border border-amber-200/50 rounded-2xl p-5 shadow-sm">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-amber-100/50 rounded-full -translate-y-1/2 translate-x-1/2" />
-            <div className="relative flex items-start gap-4">
-              <div className="h-12 w-12 rounded-xl bg-linear-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-200/50">
-                <AlertCircle className="h-6 w-6 text-white" />
-              </div>
-              <div className="flex-1">
-                <h3 className="font-bold text-amber-900 text-base">
-                  Special Handling Note
-                </h3>
-                <p className="text-amber-700 text-sm mt-1 leading-relaxed font-medium">
-                  Colour bleed risk identified for Red Dress.
-                </p>
-                <p className="text-amber-600 text-[11px] mt-1 font-bold uppercase tracking-wider">
-                  Handle separately during processing.
-                </p>
-              </div>
-            </div>
+          {/* Step 3: item-by-item */}
+          <div className="grid gap-4 md:grid-cols-2">
+            {items.map((item) => (
+              <ItemVerificationCard
+                key={item.id}
+                item={item}
+                pickupDone={isPickupDone}
+                editable={editable}
+                result={results[item.id]}
+                discrepancy={caseByItem[item.id]}
+                receiptPhoto={receiptPhotos[item.id]}
+                onReceiptPhoto={(url) => setReceiptPhotos((p) => ({ ...p, [item.id]: url }))}
+                onMatch={() => setResult(item.id, "matched")}
+                onReset={() => setResult(item.id, null)}
+                onReportDiscrepancy={() =>
+                  setDiscrepancyTarget({
+                    itemId: item.id,
+                    itemName: item.name,
+                    receiptPhoto: receiptPhotos[item.id],
+                  })
+                }
+                onEnlarge={(focus) => setLightbox({ item, focus })}
+              />
+            ))}
           </div>
-        )}
 
-        {/* Assigned Driver Card */}
-        {schedule.driver && (
-          <div className="relative overflow-hidden bg-linear-to-br from-slate-50 to-slate-100 border border-slate-200/50 rounded-2xl p-5 shadow-sm">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-slate-200/50 rounded-full -translate-y-1/2 translate-x-1/2" />
-            <div className="relative flex items-center gap-4">
-              <div className="h-12 w-12 rounded-xl bg-linear-to-br from-purple-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-purple-200/50">
-                <User className="h-6 w-6 text-white" />
-              </div>
-              <div className="flex-1">
-                <p className="text-xs text-slate-500 font-medium uppercase tracking-wide">
-                  Assigned Driver
-                </p>
-                <p className="font-bold text-slate-900 text-lg mt-0.5">
-                  {schedule.driver}
-                </p>
-              </div>
-              <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
-                <CheckCircle2 className="h-5 w-5 text-green-600" />
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Delivery Status Timeline */}
-      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-        <div className="p-5 border-b border-slate-100 bg-linear-to-r from-slate-50 to-white">
-          <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-            <Truck className="h-5 w-5 text-purple-600" />
-            Delivery Status
-          </h2>
-          <p className="text-sm text-slate-500 mt-1">
-            Track the journey of your items
-          </p>
-        </div>
-
-        <div className="p-5">
-          {/* Timeline */}
-          <div className="relative">
-            {/* Timeline Line */}
-            <div
-              className={cn(
-                "absolute left-6 top-8 bottom-8 w-0.5",
-                schedule.status === "not_scheduled"
-                  ? "bg-linear-to-b from-green-500 to-slate-200"
-                  : schedule.status === "scheduled"
-                    ? "bg-linear-to-b from-green-500 via-green-500 to-slate-200"
-                    : schedule.status === "in_progress"
-                      ? "bg-linear-to-b from-green-500 via-blue-500 to-slate-200"
-                      : "bg-green-500",
-              )}
-            />
-
-            {/* Timeline Items */}
-            <div className="space-y-6">
-              {/* Order Placed - Always Complete */}
-              <div className="relative flex gap-4">
-                <div className="h-12 w-12 rounded-full bg-green-500 flex items-center justify-center shadow-lg shadow-green-200/50 z-10">
-                  <CheckCircle2 className="h-6 w-6 text-white" />
-                </div>
-                <div className="flex-1 pt-1">
-                  <div className="flex items-center justify-between">
-                    <h4 className="font-semibold text-slate-900">
-                      Order Placed
-                    </h4>
-                    <span className="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded-full">
-                      Placed on Jan 21, 2026 at 10:30 AM
-                    </span>
-                  </div>
-                  <p className="text-sm text-slate-500 mt-1">
-                    Customer confirmed order ({totalItems} items)
-                  </p>
-                </div>
-              </div>
-
-              {/* Driver Assignment Step */}
-              <div className="relative flex gap-4">
-                {schedule.driver ? (
-                  <>
-                    <div className="h-12 w-12 rounded-full bg-green-500 flex items-center justify-center shadow-lg shadow-green-200/50 z-10">
-                      <CheckCircle2 className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="flex-1 pt-1">
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-semibold text-slate-900">
-                          Driver Assigned
-                        </h4>
-                        <span className="text-xs text-green-600 bg-green-100 px-2 py-1 rounded-full">
-                          Assigned
-                        </span>
-                      </div>
-                      <p className="text-sm text-slate-500 mt-1">
-                        {schedule.driver} has been assigned to pickup
-                      </p>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="h-12 w-12 rounded-full bg-amber-500 flex items-center justify-center shadow-lg shadow-amber-200/50 z-10 animate-pulse">
-                      <Clock className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="flex-1 pt-1">
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-semibold text-amber-700">
-                          Awaiting Driver Assignment
-                        </h4>
-                        <span className="text-xs text-amber-600 bg-amber-100 px-2 py-1 rounded-full font-medium">
-                          Assignment Pending
-                        </span>
-                      </div>
-                      <p className="text-sm text-amber-600 mt-1">
-                        No delivery partner has been assigned.
-                      </p>
-                      <div className="mt-2 p-3 bg-amber-50 rounded-xl border border-amber-100">
-                        <p className="text-xs text-amber-700">
-                          ⏳ Waiting for a delivery partner to accept the pickup
-                          request.
-                        </p>
-                      </div>
-                    </div>
-                  </>
-                )}
-              </div>
-
-              {/* Picked Up from Customer */}
-              <div className="relative flex gap-4">
-                {schedule.status === "in_progress" ||
-                schedule.status === "completed" ? (
-                  <>
-                    <div className="h-12 w-12 rounded-full bg-green-500 flex items-center justify-center shadow-lg shadow-green-200/50 z-10">
-                      <CheckCircle2 className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="flex-1 pt-1">
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-semibold text-slate-900">
-                          Picked Up from Customer
-                        </h4>
-                        <span className="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded-full">
-                          {schedule.date}, 11:45 AM
-                        </span>
-                      </div>
-                      <p className="text-sm text-slate-500 mt-1">
-                        {schedule.driver} collected items from customer
-                      </p>
-                      <div className="flex flex-wrap gap-2 mt-2">
-                        {flattenedItems.slice(0, 3).map((item, i) => (
-                          <span
-                            key={i}
-                            className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full"
-                          >
-                            ✓ {item.name}
-                          </span>
-                        ))}
-                        {flattenedItems.length > 3 && (
-                          <span className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-full">
-                            +{flattenedItems.length - 3} more
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </>
-                ) : schedule.driver ? (
-                  <>
-                    <div className="h-12 w-12 rounded-full bg-blue-500 flex items-center justify-center shadow-lg shadow-blue-200/50 z-10">
-                      <Truck className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="flex-1 pt-1">
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-semibold text-slate-900">
-                          Pickup Scheduled
-                        </h4>
-                        <span className="text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded-full font-medium">
-                          Scheduled
-                        </span>
-                      </div>
-                      <p className="text-sm text-slate-500 mt-1">
-                        {schedule.driver} will pickup items soon
-                      </p>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="h-12 w-12 rounded-full bg-slate-200 flex items-center justify-center z-10">
-                      <Package className="h-6 w-6 text-slate-400" />
-                    </div>
-                    <div className="flex-1 pt-1">
-                      <h4 className="font-semibold text-slate-400">
-                        Pickup from Customer
-                      </h4>
-                      <p className="text-sm text-slate-400 mt-1">
-                        Pickup will begin once a driver is assigned.
-                      </p>
-                    </div>
-                  </>
-                )}
-              </div>
-
-              {/* In Transit to Vendor */}
-              <div className="relative flex gap-4">
-                {vendorVerifiedCount === totalItems ? (
-                  <>
-                    <div className="h-12 w-12 rounded-full bg-green-500 flex items-center justify-center shadow-lg shadow-green-200/50 z-10">
-                      <CheckCircle2 className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="flex-1 pt-1">
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-semibold text-slate-900">
-                          Delivered to Vendor
-                        </h4>
-                        <span className="text-xs text-green-600 bg-green-100 px-2 py-1 rounded-full">
-                          Delivered
-                        </span>
-                      </div>
-                      <p className="text-sm text-slate-500 mt-1">
-                        Items delivered to vendor location
-                      </p>
-                    </div>
-                  </>
-                ) : schedule.status === "in_progress" ? (
-                  <>
-                    <div className="h-12 w-12 rounded-full bg-blue-500 flex items-center justify-center shadow-lg shadow-blue-200/50 z-10 animate-pulse">
-                      <Truck className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="flex-1 pt-1">
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-semibold text-slate-900">
-                          In Transit to Vendor
-                        </h4>
-                        <span className="text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded-full font-medium">
-                          In Transit
-                        </span>
-                      </div>
-                      <p className="text-sm text-slate-500 mt-1">
-                        Items are on the way to your location
-                      </p>
-                      <div className="mt-3 p-3 bg-blue-50 rounded-xl border border-blue-100">
-                        <div className="flex items-center gap-3">
-                          <div className="h-8 w-8 rounded-lg bg-blue-500 flex items-center justify-center">
-                            <Clock className="h-4 w-4 text-white" />
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium text-blue-900">
-                              Estimated Arrival
-                            </p>
-                            <p className="text-xs text-blue-600">
-                              Today, 12:30 PM - 1:00 PM
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                ) : schedule.status === "completed" ? (
-                  <>
-                    <div className="h-12 w-12 rounded-full bg-green-500 flex items-center justify-center shadow-lg shadow-green-200/50 z-10">
-                      <CheckCircle2 className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="flex-1 pt-1">
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-semibold text-slate-900">
-                          Delivered to Vendor
-                        </h4>
-                        <span className="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded-full">
-                          {schedule.date}, 12:15 PM
-                        </span>
-                      </div>
-                      <p className="text-sm text-slate-500 mt-1">
-                        Items delivered successfully
-                      </p>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="h-12 w-12 rounded-full bg-slate-200 flex items-center justify-center z-10">
-                      <Truck className="h-6 w-6 text-slate-400" />
-                    </div>
-                    <div className="flex-1 pt-1">
-                      <h4 className="font-semibold text-slate-400">
-                        In Transit to Vendor
-                      </h4>
-                      <p className="text-sm text-slate-400 mt-1">
-                        Items have been picked up and are en-route to the vendor
-                        location.
-                      </p>
-                    </div>
-                  </>
-                )}
-              </div>
-
-              {/* Received at Vendor */}
-              <div className="relative flex gap-4">
-                {vendorVerifiedCount === totalItems ? (
-                  <>
-                    <div className="h-12 w-12 rounded-full bg-green-500 flex items-center justify-center shadow-lg shadow-green-200/50 z-10">
-                      <CheckCircle2 className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="flex-1 pt-1">
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-semibold text-slate-900">
-                          Received at Vendor
-                        </h4>
-                        <span className="text-xs text-green-600 bg-green-100 px-2 py-1 rounded-full font-medium">
-                          Verified ✓
-                        </span>
-                      </div>
-                      <p className="text-sm text-slate-500 mt-1">
-                        All {totalItems} items verified and received by vendor
-                      </p>
-                      <div className="flex flex-wrap gap-2 mt-2">
-                        {flattenedItems.slice(0, 3).map((item, i) => (
-                          <span
-                            key={i}
-                            className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full"
-                          >
-                            ✓ {item.name}
-                          </span>
-                        ))}
-                        {flattenedItems.length > 3 && (
-                          <span className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-full">
-                            +{flattenedItems.length - 3} more
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </>
-                ) : schedule.status === "completed" ? (
-                  <>
-                    <div className="h-12 w-12 rounded-full bg-green-500 flex items-center justify-center shadow-lg shadow-green-200/50 z-10">
-                      <CheckCircle2 className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="flex-1 pt-1">
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-semibold text-slate-900">
-                          Received at Vendor
-                        </h4>
-                        <span className="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded-full">
-                          {schedule.date}, 12:20 PM
-                        </span>
-                      </div>
-                      <p className="text-sm text-slate-500 mt-1">
-                        Items verified and received
-                      </p>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="h-12 w-12 rounded-full bg-slate-200 flex items-center justify-center z-10">
-                      <Package className="h-6 w-6 text-slate-400" />
-                    </div>
-                    <div className="flex-1 pt-1">
-                      <h4 className="font-semibold text-slate-400">
-                        Received at Vendor
-                      </h4>
-                      <p className="text-sm text-slate-400 mt-1">
-                        Items have arrived at the vendor location and are
-                        awaiting processing.
-                      </p>
-                    </div>
-                  </>
-                )}
-              </div>
-
-              {/* Processing */}
-              <div className="relative flex gap-4">
-                {vendorVerifiedCount === totalItems ? (
-                  <>
-                    <div className="h-12 w-12 rounded-full bg-purple-500 flex items-center justify-center shadow-lg shadow-purple-200/50 z-10 animate-pulse">
-                      <Timer className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="flex-1 pt-1">
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-semibold text-slate-900">
-                          Processing
-                        </h4>
-                        <span className="text-xs text-purple-600 bg-purple-100 px-2 py-1 rounded-full font-medium">
-                          In Progress
-                        </span>
-                      </div>
-                      <p className="text-sm text-slate-500 mt-1">
-                        Laundry service in progress for {totalItems} items
-                      </p>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="h-12 w-12 rounded-full bg-slate-200 flex items-center justify-center z-10">
-                      <Timer className="h-6 w-6 text-slate-400" />
-                    </div>
-                    <div className="flex-1 pt-1">
-                      <h4 className="font-semibold text-slate-400">
-                        Processing
-                      </h4>
-                      <p className="text-sm text-slate-400 mt-1">
-                        Garments are currently under cleaning and quality check.
-                      </p>
-                    </div>
-                  </>
-                )}
-              </div>
-
-              {/* Ready for Delivery */}
-              <div className="relative flex gap-4">
-                <div className="h-12 w-12 rounded-full bg-slate-200 flex items-center justify-center z-10">
-                  <Package className="h-6 w-6 text-slate-400" />
-                </div>
-                <div className="flex-1 pt-1">
-                  <div className="flex items-center justify-between">
-                    <h4 className="font-semibold text-slate-400">
-                      Ready for Delivery
-                    </h4>
-                    <span className="text-xs text-slate-400">
-                      Tomorrow, 10:00 AM
-                    </span>
-                  </div>
-                  <p className="text-sm text-slate-400 mt-1">
-                    Cleaning completed. Awaiting delivery partner assignment.
-                  </p>
-                </div>
-              </div>
-
-              {/* Delivery Driver Assigned */}
-              <div className="relative flex gap-4">
-                <div className="h-12 w-12 rounded-full bg-slate-200 flex items-center justify-center z-10">
-                  <User className="h-6 w-6 text-slate-400" />
-                </div>
-                <div className="flex-1 pt-1">
-                  <div className="flex items-center justify-between">
-                    <h4 className="font-semibold text-slate-400">
-                      Delivery Partner Assigned
-                    </h4>
-                    <span className="text-xs text-slate-400">
-                      Tomorrow, 10:30 AM
-                    </span>
-                  </div>
-                  <p className="text-sm text-slate-400 mt-1">
-                    Driver has been assigned for delivery pickup.
-                  </p>
-                </div>
-              </div>
-
-              {/* Picked Up from Vendor */}
-              <div className="relative flex gap-4">
-                <div className="h-12 w-12 rounded-full bg-slate-200 flex items-center justify-center z-10">
-                  <Truck className="h-6 w-6 text-slate-400" />
-                </div>
-                <div className="flex-1 pt-1">
-                  <div className="flex items-center justify-between">
-                    <h4 className="font-semibold text-slate-400">
-                      Picked Up from Vendor
-                    </h4>
-                    <span className="text-xs text-slate-400">
-                      Tomorrow, 11:00 AM
-                    </span>
-                  </div>
-                  <p className="text-sm text-slate-400 mt-1">
-                    Items collected by delivery partner and in transit to
-                    customer.
-                  </p>
-                </div>
-              </div>
-
-              {/* Verified by Delivery Driver */}
-              <div className="relative flex gap-4">
-                <div className="h-12 w-12 rounded-full bg-slate-200 flex items-center justify-center z-10">
-                  <CheckCircle2 className="h-6 w-6 text-slate-400" />
-                </div>
-                <div className="flex-1 pt-1">
-                  <div className="flex items-center justify-between">
-                    <h4 className="font-semibold text-slate-400">
-                      Verified by Delivery Driver
-                    </h4>
-                    <span className="text-xs text-slate-400">
-                      Tomorrow, 11:15 AM
-                    </span>
-                  </div>
-                  <p className="text-sm text-slate-400 mt-1">
-                    Items will be verified before delivery
-                  </p>
-                </div>
-              </div>
-
-              {/* Out for Delivery */}
-              <div className="relative flex gap-4">
-                <div className="h-12 w-12 rounded-full bg-slate-200 flex items-center justify-center z-10">
-                  <Truck className="h-6 w-6 text-slate-400" />
-                </div>
-                <div className="flex-1 pt-1">
-                  <div className="flex items-center justify-between">
-                    <h4 className="font-semibold text-slate-400">
-                      Out for Delivery
-                    </h4>
-                    <span className="text-xs text-slate-400">
-                      Tomorrow, 11:30 AM
-                    </span>
-                  </div>
-                  <p className="text-sm text-slate-400 mt-1">
-                    On the way to customer
-                  </p>
-                </div>
-              </div>
-
-              {/* Delivered to Customer */}
-              <div className="relative flex gap-4">
-                <div className="h-12 w-12 rounded-full bg-slate-200 flex items-center justify-center z-10">
-                  <CheckCircle2 className="h-6 w-6 text-slate-400" />
-                </div>
-                <div className="flex-1 pt-1">
-                  <div className="flex items-center justify-between">
-                    <h4 className="font-semibold text-slate-400">Delivered</h4>
-                    <span className="text-xs text-slate-400 bg-slate-100 px-2 py-1 rounded-full">
-                      Delivered on Jan 22, 2026 at 11:00 AM
-                    </span>
-                  </div>
-                  <p className="text-sm text-slate-400 mt-1">
-                    Order successfully delivered to customer.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <Dialog open={showConfirmModal} onOpenChange={setShowConfirmModal}>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <AlertCircle className="h-5 w-5 text-amber-500" />
-              Damage Declaration
-            </DialogTitle>
-            <DialogDescription className="pt-4 text-slate-600 font-medium leading-relaxed">
-              Confirm that all selected items have been inspected and match the
-              pickup details.
-              <br />
-              <br />
-              <span className="text-red-500 font-bold">Important:</span> Any
-              discrepancies must be reported before verification.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter className="mt-6 gap-2 sm:gap-0">
+          {editable && (
             <Button
               variant="outline"
-              onClick={() => setShowConfirmModal(false)}
+              className="w-full border-dashed"
+              onClick={() =>
+                setDiscrepancyTarget({
+                  itemId: `CL-${intake.orderRef}-${String(totalItems + additionalCount + 1).padStart(2, "0")}`,
+                  additional: true,
+                })
+              }
             >
+              <PackagePlus className="mr-2 h-4 w-4" />
+              Report Additional Item
+            </Button>
+          )}
+
+          {/* Step 4: discrepancy review cases */}
+          {cases.length > 0 && (
+            <div className="rounded-xl border border-red-100 bg-red-50/50 p-4">
+              <h3 className="flex items-center gap-2 text-sm font-bold text-red-800">
+                <AlertTriangle className="h-4 w-4" />
+                {INTAKE_COPY.discrepanciesKpi} ({cases.length})
+              </h3>
+              <p className="mt-0.5 text-xs text-red-700/80">
+                Sent to Cleclo&apos;s operations team for review. The original order is unchanged.
+              </p>
+              <ul className="mt-3 space-y-2">
+                {cases.map((c) => (
+                  <li key={c.caseId} className="flex gap-3 rounded-lg border border-red-100 bg-white p-3">
+                    <div className="flex -space-x-2">
+                      {c.photos.slice(0, 2).map((src, i) => (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          key={src + i}
+                          src={src}
+                          alt=""
+                          className="h-10 w-10 rounded-md border-2 border-white object-cover"
+                        />
+                      ))}
+                    </div>
+                    <div className="min-w-0 flex-1 text-xs">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <p className="font-semibold text-slate-900">
+                          {c.caseId} · {c.type}
+                        </p>
+                        <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold text-amber-700">
+                          Under Review
+                        </span>
+                      </div>
+                      <p className="text-slate-600">
+                        <span className="font-mono">{c.itemId}</span> · {c.itemName} · {c.photos.length} photo
+                        {c.photos.length === 1 ? "" : "s"}
+                      </p>
+                      <p className="mt-0.5 text-slate-500">{c.remarks}</p>
+                      <p className="mt-0.5 text-slate-400">{c.reportedAt}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Step 5: receipt confirmation */}
+          {!completion ? (
+            <div className="space-y-3 border-t border-slate-100 pt-4">
+              {editable && remaining > 1 && (
+                <Button variant="outline" className="h-11 w-full" onClick={() => setBulkOpen(true)}>
+                  <ClipboardCheck className="mr-2 h-4 w-4" />
+                  Bulk Verify Remaining Items ({remaining})
+                </Button>
+              )}
+              <Button
+                className="h-12 w-full bg-[#00B074] text-base font-bold shadow-lg shadow-emerald-900/10 hover:bg-[#00B074]/90"
+                disabled={!editable || !allResolved}
+                onClick={() => setConfirmOpen(true)}
+              >
+                <CheckCircle2 className="mr-2 h-5 w-5" />
+                {INTAKE_COPY.confirmButton}
+              </Button>
+              {!allResolved && (
+                <p className="text-center text-xs text-slate-500">
+                  {!isPickupDone
+                    ? "Available after logistics pickup and bag receipt."
+                    : !bagReceived
+                      ? "Confirm bag receipt to begin item-by-item verification."
+                      : `${remaining} of ${totalItems} item${totalItems === 1 ? "" : "s"} still need to be matched or reported.`}
+                </p>
+              )}
+            </div>
+          ) : (
+            <div className="space-y-3 border-t border-slate-100 pt-4">
+              <div className="flex items-center justify-center gap-2 rounded-xl border border-green-200 bg-green-50 p-3 text-center">
+                <CheckCircle2 className="h-5 w-5 shrink-0 text-green-600" />
+                <span className="text-sm font-semibold text-green-700">
+                  Receipt confirmed: {matchedCount} item{matchedCount === 1 ? "" : "s"} accepted into processing
+                  inventory
+                  {cases.length > 0 &&
+                    `, ${cases.length} exception${cases.length === 1 ? "" : "s"} flagged for review`}
+                  .
+                </span>
+              </div>
+              <div className="space-y-1 text-center">
+                <p className="text-xs font-medium uppercase tracking-wider text-slate-500">
+                  Verified By: <span className="font-bold text-slate-900">{completion.by}</span>
+                </p>
+                <p className="text-xs font-medium text-slate-400">Verified at: {completion.at}</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Info cards */}
+      {(handlingItems.length > 0 || schedule.driver) && (
+        <div className="grid gap-4 md:grid-cols-2">
+          {handlingItems.map((item) => (
+            <div
+              key={item.id}
+              className="relative overflow-hidden rounded-2xl border border-amber-200/50 bg-linear-to-br from-amber-50 to-orange-50 p-5 shadow-sm"
+            >
+              <div className="absolute right-0 top-0 h-24 w-24 -translate-y-1/2 translate-x-1/2 rounded-full bg-amber-100/50" />
+              <div className="relative flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-amber-400 to-orange-500 shadow-lg shadow-amber-200/50">
+                  <AlertCircle className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-base font-bold text-amber-900">{INTAKE_COPY.specialHandlingHeading}</h3>
+                  <p className="mt-1 text-sm font-medium leading-relaxed text-amber-700">{item.specialHandling}</p>
+                  <p className="mt-2 inline-flex rounded-full bg-white/70 px-2.5 py-0.5 text-[11px] font-semibold text-amber-800">
+                    {item.name} · <span className="ml-1 font-mono">{item.id}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {schedule.driver && (
+            <div className="relative overflow-hidden rounded-2xl border border-slate-200/50 bg-linear-to-br from-slate-50 to-slate-100 p-5 shadow-sm">
+              <div className="absolute right-0 top-0 h-24 w-24 -translate-y-1/2 translate-x-1/2 rounded-full bg-slate-200/50" />
+              <div className="relative flex items-center gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-purple-500 to-indigo-600 shadow-lg shadow-purple-200/50">
+                  <User className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Assigned Driver</p>
+                  <p className="mt-0.5 text-lg font-bold text-slate-900">{schedule.driver}</p>
+                </div>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
+                  <CheckCircle2 className="h-5 w-5 text-green-600" />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Cleclo Order Journey */}
+      <OrderJourney completedThrough={completedThrough} timestamps={timestamps} notes={journeyNotes} />
+
+      {/* Dialogs */}
+      <DiscrepancyDialog
+        target={discrepancyTarget}
+        caseId={nextCaseId}
+        onCancel={() => setDiscrepancyTarget(null)}
+        onSubmit={submitDiscrepancy}
+      />
+
+      <EvidenceLightbox
+        item={lightbox?.item ?? null}
+        focus={lightbox?.focus ?? "pickup"}
+        pickupAvailable={isPickupDone}
+        receiptPhoto={lightbox ? receiptPhotos[lightbox.item.id] : undefined}
+        onClose={() => setLightbox(null)}
+      />
+
+      <Dialog
+        open={bulkOpen}
+        onOpenChange={(open) => {
+          setBulkOpen(open);
+          if (!open) setBulkConfirmed(false);
+        }}
+      >
+        <DialogContent className="sm:max-w-115">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <ClipboardCheck className="h-5 w-5 text-[#00B074]" />
+              Bulk Verification
+            </DialogTitle>
+            <DialogDescription className="pt-2 leading-relaxed text-slate-600">
+              {bulkEligible.length} remaining item{bulkEligible.length === 1 ? "" : "s"} will be marked as Item
+              Received &amp; Matched.
+              {bulkExcluded > 0 &&
+                ` ${bulkExcluded} item${bulkExcluded === 1 ? " needs" : "s need"} a receipt photograph and must be verified individually.`}
+            </DialogDescription>
+          </DialogHeader>
+          <label className="flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm font-medium text-amber-900">
+            <Checkbox
+              className="mt-0.5"
+              checked={bulkConfirmed}
+              onCheckedChange={(v) => setBulkConfirmed(v === true)}
+            />
+            I confirm that the physical item count and condition have been checked.
+          </label>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button variant="outline" onClick={() => setBulkOpen(false)}>
               Back to Inspection
             </Button>
             <Button
               className="bg-[#00B074] hover:bg-[#00B074]/90"
-              onClick={executeVerification}
+              disabled={!bulkConfirmed || bulkEligible.length === 0}
+              onClick={runBulkVerify}
             >
-              Confirm & Verify
+              Verify {bulkEligible.length} Item{bulkEligible.length === 1 ? "" : "s"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
+        <DialogContent className="sm:max-w-115">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <AlertCircle className="h-5 w-5 text-amber-500" />
+              {INTAKE_COPY.confirmButton}
+            </DialogTitle>
+            <DialogDescription className="pt-2 leading-relaxed text-slate-600">
+              {matchedCount} item{matchedCount === 1 ? "" : "s"} will be accepted into your processing inventory.
+              {flaggedItemCount + additionalCount > 0 &&
+                ` ${cases.length} discrepanc${cases.length === 1 ? "y" : "ies"} will remain flagged for review by Cleclo's operations team.`}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="mt-2 gap-2 sm:gap-0">
+            <Button variant="outline" onClick={() => setConfirmOpen(false)}>
+              Back to Inspection
+            </Button>
+            <Button className="bg-[#00B074] hover:bg-[#00B074]/90" onClick={completeVerification}>
+              Confirm Receipt
             </Button>
           </DialogFooter>
         </DialogContent>

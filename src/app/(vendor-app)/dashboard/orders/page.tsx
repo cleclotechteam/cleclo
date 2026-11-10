@@ -1,22 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import {
   Calendar as CalendarIcon,
   ChevronDown,
-  ChevronRight,
-  Filter,
-  MapPin,
-  Clock,
-  Shirt,
-  Package,
-  Truck,
-  CheckCircle2,
   Download,
+  History,
+  Package,
+  Search,
 } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -26,15 +21,31 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { VendorDataGate } from "@/components/dashboard/vendor-data-gate";
-import type { Order, OrderStatus, ServiceSpeed } from "@/lib/vendor-data";
+import { OrderCard } from "@/components/dashboard/orders/order-card";
 import {
-  format,
-  isWithinInterval,
-  subDays,
-  startOfDay,
-  endOfDay,
+  formatINR,
+  formatOrderDate,
+  getOrderServices,
+  orderTotalQty,
+  SERVICE_TYPES,
+  STAGE_CARD_LABEL,
+  STAGE_TAB,
+  TURNAROUND_FILTER_LABEL,
+  TURNAROUND_LABEL,
+  TURNAROUNDS,
+  type Order,
+  type OrderStatus,
+  type ServiceSpeed,
+  type ServiceType,
+} from "@/lib/vendor-data";
+import {
   differenceInDays,
+  endOfDay,
+  format,
   isSameDay,
+  isWithinInterval,
+  startOfDay,
+  subDays,
 } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { Calendar } from "@/components/ui/calendar";
@@ -44,69 +55,49 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
+type Tab = Exclude<OrderStatus, "Exceptions">;
 
-const TABS: { label: string; value: OrderStatus }[] = [
-  { label: "New Orders", value: "New Orders" },
-  { label: "Accepted Orders", value: "Accepted Orders" },
-  { label: "Under Processing", value: "Under Processing" },
-  { label: "Ready for Dispatch", value: "Ready for Dispatch" },
-  { label: "Completed Orders", value: "Completed Orders" },
+/** Tabs with their entry / exit triggers (Critical Status Logic). */
+const TABS: { value: Tab; entry: string; exit: string }[] = [
+  { value: "New Orders", entry: "Order assigned to vendor", exit: "Accepted, declined or reassigned" },
+  { value: "Accepted", entry: "Vendor accepts order", exit: "Vendor intake verified" },
+  { value: "Processing", entry: "Intake verification completed", exit: "Quality check and packing completed" },
+  { value: "Ready for Dispatch", entry: "Vendor marks order ready", exit: "Delivery confirmed" },
+  { value: "Completed", entry: "Customer delivery confirmed", exit: "Final state" },
 ];
 
-const getStatusColor = (status: OrderStatus) => {
-  switch (status) {
-    case "New Orders":
-      return "bg-orange-100 text-orange-700";
-    case "Accepted Orders":
-      return "bg-blue-100 text-blue-700";
-    case "Under Processing":
-      return "bg-purple-100 text-purple-700";
-    case "Ready for Dispatch":
-      return "bg-green-100 text-green-700";
-    case "Completed Orders":
-      return "bg-slate-100 text-slate-700";
-  }
+/** Service Type filter labels (as specified for the filter bar). */
+const SERVICE_FILTER_LABEL: Record<ServiceType, string> = {
+  "Dry Cleaning": "Drycleaning",
+  Washing: "Washing",
+  "Steam Ironing": "Steam Ironing",
 };
 
-const getSpeedColor = (speed: ServiceSpeed) => {
-  switch (speed) {
-    case "economy":
-      return "text-[#00B074] border-[#00B074]/30 bg-[#00B074]/5";
-    case "fast":
-      return "text-blue-600 border-blue-300 bg-blue-50";
-    case "express":
-      return "text-orange-600 border-orange-300 bg-orange-50";
-  }
+type DateBasis = "order" | "pickup" | "delivery";
+const DATE_BASIS_LABEL: Record<DateBasis, string> = {
+  order: "Order Date",
+  pickup: "Pickup Date",
+  delivery: "Delivery Due Date",
 };
 
-const getLeftBorderColor = (status: OrderStatus) => {
-  switch (status) {
-    case "New Orders":
-      return "bg-orange-500";
-    case "Accepted Orders":
-      return "bg-blue-500";
-    case "Under Processing":
-      return "bg-purple-500";
-    case "Ready for Dispatch":
-      return "bg-[#00B074]";
-    case "Completed Orders":
-      return "bg-slate-400";
-  }
-};
+const dateFor = (o: Order, basis: DateBasis) =>
+  new Date(basis === "order" ? o.isoDate : basis === "pickup" ? o.pickupAt : o.deliveryDueAt);
 
 export default function OrdersPage() {
   return (
     <VendorDataGate resource="orders">
-      {(orders) => <OrdersView orders={orders} />}
+      {(orders) => <OrdersView initialOrders={orders} />}
     </VendorDataGate>
   );
 }
 
-function OrdersView({ orders: ORDERS }: { orders: Order[] }) {
+function OrdersView({ initialOrders }: { initialOrders: Order[] }) {
+  const [orders, setOrders] = useState<Order[]>(initialOrders);
   const [activeTab, setActiveTab] = useState<OrderStatus>("New Orders");
-  const [serviceFilter, setServiceFilter] = useState<ServiceSpeed | "all">(
-    "all",
-  );
+  const [search, setSearch] = useState("");
+  const [serviceFilter, setServiceFilter] = useState<ServiceType | "all">("all");
+  const [turnaroundFilter, setTurnaroundFilter] = useState<ServiceSpeed | "all">("all");
+  const [dateBasis, setDateBasis] = useState<DateBasis>("order");
   const [liveUpdates, setLiveUpdates] = useState(true);
   const [date, setDate] = useState<DateRange | undefined>({
     from: subDays(new Date(), 7),
@@ -114,71 +105,149 @@ function OrdersView({ orders: ORDERS }: { orders: Order[] }) {
   });
   const [isExporting, setIsExporting] = useState(false);
 
-  const filteredOrders = ORDERS.filter((order) => {
-    const matchesTab = order.status === activeTab;
-    const matchesService =
-      serviceFilter === "all" || order.serviceSpeed === serviceFilter;
-
-    let matchesDate = true;
-    if (date?.from && order.isoDate) {
-      const orderDate = new Date(order.isoDate);
-      matchesDate = isWithinInterval(orderDate, {
+  const query = search.trim().toLowerCase();
+  const filteredOrders = orders.filter((order) => {
+    if (STAGE_TAB[order.stage] !== activeTab) return false;
+    if (query && !order.id.toLowerCase().includes(query) && !order.customerName.toLowerCase().includes(query)) return false;
+    if (serviceFilter !== "all" && !order.items.some((i) => i.service === serviceFilter)) return false;
+    if (turnaroundFilter !== "all" && order.serviceSpeed !== turnaroundFilter) return false;
+    if (date?.from) {
+      return isWithinInterval(dateFor(order, dateBasis), {
         start: startOfDay(date.from),
         end: endOfDay(date.to || date.from),
       });
     }
-
-    return matchesTab && matchesService && matchesDate;
+    return true;
   });
 
-  const getTabCount = (status: OrderStatus) => {
-    return ORDERS.filter((o) => o.status === status).length;
+  const getTabCount = (status: OrderStatus) => orders.filter((o) => STAGE_TAB[o.stage] === status).length;
+
+  const resetFilters = () => {
+    setSearch("");
+    setServiceFilter("all");
+    setTurnaroundFilter("all");
+  };
+
+  // Every vendor status change is timestamped and logged with the responsible user.
+  const log = (action: string): Order["statusLog"][number] => ({
+    at: new Date().toISOString(),
+    by: "Ramesh K. (Vendor Staff)",
+    action,
+    source: "Vendor",
+  });
+
+  // Acceptance is atomic on the backend: only one vendor can accept an assignment.
+  const handleAccept = (order: Order) => {
+    if (order.acceptanceDeadline && new Date(order.acceptanceDeadline) <= new Date()) {
+      toast.error(`${order.id}: acceptance window has expired. The order is being reassigned.`);
+      return;
+    }
+    setOrders((prev) =>
+      prev.map((o) =>
+        o.id === order.id
+          ? { ...o, stage: "awaiting_pickup", logisticsStatus: "pickup_scheduled", acceptanceDeadline: undefined, statusLog: [...o.statusLog, log("Order accepted")] }
+          : o,
+      ),
+    );
+    toast.success(`${order.id} accepted. Cleclo's logistics partner will collect the garments.`);
+  };
+
+  const handleDecline = (order: Order) => {
+    setOrders((prev) =>
+      prev.map((o) =>
+        o.id === order.id
+          ? {
+              ...o,
+              stage: "declined",
+              acceptanceDeadline: undefined,
+              exceptionNote: "Declined by vendor. Routed for reassignment.",
+              statusLog: [...o.statusLog, log("Order declined")],
+            }
+          : o,
+      ),
+    );
+    toast(`${order.id} declined and routed for reassignment.`, {
+      description: "It remains available under Order History/Exceptions.",
+    });
+  };
+
+  const handleConfirmReadiness = (order: Order) => {
+    setOrders((prev) =>
+      prev.map((o) =>
+        o.id === order.id
+          ? { ...o, readinessConfirmed: true, logisticsStatus: "awaiting_collection", statusLog: [...o.statusLog, log("Readiness confirmed for handover")] }
+          : o,
+      ),
+    );
+    toast.success(`${order.id}: readiness confirmed. Logistics collection will be arranged.`);
   };
 
   const handleExport = () => {
     setIsExporting(true);
-    // Simulate export delay
     setTimeout(() => {
-      const csvContent =
-        "data:text/csv;charset=utf-8," +
-        "Order ID,Customer,Items,Service,Status,Earning,Date\n" +
-        filteredOrders
-          .map(
-            (o) =>
-              `${o.id},${o.customerName},"${o.items.replace(/,/g, " ")}",${o.service},${o.status},"${o.earning}",${o.isoDate}`,
-          )
-          .join("\n");
-
-      const encodedUri = encodeURI(csvContent);
+      const esc = (v: string | number) => `"${String(v).replace(/"/g, '""')}"`;
+      const header = [
+        "Order ID",
+        "Customer",
+        "Items",
+        "Total Qty",
+        "Services Required",
+        "Turnaround",
+        "Status",
+        "Order Date",
+        "Scheduled Pickup",
+        "Delivery Due",
+        "Total Vendor Payout",
+      ];
+      const rows = filteredOrders.map((o) =>
+        [
+          o.id,
+          o.customerName,
+          o.items.map((i) => `${i.qty} ${i.garment} (${i.service})`).join("; "),
+          orderTotalQty(o),
+          getOrderServices(o).join("; "),
+          TURNAROUND_LABEL[o.serviceSpeed],
+          STAGE_CARD_LABEL[o.stage],
+          formatOrderDate(o.isoDate),
+          formatOrderDate(o.pickupAt),
+          formatOrderDate(o.deliveryDueAt),
+          o.totalPayout.toFixed(2),
+        ]
+          .map(esc)
+          .join(","),
+      );
+      const blob = new Blob([[header.map(esc).join(","), ...rows].join("\n")], { type: "text/csv;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
+      link.href = url;
       const rangeStr = date?.from
-        ? `${format(date.from, "yyyy-MM-dd")}_to_${date.to ? format(date.to, "yyyy-MM-dd") : format(date.from, "yyyy-MM-dd")}`
+        ? `${format(date.from, "yyyy-MM-dd")}_to_${format(date.to ?? date.from, "yyyy-MM-dd")}`
         : "all_time";
-      link.setAttribute("download", `orders_report_${rangeStr}.csv`);
+      link.download = `orders_${dateBasis}_${rangeStr}.csv`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-
+      URL.revokeObjectURL(url);
       setIsExporting(false);
-    }, 1000);
+    }, 600);
   };
+
+  const activeMeta = TABS.find((t) => t.value === activeTab);
+  const exceptionsCount = getTabCount("Exceptions");
+  const filtersActive = query !== "" || serviceFilter !== "all" || turnaroundFilter !== "all";
 
   return (
     <div className="flex-1 space-y-6">
       <div className="flex flex-col gap-4 md:flex-row md:items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">
-            Orders Dashboard
-          </h1>
+          <h1 className="text-2xl font-bold text-slate-900">Order Management</h1>
           <p className="text-slate-500">
-            Review, accept and manage laundry orders while tracking your
-            earnings in real time.
+            Manage assigned orders, track processing progress, monitor delivery deadlines and view your order-wise payouts.
           </p>
         </div>
         <button
           onClick={() => setLiveUpdates(!liveUpdates)}
-          className="flex items-center w-fit gap-2 bg-white px-3 py-1.5 rounded-full border shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+          className="flex items-center w-fit gap-2 bg-white px-3 py-1.5 rounded-full border shadow-sm hover:shadow-md transition-shadow cursor-pointer shrink-0"
         >
           <div
             className={cn(
@@ -193,137 +262,211 @@ function OrdersView({ orders: ORDERS }: { orders: Order[] }) {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-6 border-b pb-1 overflow-x-auto">
-        {TABS.map((tab) => {
-          const count = getTabCount(tab.value);
-          const isActive = activeTab === tab.value;
-          return (
-            <button
-              key={tab.value}
-              onClick={() => setActiveTab(tab.value)}
-              className={cn(
-                "flex items-center gap-2 pb-3 px-1 border-b-2 transition-all whitespace-nowrap",
-                isActive
-                  ? "border-[#00B074] text-[#00B074] font-bold"
-                  : "border-transparent text-slate-500 font-medium hover:text-slate-700 hover:border-slate-300",
-              )}
-            >
-              {tab.label}
-              {count > 0 && (
-                <span
-                  className={cn(
-                    "px-2 py-0.5 text-xs rounded-full",
-                    isActive
-                      ? "bg-[#00B074] text-white"
-                      : "bg-slate-200 text-slate-600",
-                  )}
-                >
-                  {count}
-                </span>
-              )}
-            </button>
-          );
-        })}
+      <div className="flex items-end justify-between gap-4 border-b">
+        <div className="flex items-center gap-6 pb-1 overflow-x-auto">
+          {TABS.map((tab) => {
+            const count = getTabCount(tab.value);
+            const isActive = activeTab === tab.value;
+            return (
+              <button
+                key={tab.value}
+                onClick={() => setActiveTab(tab.value)}
+                className={cn(
+                  "flex items-center gap-1.5 pb-3 px-1 border-b-2 transition-all whitespace-nowrap",
+                  isActive
+                    ? "border-[#00B074] text-[#00B074] font-bold"
+                    : "border-transparent text-slate-500 font-medium hover:text-slate-700 hover:border-slate-300",
+                )}
+              >
+                {tab.value} ({count})
+              </button>
+            );
+          })}
+        </div>
+        <button
+          onClick={() => setActiveTab("Exceptions")}
+          className={cn(
+            "mb-2 flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors whitespace-nowrap",
+            activeTab === "Exceptions"
+              ? "border-[#00B074] bg-[#00B074]/10 text-[#00B074]"
+              : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50",
+          )}
+        >
+          <History className="h-3.5 w-3.5" />
+          Order History/Exceptions ({exceptionsCount})
+        </button>
       </div>
 
-      {/* Filters */}
-      <div className="flex flex-wrap items-center gap-3">
-        <Select defaultValue="delivery">
-          <SelectTrigger className="w-[180px] bg-white border-slate-200 h-10 rounded-xl font-medium text-slate-700">
-            <Filter className="w-4 h-4 mr-2" />
-            <SelectValue placeholder="Filter By" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="delivery">Delivery Type</SelectItem>
-            <SelectItem value="pickup">Pickup Type</SelectItem>
-          </SelectContent>
-        </Select>
+      {/* Tab context */}
+      <div className="rounded-xl bg-slate-50 px-4 py-3 text-sm text-slate-600">
+        {activeTab === "New Orders" ? (
+          <p>
+            <span className="font-semibold text-slate-800">Awaiting Acceptance</span> — Orders assigned to the vendor but not yet accepted or declined.
+          </p>
+        ) : activeTab === "Exceptions" ? (
+          <p>Orders that are cancelled, declined or reassigned.</p>
+        ) : activeMeta ? (
+          <p>
+            <span className="font-semibold text-slate-800">Entry Trigger:</span> {activeMeta.entry}
+            <span className="mx-2 text-slate-300">|</span>
+            <span className="font-semibold text-slate-800">Exit Trigger:</span> {activeMeta.exit}
+          </p>
+        ) : null}
+        {activeTab === "Processing" && (
+          <p className="mt-1 text-xs text-slate-500">
+            An order should not move to Processing simply because it has been accepted. It must first be physically received and verified.
+          </p>
+        )}
+      </div>
 
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              className="bg-white border-slate-200 h-10 rounded-xl font-medium text-slate-700 px-4"
-            >
-              <CalendarIcon className="w-4 h-4 mr-2" />
-              {date?.from ? (
-                date.to &&
+      {/* Filter bar */}
+      <div className="rounded-2xl border border-slate-200 bg-white p-4 space-y-4">
+        <div className="space-y-1.5">
+          <label htmlFor="order-search" className="text-sm font-medium text-slate-600">
+            Search Orders
+          </label>
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+            <Input
+              id="order-search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search Order ID or Customer Name"
+              className="h-10 rounded-xl pl-9"
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="space-y-1.5">
+            <p className="text-sm font-medium text-slate-600">Service Type</p>
+            <Select value={serviceFilter} onValueChange={(v) => setServiceFilter(v as ServiceType | "all")}>
+              <SelectTrigger className="h-10 w-full rounded-xl bg-white">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Services</SelectItem>
+                {SERVICE_TYPES.map((s) => (
+                  <SelectItem key={s} value={s}>
+                    {SERVICE_FILTER_LABEL[s]}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-1.5">
+            <p className="text-sm font-medium text-slate-600">Turnaround</p>
+            <Select value={turnaroundFilter} onValueChange={(v) => setTurnaroundFilter(v as ServiceSpeed | "all")}>
+              <SelectTrigger className="h-10 w-full rounded-xl bg-white">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Turnarounds</SelectItem>
+                {TURNAROUNDS.map((t) => (
+                  <SelectItem key={t} value={t}>
+                    {TURNAROUND_FILTER_LABEL[t]}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-3 border-t border-slate-100 pt-4">
+          <Select value={dateBasis} onValueChange={(v) => setDateBasis(v as DateBasis)}>
+            <SelectTrigger className="h-10 w-[190px] rounded-xl bg-white font-medium text-slate-700">
+              <span className="text-slate-400">Date:</span>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {(Object.keys(DATE_BASIS_LABEL) as DateBasis[]).map((b) => (
+                <SelectItem key={b} value={b}>
+                  {DATE_BASIS_LABEL[b]}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className="bg-white border-slate-200 h-10 rounded-xl font-medium text-slate-700 px-4"
+              >
+                <CalendarIcon className="w-4 h-4 mr-2" />
+                {date?.from ? (
+                  date.to &&
                   differenceInDays(date.to, date.from) === 7 &&
                   isSameDay(date.to, new Date()) ? (
-                  "Last 7 Days"
-                ) : date.to ? (
-                  <>
-                    {format(date.from, "LLL dd")} - {format(date.to, "LLL dd")}
-                  </>
+                    "Last 7 Days"
+                  ) : date.to ? (
+                    <>
+                      {format(date.from, "d MMM yyyy")} - {format(date.to, "d MMM yyyy")}
+                    </>
+                  ) : (
+                    format(date.from, "d MMM yyyy")
+                  )
                 ) : (
-                  format(date.from, "LLL dd")
-                )
-              ) : (
-                "Pick a date"
-              )}
-              <ChevronDown className="w-4 h-4 ml-2 opacity-50" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
-            <div className="flex gap-2 p-3 border-b border-slate-100">
-              <div className="flex-1">
-                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
-                  From
-                </span>
-                <div className="text-xs font-semibold text-slate-800 border border-slate-200 rounded-md px-2 py-1.5 mt-1 bg-slate-50">
-                  {date?.from
-                    ? format(date.from, "MMM dd, yyyy")
-                    : "Select date"}
+                  "All Dates"
+                )}
+                <ChevronDown className="w-4 h-4 ml-2 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <div className="flex items-end gap-2 p-3 border-b border-slate-100">
+                <div className="flex-1">
+                  <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
+                    {DATE_BASIS_LABEL[dateBasis]} From
+                  </span>
+                  <div className="text-xs font-semibold text-slate-800 border border-slate-200 rounded-md px-2 py-1.5 mt-1 bg-slate-50">
+                    {date?.from ? format(date.from, "d MMM yyyy") : "Select date"}
+                  </div>
                 </div>
-              </div>
-              <div className="flex-1">
-                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
-                  To
-                </span>
-                <div className="text-xs font-semibold text-slate-800 border border-slate-200 rounded-md px-2 py-1.5 mt-1 bg-slate-50">
-                  {date?.to ? format(date.to, "MMM dd, yyyy") : "-"}
+                <div className="flex-1">
+                  <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">To</span>
+                  <div className="text-xs font-semibold text-slate-800 border border-slate-200 rounded-md px-2 py-1.5 mt-1 bg-slate-50">
+                    {date?.to ? format(date.to, "d MMM yyyy") : "-"}
+                  </div>
                 </div>
+                <Button variant="ghost" size="sm" className="h-8 text-xs" onClick={() => setDate(undefined)}>
+                  Clear
+                </Button>
               </div>
-            </div>
-            <Calendar
-              initialFocus
-              mode="range"
-              defaultMonth={date?.from}
-              selected={date}
-              onSelect={setDate as any}
-              numberOfMonths={2}
-            />
-          </PopoverContent>
-        </Popover>
+              <Calendar
+                mode="range"
+                defaultMonth={date?.from}
+                selected={date}
+                onSelect={setDate}
+                numberOfMonths={2}
+              />
+            </PopoverContent>
+          </Popover>
 
-        <Button
-          variant="outline"
-          className="bg-white border-slate-200 h-10 rounded-xl font-medium text-slate-700 px-4"
-          onClick={handleExport}
-          disabled={isExporting}
-        >
-          <Download className="h-4 w-4 mr-2" />
-          {isExporting ? "Exporting..." : "Export Data"}
-        </Button>
+          <Button
+            variant="outline"
+            className="bg-white border-slate-200 h-10 rounded-xl font-medium text-slate-700 px-4"
+            onClick={handleExport}
+            disabled={isExporting}
+          >
+            <Download className="h-4 w-4 mr-2" />
+            {isExporting ? "Exporting..." : "Export Data"}
+          </Button>
 
-        <div className="h-8 w-px bg-slate-200 mx-1" />
-
-        <div className="flex items-center bg-slate-100 p-1 rounded-xl">
-          {(["all", "economy", "fast", "express"] as const).map((speed) => (
-            <button
-              key={speed}
-              onClick={() => setServiceFilter(speed)}
-              className={cn(
-                "px-4 py-1.5 text-sm font-medium rounded-lg transition-colors capitalize",
-                serviceFilter === speed
-                  ? "bg-[#00B074]/10 text-[#00B074] font-bold shadow-sm"
-                  : "text-slate-600 hover:bg-slate-200",
-              )}
-            >
-              {speed === "all" ? "All" : speed}
-            </button>
-          ))}
+          <Button
+            variant="outline"
+            className="ml-auto h-10 rounded-full border-slate-200 px-5 text-slate-700"
+            onClick={resetFilters}
+            disabled={!filtersActive}
+          >
+            Reset
+          </Button>
         </div>
+        <p className="text-xs text-slate-500">
+          Filtering by <span className="font-semibold text-slate-700">{DATE_BASIS_LABEL[dateBasis]}</span>
+          {date?.from
+            ? `: ${format(date.from, "d MMM yyyy")} – ${format(date.to ?? date.from, "d MMM yyyy")}`
+            : " (all dates)"}
+        </p>
       </div>
 
       {/* Orders List */}
@@ -331,164 +474,35 @@ function OrdersView({ orders: ORDERS }: { orders: Order[] }) {
         {filteredOrders.length === 0 ? (
           <div className="bg-white rounded-2xl p-12 border border-slate-200 text-center">
             <Package className="h-12 w-12 text-slate-300 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-slate-900 mb-1">
-              No orders found
-            </h3>
+            <h3 className="text-lg font-semibold text-slate-900 mb-1">No orders found</h3>
             <p className="text-slate-500">
-              {activeTab === "New Orders"
+              {activeTab === "New Orders" && !filtersActive
                 ? "No new orders at the moment. Check back soon!"
-                : `No ${activeTab} orders matching your filters.`}
+                : "No orders matching your filters."}
             </p>
           </div>
         ) : (
           filteredOrders.map((order) => (
-            <div
+            <OrderCard
               key={order.id}
-              className="group relative bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden"
-            >
-              {/* Left Border Line */}
-              <div
-                className={cn(
-                  "absolute left-0 top-0 bottom-0 w-1.5 rounded-l-full",
-                  getLeftBorderColor(order.status),
-                )}
-              />
-
-              <div className="flex flex-col md:flex-row gap-5 pl-4">
-                {/* Left Section: Info */}
-                <div className="flex-2 space-y-2">
-                  <div className="space-y-0.5">
-                    <h3 className="text-lg font-bold text-slate-900 tracking-tight">
-                      Order #{order.id.replace("ORD-", "")}
-                    </h3>
-                    <p className="text-sm font-semibold text-[#00B074]">
-                      {order.status.split(" ")[0]} |{" "}
-                      {order.serviceSpeed === "economy"
-                        ? "Standard"
-                        : order.serviceSpeed.charAt(0).toUpperCase() +
-                        order.serviceSpeed.slice(1)}
-                    </p>
-                  </div>
-
-                  <div className="space-y-1 mt-3">
-                    <p className="text-sm font-medium text-slate-700">
-                      <span className="text-slate-500 font-bold">Items:</span>{" "}
-                      {order.items}
-                    </p>
-                    <p className="text-sm font-medium text-slate-700">
-                      <span className="text-slate-500 font-bold">
-                        Customer:
-                      </span>{" "}
-                      {order.customerName}
-                    </p>
-                    <p className="text-sm font-medium text-slate-700">
-                      <span className="text-slate-500 font-bold">Service:</span>{" "}
-                      {order.service}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Right Section: Details & Status */}
-                <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Detail Column 1 */}
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium text-slate-700">
-                      <span className="text-slate-500 font-bold">Pickup:</span>{" "}
-                      {order.pickupTime}
-                    </p>
-                    <p className="text-sm font-medium text-slate-700">
-                      <span className="text-slate-500 font-bold">
-                        Delivery:
-                      </span>{" "}
-                      {order.deliveryTime}
-                    </p>
-                    <p className="text-sm font-medium text-slate-700">
-                      <span className="text-slate-500 font-bold">
-                        Location:
-                      </span>{" "}
-                      {order.locality} ({order.distance} away)
-                    </p>
-                  </div>
-
-                  {/* Detail Column 2 (Earning & Actions) */}
-                  <div className="flex flex-col justify-between items-end text-right h-full py-1">
-                    <div>
-                      <p className="text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">
-                        Estimated Earnings
-                      </p>
-                      <p className="text-2xl font-black text-[#00B074]">
-                        {order.earning}
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col gap-2 items-end">
-                      {order.status === "New Orders" && (
-                        <Button
-                          size="sm"
-                          className="bg-[#00B074] hover:bg-[#00B074]/90 h-8 text-xs font-bold px-4"
-                        >
-                          Accept Order
-                        </Button>
-                      )}
-                      {order.status === "Accepted Orders" && (
-                        <Button
-                          size="sm"
-                          className="bg-purple-600 hover:bg-purple-700 h-8 text-xs font-bold px-4"
-                        >
-                          Start Processing
-                        </Button>
-                      )}
-                      {order.status === "Under Processing" && (
-                        <Button
-                          size="sm"
-                          className="bg-green-600 hover:bg-green-700 h-8 text-xs font-bold px-4"
-                        >
-                          Mark Ready
-                        </Button>
-                      )}
-                      {order.status === "Ready for Dispatch" && (
-                        <Button
-                          size="sm"
-                          className="bg-blue-600 hover:bg-blue-700 h-8 text-xs font-bold px-4"
-                        >
-                          Complete Delivery
-                        </Button>
-                      )}
-                      {order.status === "Completed Orders" && (
-                        <Badge className="bg-green-100 text-green-700 border-none gap-1 py-1 px-3">
-                          <CheckCircle2 className="w-3.5 h-3.5" />
-                          Completed
-                        </Badge>
-                      )}
-                      <Link
-                        href={`/dashboard/orders/${order.id}`}
-                        className="flex items-center text-[#00B074] text-xs font-bold cursor-pointer hover:underline"
-                      >
-                        View Details{" "}
-                        <ChevronRight className="w-3.5 h-3.5 ml-1" />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+              order={order}
+              onAccept={handleAccept}
+              onDecline={handleDecline}
+              onConfirmReadiness={handleConfirmReadiness}
+            />
           ))
         )}
       </div>
 
       {/* Summary */}
       {filteredOrders.length > 0 && (
-        <div className="bg-slate-50 rounded-xl border border-slate-200 p-4 flex items-center justify-between text-slate-600 text-sm">
+        <div className="bg-slate-50 rounded-xl border border-slate-200 p-4 flex flex-col gap-1 sm:flex-row sm:items-center justify-between text-slate-600 text-sm">
           <span>
-            Showing <strong>{filteredOrders.length}</strong> {activeTab} orders
-            {serviceFilter !== "all" && ` • ${serviceFilter} service`}
+            Showing <strong>{filteredOrders.length}</strong> {activeTab === "Exceptions" ? "Order History/Exceptions" : activeTab} orders •{" "}
+            {filteredOrders.reduce((s, o) => s + orderTotalQty(o), 0)} Units
           </span>
           <span className="font-semibold text-[#00B074]">
-            Total Earnings: ₹
-            {filteredOrders.reduce(
-              (sum, o) => sum + parseInt(o.earning.replace(/[₹,]/g, "")),
-              0,
-            )}
+            Total Vendor Payout: {formatINR(filteredOrders.reduce((sum, o) => sum + o.totalPayout, 0))}
           </span>
         </div>
       )}

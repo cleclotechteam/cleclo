@@ -3,7 +3,16 @@
 import { useState } from "react";
 import { VendorDataGate } from "@/components/dashboard/vendor-data-gate";
 import type { AssignedService } from "@/lib/vendor-data";
-import { Package, AlertCircle, CheckCircle, Clock, Info } from "lucide-react";
+import {
+  AlertCircle,
+  CheckCircle,
+  Clock,
+  Info,
+  Shirt,
+  ShieldCheck,
+  Wind,
+  type LucideIcon,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -26,12 +35,24 @@ const getCategoryColor = (category: string) => {
       return "bg-purple-100 text-purple-700";
     case "Iron":
       return "bg-amber-100 text-amber-700";
-    case "Repair":
-      return "bg-orange-100 text-orange-700";
     case "Special":
       return "bg-pink-100 text-pink-700";
     default:
       return "bg-gray-100 text-gray-700";
+  }
+};
+
+// Same service icons as the customer website (src/components/WhatWeOffer.tsx).
+const getServiceIcon = (category: string): LucideIcon => {
+  switch (category) {
+    case "Dry Clean":
+      return ShieldCheck;
+    case "Wash":
+      return Shirt;
+    case "Iron":
+      return Wind;
+    default:
+      return ShieldCheck;
   }
 };
 
@@ -134,9 +155,8 @@ function ServicesView({ assignedServices }: { assignedServices: AssignedService[
             Service Catalog
           </h1>
           <p className="text-slate-500 mt-1 text-lg">
-            Service pricing is managed by Admin. You may toggle availability
-            based on operational capacity. Contact Admin for additions or
-            pricing updates.
+            View your approved services with centrally managed pricing. Enable
+            or disable services based on your operational availability.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -155,18 +175,22 @@ function ServicesView({ assignedServices }: { assignedServices: AssignedService[
       <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 flex items-start gap-3">
         <Info className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
         <div>
-          <p className="font-medium text-blue-800">Read-Only Service Catalog</p>
+          <p className="font-medium text-blue-800">
+            Standardised Services &amp; Pricing
+          </p>
           <p className="text-sm text-blue-700 mt-1">
-            This is a read-only service catalogue. Pricing and service structure
-            are managed centrally. You may update availability based on
-            operational constraints.
+            All services follow Cleclo&apos;s centrally defined pricing
+            structure. Service rates are fixed, while availability can be
+            managed based on your operational capacity.
           </p>
         </div>
       </div>
 
       {/* Services Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {services.map((service) => (
+        {services.map((service) => {
+          const ServiceIcon = getServiceIcon(service.category);
+          return (
           <div
             key={service.id}
             className={`bg-white rounded-xl shadow-sm border p-5 transition-all ${!service.available ? "opacity-60" : ""
@@ -175,13 +199,12 @@ function ServicesView({ assignedServices }: { assignedServices: AssignedService[
             <div className="flex items-start justify-between mb-3">
               <div className="flex items-center gap-2">
                 <div
-                  className={`p-2 rounded-lg ${service.available ? "bg-primary/10" : "bg-slate-100"
+                  className={`h-10 w-10 rounded-xl flex items-center justify-center shrink-0 ${service.available
+                      ? "bg-[#00B074]/10 text-[#00875A]"
+                      : "bg-slate-100 text-slate-400"
                     }`}
                 >
-                  <Package
-                    className={`h-5 w-5 ${service.available ? "text-primary" : "text-slate-400"
-                      }`}
-                  />
+                  <ServiceIcon className="h-5 w-5 stroke-[2.2]" />
                 </div>
                 <Badge
                   className={`${getCategoryColor(
@@ -223,7 +246,8 @@ function ServicesView({ assignedServices }: { assignedServices: AssignedService[
               </Badge>
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Contact Admin */}

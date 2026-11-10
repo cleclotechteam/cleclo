@@ -109,7 +109,8 @@ const STEPS = [
   {
     id: 2,
     title: "Business Setup",
-    description: "Services, outlets & location",
+    description:
+      "Configure your service offerings, outlet details & operating hours.",
   },
   {
     id: 3,
@@ -137,6 +138,57 @@ export type Outlet = {
   closingTime: string;
 };
 
+export const SERVICE_OPTIONS = ["Drycleaning", "Washing", "Steam Ironing"];
+
+/** Every 30 minutes; value is 24h "HH:MM", label is e.g. "9:00 AM". */
+export const TIME_OPTIONS = Array.from({ length: 48 }, (_, i) => {
+  const h = Math.floor(i / 2);
+  const m = i % 2 === 0 ? "00" : "30";
+  const value = `${String(h).padStart(2, "0")}:${m}`;
+  const h12 = h % 12 === 0 ? 12 : h % 12;
+  const label = `${h12}:${m} ${h < 12 ? "AM" : "PM"}`;
+  return { value, label };
+});
+
+const DOCUMENT_CARDS = [
+  {
+    key: "Aadhaar Card",
+    title: "1. Aadhaar Card (Authorized Signatory)",
+    desc: "Upload clear copies of both sides.",
+  },
+  {
+    key: "PAN Card",
+    title: "2. PAN Card (Business/Proprietor)",
+    desc: "Upload a clear copy of the applicable PAN card.",
+  },
+  {
+    key: "Business Registration",
+    title: "3. Business Registration Certificate",
+    desc: "Upload Udyam, Shop Act or Incorporation Certificate.",
+  },
+  {
+    key: "GST Certificate",
+    title: "4. GST Registration Certificate",
+    desc: "Required only for GST-registered businesses.",
+  },
+  {
+    key: "Cancelled Cheque",
+    title: "5. Cancelled Cheque",
+    desc: "Upload proof of bank account ownership for payouts.",
+  },
+];
+
+const newOutlet = (id: string): Outlet => ({
+  id,
+  name: "",
+  city: "",
+  address: "",
+  state: "",
+  pincode: "",
+  openingTime: "",
+  closingTime: "",
+});
+
 export function VendorSignupForm() {
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -155,23 +207,8 @@ export function VendorSignupForm() {
   const [gstRegistered, setGstRegistered] = useState("No");
   const [gstNumber, setGstNumber] = useState("");
   const [businessType, setBusinessType] = useState("Sole Proprietorship");
-  const [services, setServices] = useState<string[]>([
-    "Dry Cleaning",
-    "Washing",
-    "Steam Iron",
-  ]);
-  const [outlets, setOutlets] = useState<Outlet[]>([
-    {
-      id: "1",
-      name: "",
-      city: "",
-      address: "",
-      state: "",
-      pincode: "",
-      openingTime: "09:00",
-      closingTime: "20:00",
-    },
-  ]);
+  const [services, setServices] = useState<string[]>([...SERVICE_OPTIONS]);
+  const [outlets, setOutlets] = useState<Outlet[]>([newOutlet("1")]);
 
   // Step 3 Form State
   const [capacity, setCapacity] = useState("50");
@@ -245,16 +282,7 @@ export function VendorSignupForm() {
   const addOutlet = () => {
     setOutlets([
       ...outlets,
-      {
-        id: Math.random().toString(36).substr(2, 9),
-        name: "",
-        city: "",
-        address: "",
-        state: "",
-        pincode: "",
-        openingTime: "09:00",
-        closingTime: "20:00",
-      },
+      newOutlet(Math.random().toString(36).slice(2, 11)),
     ]);
   };
 
@@ -341,7 +369,8 @@ export function VendorSignupForm() {
           o.city.trim() &&
           o.pincode.trim().length === 6 &&
           o.openingTime &&
-          o.closingTime,
+          o.closingTime &&
+          o.closingTime > o.openingTime,
       ),
   );
 
@@ -774,13 +803,8 @@ export function VendorSignupForm() {
                       </span>
                     )}
                   </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    {[
-                      "Dry Cleaning",
-                      "Washing",
-                      "Steam Iron",
-                      "Repair & Alterations",
-                    ].map((service) => {
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {SERVICE_OPTIONS.map((service) => {
                       const isSelected = services.includes(service);
                       return (
                         <div
@@ -815,7 +839,8 @@ export function VendorSignupForm() {
                         Outlet Details <span className="text-red-500">*</span>
                       </h3>
                       <p className="text-xs text-slate-500 mt-0.5">
-                        Configure location and timings for pickup allocation
+                        Configure your outlet details and operating hours for
+                        efficient order allocation.
                       </p>
                     </div>
                     <button
@@ -872,7 +897,7 @@ export function VendorSignupForm() {
                               onChange={(e) =>
                                 updateOutlet(outlet.id, "name", e.target.value)
                               }
-                              placeholder="e.g. Cleclo Express - Bandra West"
+                              placeholder="e.g. ABC Dry Cleaners– Bandra West"
                               className="w-full px-5 py-3 rounded-xl border-2 border-slate-200 bg-white text-slate-900 placeholder-slate-400 font-medium transition-all duration-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
                             />
                           </div>
@@ -894,7 +919,7 @@ export function VendorSignupForm() {
                                   e.target.value,
                                 )
                               }
-                              placeholder="Shop / Unit number, street, landmark"
+                              placeholder="Enter shop/unit number, street & landmark"
                               className="w-full px-5 py-3 rounded-xl border-2 border-slate-200 bg-white text-slate-900 placeholder-slate-400 font-medium transition-all duration-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
                             />
                           </div>
@@ -920,9 +945,10 @@ export function VendorSignupForm() {
                                 onChange={(e) =>
                                   handlePincodeChange(outlet.id, e.target.value)
                                 }
-                                placeholder="6-digit PIN"
+                                placeholder="Enter 6-digit PIN code"
                                 maxLength={6}
-                                className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 bg-white text-slate-900 font-medium transition-all duration-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+                                inputMode="numeric"
+                                className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 bg-white text-slate-900 placeholder-slate-400 font-medium transition-all duration-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
                               />
                             </div>
 
@@ -940,11 +966,21 @@ export function VendorSignupForm() {
                                     e.target.value,
                                   )
                                 }
-                                className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 bg-white text-slate-900 font-medium transition-all duration-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+                                className={`w-full px-4 py-3 rounded-xl border-2 border-slate-200 bg-white font-medium transition-all duration-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 ${
+                                  outlet.state
+                                    ? "text-slate-900"
+                                    : "text-slate-400"
+                                }`}
                               >
-                                <option value="">Select State</option>
+                                <option value="" disabled>
+                                  Select State
+                                </option>
                                 {INDIAN_STATES.map((st) => (
-                                  <option key={st} value={st}>
+                                  <option
+                                    key={st}
+                                    value={st}
+                                    className="text-slate-900"
+                                  >
                                     {st}
                                   </option>
                                 ))}
@@ -967,8 +1003,8 @@ export function VendorSignupForm() {
                                     e.target.value,
                                   )
                                 }
-                                placeholder="City name"
-                                className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 bg-white text-slate-900 font-medium transition-all duration-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+                                placeholder="Enter City"
+                                className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 bg-white text-slate-900 placeholder-slate-400 font-medium transition-all duration-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
                               />
                             </div>
                           </div>
@@ -983,8 +1019,7 @@ export function VendorSignupForm() {
                                 <span className="text-xs text-slate-500 mb-1 block">
                                   Opening Time
                                 </span>
-                                <input
-                                  type="time"
+                                <select
                                   value={outlet.openingTime}
                                   onChange={(e) =>
                                     updateOutlet(
@@ -993,15 +1028,31 @@ export function VendorSignupForm() {
                                       e.target.value,
                                     )
                                   }
-                                  className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-200 bg-white text-slate-900 font-medium focus:border-emerald-500"
-                                />
+                                  className={`w-full px-4 py-2.5 rounded-xl border-2 border-slate-200 bg-white font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 ${
+                                    outlet.openingTime
+                                      ? "text-slate-900"
+                                      : "text-slate-400"
+                                  }`}
+                                >
+                                  <option value="" disabled>
+                                    Select Opening Time
+                                  </option>
+                                  {TIME_OPTIONS.map((t) => (
+                                    <option
+                                      key={t.value}
+                                      value={t.value}
+                                      className="text-slate-900"
+                                    >
+                                      {t.label}
+                                    </option>
+                                  ))}
+                                </select>
                               </div>
                               <div>
                                 <span className="text-xs text-slate-500 mb-1 block">
                                   Closing Time
                                 </span>
-                                <input
-                                  type="time"
+                                <select
                                   value={outlet.closingTime}
                                   onChange={(e) =>
                                     updateOutlet(
@@ -1010,10 +1061,39 @@ export function VendorSignupForm() {
                                       e.target.value,
                                     )
                                   }
-                                  className="w-full px-4 py-2.5 rounded-xl border-2 border-slate-200 bg-white text-slate-900 font-medium focus:border-emerald-500"
-                                />
+                                  className={`w-full px-4 py-2.5 rounded-xl border-2 border-slate-200 bg-white font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 ${
+                                    outlet.closingTime
+                                      ? "text-slate-900"
+                                      : "text-slate-400"
+                                  }`}
+                                >
+                                  <option value="" disabled>
+                                    Select Closing Time
+                                  </option>
+                                  {TIME_OPTIONS.map((t) => (
+                                    <option
+                                      key={t.value}
+                                      value={t.value}
+                                      disabled={
+                                        !!outlet.openingTime &&
+                                        t.value <= outlet.openingTime
+                                      }
+                                      className="text-slate-900"
+                                    >
+                                      {t.label}
+                                    </option>
+                                  ))}
+                                </select>
                               </div>
                             </div>
+                            {outlet.openingTime &&
+                              outlet.closingTime &&
+                              outlet.closingTime <= outlet.openingTime && (
+                                <p className="text-xs text-red-500 font-medium mt-2 flex items-center gap-1">
+                                  <AlertCircle className="w-3.5 h-3.5" />
+                                  Closing time must be later than opening time.
+                                </p>
+                              )}
                           </div>
                         </div>
                       </div>
@@ -1239,33 +1319,7 @@ export function VendorSignupForm() {
             {currentStep === 4 && (
               <div className="space-y-8">
                 <div className="grid md:grid-cols-3 gap-6">
-                  {[
-                    {
-                      key: "Aadhaar Card",
-                      title: "Aadhaar Card (Authorized Signatory)",
-                      desc: "Upload clear front and back copies.",
-                    },
-                    {
-                      key: "PAN Card",
-                      title: "PAN Card (Business / Proprietor PAN)",
-                      desc: "Upload a clear scanned copy.",
-                    },
-                    {
-                      key: "Business Registration",
-                      title: "Business Registration Certificate",
-                      desc: "Udyam / Shop Act / Incorporation",
-                    },
-                    {
-                      key: "GST Certificate",
-                      title: "GST Registration Certificate",
-                      desc: "Required only if GST registered.",
-                    },
-                    {
-                      key: "Cancelled Cheque",
-                      title: "Cancelled Cheque / Bank Statement",
-                      desc: "For automated payout verification.",
-                    },
-                  ].map((doc) => {
+                  {DOCUMENT_CARDS.map((doc) => {
                     const isUploaded = uploadedDocs[doc.key];
                     return (
                       <div
@@ -1318,10 +1372,11 @@ export function VendorSignupForm() {
 
                 <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-center space-y-1">
                   <p className="text-xs font-bold text-slate-900">
-                    Accepted Formats: PDF, JPG, PNG • Max 5MB per file
+                    Accepted Formats: PDF, JPG, PNG | Maximum 5 MB per file
                   </p>
                   <p className="text-xs text-slate-500 font-medium">
-                    Account verification takes 24–48 business hours after submission.
+                    Documents are typically reviewed within 24–48 business hours
+                    of submission.
                   </p>
                 </div>
               </div>

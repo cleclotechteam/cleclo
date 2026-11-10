@@ -33,7 +33,7 @@ const sidebarItems = [
     icon: Truck,
   },
   {
-    title: "All Orders",
+    title: "Order Management",
     href: "/dashboard/orders",
     icon: ClipboardList,
   },

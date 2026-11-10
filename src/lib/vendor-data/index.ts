@@ -12,12 +12,17 @@ import {
   demoSchedule,
   demoScheduleDetails,
   demoServices,
-  demoTransactions,
-  demoWeeklyEarnings,
   type DashboardOrder,
 } from "./demo";
+import { demoSettings } from "./settings";
+import { demoPayouts, demoTransactions } from "./earnings";
 
 export * from "./demo";
+export * from "./new-order";
+export * from "./settings";
+export * from "./intake";
+export * from "./earnings";
+export * from "./orders";
 
 const API_URL = process.env.NEXT_PUBLIC_VENDOR_API_URL?.replace(/\/+$/, "") ?? "";
 
@@ -51,8 +56,9 @@ const resources = {
   scheduleDetails: define({ path: "/schedule/details", demo: demoScheduleDetails }),
   services: define({ path: "/services", demo: demoServices }),
   transactions: define({ path: "/earnings/transactions", demo: demoTransactions }),
-  weeklyEarnings: define({ path: "/earnings/weekly", demo: demoWeeklyEarnings }),
+  payouts: define({ path: "/earnings/payouts", demo: demoPayouts }),
   notifications: define({ path: "/notifications", demo: demoNotifications }),
+  settings: define({ path: "/settings", demo: demoSettings }),
 };
 
 export type VendorResource = keyof typeof resources;
